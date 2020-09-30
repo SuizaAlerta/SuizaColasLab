@@ -1,0 +1,42 @@
+<div class="bg-image"></div>
+
+<div class="form-wrapper">
+    <form class="form-signin" #formLogin="ngForm" (submit)="onLogin(formLogin)">
+
+        <img class="mb-4" src="../../../assets/img/logo_1.png" style="width: 50%;" alt="">
+        <h1 class="h3 mb-3 font-weight-normal">Ingrese sus datos:</h1>
+
+        <!-- <label for="email" class="sr-only">Email</label>
+          <input type="email" name="email" class="form-control" placeholder="Dirección de correo" [(ngModel)]="email" required
+            minlength="8"> -->
+
+        <div class="form-group">
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="Dirección de correo" [(ngModel)]="email" autocomplete="off" #inputEmail="ngModel" required>
+            <div *ngIf="inputEmail.touched && !inputEmail.valid">
+                <div class="alert alert-danger" *ngIf="inputEmail.errors.required">El correo es requerido.</div>
+                <!-- <div class="alert alert-danger" *ngIf="inputEmail.errors.minlength">Nombre de ser de al menos {{inputEmail.errors.minlength.requiredLength}}
+                caracteres.</div> -->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Contraseña" required [(ngModel)]="password" #inputPassword="ngModel" required>
+            <div *ngIf="inputPassword.touched && !inputPassword.valid">
+                <div class="alert alert-danger" *ngIf="inputPassword.errors.required">La contraseña es requerida.</div>
+                <!-- <div class="alert alert-danger" *ngIf="inputEmail.errors.minlength">Nombre de ser de al menos {{inputPassword.errors.minlength.requiredLength}}
+                caracteres.</div> -->
+            </div>
+        </div>
+
+        <!-- <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Recordarme
+            </label>
+          </div> -->
+
+        <button class="btn btn-lg btn-info btn-block" type="submit">Ingresar</button>
+        <p class="mt-4 mb-2 text-muted text-center">&copy; 2020</p>
+    </form>
+</div>
