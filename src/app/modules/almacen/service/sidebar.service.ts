@@ -13,24 +13,18 @@ export class SidebarService {
       type: 'header'
     },
     {
-      title: 'TALLERES',
-      icon: 'fa fa-sticky-note-o',
+      title: 'Almacén',
+      icon: 'fa fa-truck',
       active: false,
       type: 'dropdown',
       submenus: [
         {
-          title: 'Control de Carrito',
-          icon: "fa fa-car",
-          route: "formulario1"
-        },
-        {
-          title: 'Control de Brazo Serial',
-          icon: "fa fa-code-fork",
-          route: 'control/brazoserial'
-        },
+          title: 'Pedidos en Curso',
+          icon: "fa fa-list-alt",
+          route: "pedidosCurso"
+        }
       ]
     },
-    
     {
       title: 'Salir',
       icon: 'fa fa-sign-out',

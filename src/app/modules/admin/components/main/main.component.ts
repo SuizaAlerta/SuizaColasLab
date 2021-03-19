@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/core/services/title.service';
 import { Observable } from 'rxjs';
-import { SidebarService } from 'src/app/core/services/sidebar.service';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-main',

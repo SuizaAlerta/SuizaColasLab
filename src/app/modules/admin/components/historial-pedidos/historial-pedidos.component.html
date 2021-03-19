@@ -1,0 +1,46 @@
+<div style="overflow-x:auto;" class="texto">
+
+    <table class="table" style="width: 100%;">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Pedido</th>
+                <th scope="col">Cantidad (Kg)</th>
+                <th scope="col">Observación</th>
+                <th scope="col">Solicitante</th>
+                <th scope="col">Estado (Ventas)</th>
+                <th scope="col">Estado (Almacén)</th>
+                <th scope="col">Comentario (Almacén)</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Modalidad de Pago</th>
+                <th scope="col">Pago Finalizado</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pedidos of itemsPedidosCurso; let i = index" style="border: 1px solid black;">
+                <td scope="row">{{i+1}}</td>
+                <td style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['cliente']}}</td>
+                <td style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['pedido']}}</td>
+
+                <td *ngIf="pedidos['unidad'] == 'Kg'" style="min-width: 150px;" style="text-transform:uppercase; text-align: center;">{{pedidos['cantidad']}}</td>
+                <td *ngIf="pedidos['unidad'] == 'gr'" style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['cantidad'] / 1000}} </td>
+
+                <td style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['observacion']}}</td>
+                <td style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['nombreSolicitante']}}</td>
+                <td style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['estadoVentas']}}</td>
+                <td style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['estadoPedido']}}</td>
+                <td style="min-width: 150px;" style="text-transform:uppercase;">{{pedidos['comentario']}}</td>
+                <td style="width: 300px;" style="text-transform:uppercase;">
+                    <div>{{pedidos['fechaCarga']}} </div>
+                    <div>{{pedidos['horario']}}</div>
+                </td>
+                <td style="text-transform:uppercase;">{{pedidos['modalidadPago']}}</td>
+                <td style="text-transform:uppercase;">{{pedidos['pagoFinalizado']}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>

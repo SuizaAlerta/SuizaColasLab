@@ -1,0 +1,42 @@
+.rango-rojo {
+    color: rgb(255, 0, 0);
+}
+
+.preparado-completo {
+    background-color: #ABEBC6;
+}
+
+.preparado-parcial {
+    background-color: #F9E79F;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 0px solid #ddd;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    font-family: sans-serif;
+    font-weight: inherit;
+}
+
+.texto {
+    font-size: 13px;
+}
+
+.input-file {
+    display: block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}

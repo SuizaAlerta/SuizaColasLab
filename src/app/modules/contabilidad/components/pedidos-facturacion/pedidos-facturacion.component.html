@@ -1,0 +1,69 @@
+<div style="overflow-x:auto;" class="texto">
+    <table style="width: 100%;">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">CLIENTE</th>
+                <th scope="col">PEDIDO</th>
+                <th scope="col">CANTIDAD (Kg)</th>
+                <th scope="col">OBSERVACIÓN</th>
+                <th scope="col">SOLICITANTE</th>
+                <th scope="col">ESTADO (Ventas)</th>
+                <th scope="col">ESTADO (Almacén)</th>
+                <th scope="col">COMENTARIO (Almacén)</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">MODALIDAD DE PAGO</th>
+                <th scope="col">PAGO FINALIZADO</th>
+                <th scope="col">EDITAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pedidos of itemsPedidosCurso; let i = index" style="border: 1px solid black;">
+                <td scope="row" [ngClass]="getClassPrioridad(pedidos['prioridad'])">{{i+1}}</td>
+                <td style="min-width: 150px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['cliente']}}</td>
+                <td style="min-width: 150px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['pedido']}}</td>
+
+                <td *ngIf="pedidos['unidad'] == 'Kg'" style="min-width: 150px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase; text-align: center;">{{pedidos['cantidad']}}</td>
+                <td *ngIf="pedidos['unidad'] == 'gr'" style="min-width: 150px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['cantidad'] / 1000}} </td>
+
+                <td style="min-width: 150px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['observacion']}}</td>
+                <td style="min-width: 150px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['nombreSolicitante']}}</td>
+                <td style="min-width: 150px;" [ngClass]="getClassEstadoVentas(pedidos['prioridad'],pedidos['estadoVentas'])" style="text-transform:uppercase;">{{pedidos['estadoVentas']}}</td>
+                <td style="min-width: 150px;" [ngClass]="getClassEstadoAlmacen(pedidos['prioridad'],pedidos['estadoPedido'])" style="text-transform:uppercase;">{{pedidos['estadoPedido']}}</td>
+                <td style="min-width: 150px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['comentario']}}</td>
+                <td style="width: 300px;" [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">
+                    <div>{{pedidos['fechaCarga']}} </div>
+                    <div>{{pedidos['horario']}}</div>
+                </td>
+                <td [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['modalidadPago']}}</td>
+                <td [ngClass]="getClassPrioridad(pedidos['prioridad'])" style="text-transform:uppercase;">{{pedidos['pagoFinalizado']}}</td>
+
+                <th><button type="button" class="btn btn-outline-primary" (click)="open(mymodal, pedidos['key'])">Facturar</button></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Se realizó el pago del pedido</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+            <label style="margin-right: 10px;">Pago efectuado:</label>
+            <select class="form-select" [(ngModel)]="estado" name="estado" aria-label="Default select example">
+                <option selected value="Si">Si</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Guardar</button>
+    </div>
+</ng-template>

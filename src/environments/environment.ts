@@ -4,15 +4,13 @@
 
 export const environment = {
   production: false,
-
   firebaseConfig: {
-    apiKey: "AIzaSyCPJAOwGpxOpPKAkb0cts7zDpZLTZZWg84",
-    authDomain: "general-5d11b.firebaseapp.com",
-    databaseURL: "https://general-5d11b.firebaseio.com",
-    projectId: "general-5d11b",
-    storageBucket: "general-5d11b.appspot.com",
-    messagingSenderId: "664664193972",
-    appId: "1:664664193972:web:f19b449284819682bf90e1"
+    apiKey: "AIzaSyDwJ_QtjvdpRYm7HIIhPplg76eIqWQ88cA",
+    authDomain: "clasver-dfce2.firebaseapp.com",
+    projectId: "clasver-dfce2",
+    storageBucket: "clasver-dfce2.appspot.com",
+    messagingSenderId: "896154241385",
+    appId: "1:896154241385:web:798d7af100ed5d6d4d55f8"
   }
 };
 

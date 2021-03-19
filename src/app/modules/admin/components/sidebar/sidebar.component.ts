@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService } from 'src/app/core/services/sidebar.service';
+import { SidebarService } from '../../services/sidebar.service';
 import { TitleService } from 'src/app/core/services/title.service';
 import { Router } from '@angular/router';
 import { trigger, state, transition, animate, style } from '@angular/animations';

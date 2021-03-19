@@ -72,7 +72,16 @@ export class HubResolverService {
           return 'admin';
         }
         case 'oficina': {
-          return 'clasverOficina';
+          return 'oficina';
+        }
+        case 'almacen': {
+          return 'almacen';
+        }
+        case 'contabilidad': {
+          return 'contabilidad';
+        }
+        case 'ventas': {
+          return 'ventas';
         }
         case 'consultaATC': {
           return 'atc';

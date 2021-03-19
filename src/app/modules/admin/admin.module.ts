@@ -8,14 +8,18 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { Formulario1Component } from './components/formulario1/formulario1.component';
+import { CargarPedidosComponent } from './components/cargar-pedidos/cargar-pedidos.component';
+import { PedidosCursoComponent } from './components/pedidos-curso/pedidos-curso.component';
+import { PedidosFacturacionComponent } from './components/pedidos-facturacion/pedidos-facturacion.component';
+import { AlmacenCargaComponent } from './components/almacen-carga/almacen-carga.component';
+import { HistorialPedidosComponent } from './components/historial-pedidos/historial-pedidos.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, Formulario1Component],
+  declarations: [MainComponent, SidebarComponent, CargarPedidosComponent, PedidosCursoComponent, PedidosFacturacionComponent, AlmacenCargaComponent, HistorialPedidosComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
