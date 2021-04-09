@@ -54,3 +54,8 @@
     color: #fff;
     background-color: #09bcdd;
 }
+
+.badge-danger {
+    color: #fff;
+    background-color: #f00;
+}

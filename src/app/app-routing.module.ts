@@ -25,24 +25,6 @@ const routes: Routes = [
     data: { expectedRoles: ['admin']}
   },
   {
-    path: 'contabilidad',
-    loadChildren: () => import('./modules/contabilidad/contabilidad.module').then(m => m.ContabilidadModule),
-    canLoad: [RoleGuard],
-    data: { expectedRoles: ['contabilidad']}
-  },
-  {
-    path: 'ventas',
-    loadChildren: () => import('./modules/ventas/ventas.module').then(m => m.VentasModule),
-    canLoad: [RoleGuard],
-    data: { expectedRoles: ['ventas']}
-  },
-  {
-    path: 'almacen',
-    loadChildren: () => import('./modules/almacen/almacen.module').then(m => m.AlmacenModule),
-    canLoad: [RoleGuard],
-    data: { expectedRoles: ['almacen']}
-  },
-  {
     path: '**',
     component: PageNotFoundComponent
   }

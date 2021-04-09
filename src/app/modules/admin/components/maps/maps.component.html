@@ -1,0 +1,36 @@
+<div style="position: relative; width: 100%;">
+    <div style="position: absolute; left: 10px; top: 25px; z-index: 1; float: right ; width: 100%;">
+        <table class="table" style="width: 200px; float: right; margin-right: 20px;">
+            <thead class="thead-dark">
+                <tr style="text-align: center;">
+                    <th scope="col">Unidad</th>
+                    <th scope="col">Atención</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: white; text-align: center;">
+                    <th scope="row"><img style="width: 50%;" src="../assets/icon/espera.png"></th>
+                    <td>En Espera</td>
+                </tr>
+                <tr style="background-color: white; text-align: center;">
+                    <th scope="row"><img style="width: 50%;" src="../assets/icon/curso.png"></th>
+                    <td>En Curso</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div style="width: 100%; height: auto;">
+        <agm-map [latitude]='latitud' [longitude]='longitud' [zoom]="zoom" style="display: block; height: 85vh;">
+            <agm-marker *ngFor="let marker of mapaGPS" [latitude]="marker.lat" [longitude]="marker.lon" [animation]="'NONE'" [iconUrl]="marker.icon" [title]="marker.unidad">
+                <agm-info-window [isOpen]="true" [disableAutoPan]="false" #infoWindow>
+                    <span style="font-weight: bold;">{{ marker.unidad }}</span>
+                </agm-info-window>
+            </agm-marker>
+        </agm-map>
+    </div>
+
+
+</div>

@@ -1,0 +1,75 @@
+<div style="width: 100%;">
+    <div class="input-group center">
+        <select class="custom-select" id="inputGroupSelect04" [(ngModel)]="selectedValue">
+          <option value="Medicos">Médicos</option>
+          <option value="Paramedicos">Paramédicos</option>
+          <option value="Pilotos">Pilotos</option>
+        </select>
+        <div class="input-group-append">
+            <button class="btn btn-success" type="button" (click)="cargarBase()">Aceptar</button>
+        </div>
+    </div>
+
+    <hr>
+
+    <div>
+
+        <table *ngIf="valorSeleccionado == 'Medicos'" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Id Médico</th>
+                    <th scope="col">Apellidos y Nombres</th>
+                    <th scope="col">Nro. Colegiatura</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let value of basePersonal; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{value.id}}</td>
+                    <td>{{value.nombre}}</td>
+                    <td>{{value.nroIdentificacion }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table *ngIf="valorSeleccionado == 'Paramedicos'" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Id Paramédico</th>
+                    <th scope="col">Apellidos y Nombres</th>
+                    <th scope="col">Nro. Documento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let value of basePersonal; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{value.id}}</td>
+                    <td>{{value.nombre}}</td>
+                    <td>{{value.nroIdentificacion }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table *ngIf="valorSeleccionado == 'Pilotos'" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Id Piloto</th>
+                    <th scope="col">Apellidos y Nombres</th>
+                    <th scope="col">Nro. Documento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let value of basePersonal; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{value.id}}</td>
+                    <td>{{value.nombre}}</td>
+                    <td>{{value.nroIdentificacion}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

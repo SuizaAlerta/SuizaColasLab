@@ -1,0 +1,32 @@
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Unidad</th>
+                <th scope="col">Médico</th>
+                <th scope="col">Paramédico</th>
+                <th scope="col">Piloto</th>
+                <th scope="col">Latitud</th>
+                <th scope="col">Longitud</th>
+                <th scope="col">Estado</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let unidades of unidadesActuales; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{unidades.unidad}}</td>
+                <td>{{unidades.nombreMedico}}</td>
+                <td>{{unidades.nombreParamedico}}</td>
+                <td>{{unidades.nombrePiloto}}</td>
+                <td>{{unidades.lat}}</td>
+                <td>{{unidades.lon}}</td>
+                <td>
+                    <img width="70%" [src]="unidades.icon">
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

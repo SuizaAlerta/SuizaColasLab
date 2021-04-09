@@ -8,25 +8,29 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CargarPedidosComponent } from './components/cargar-pedidos/cargar-pedidos.component';
-import { PedidosCursoComponent } from './components/pedidos-curso/pedidos-curso.component';
-import { PedidosFacturacionComponent } from './components/pedidos-facturacion/pedidos-facturacion.component';
-import { AlmacenCargaComponent } from './components/almacen-carga/almacen-carga.component';
-import { HistorialPedidosComponent } from './components/historial-pedidos/historial-pedidos.component';
+
+import { MapsComponent } from './components/maps/maps.component';
+import { AgmCoreModule } from '@agm/core';
+import { UnidadesActualesComponent } from './components/unidades-actuales/unidades-actuales.component';
+import { BasePersonalComponent } from './components/base-personal/base-personal.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, CargarPedidosComponent, PedidosCursoComponent, PedidosFacturacionComponent, AlmacenCargaComponent, HistorialPedidosComponent],
+  declarations: [MainComponent, SidebarComponent, MapsComponent, UnidadesActualesComponent, BasePersonalComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     PerfectScrollbarModule,
     FormsModule,
     ReactiveFormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAAatGQSRkWM-3S5bWF0WX_qA7bLQ7ZmI8',
+      libraries: ['places']
+    })
   ],
   providers: [
     {

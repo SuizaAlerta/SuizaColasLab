@@ -13,31 +13,34 @@ export class SidebarService {
       type: 'header'
     },
     {
-      title: 'Administrador',
+      title: 'Mapa',
       icon: 'fa fa-user-o',
       active: false,
       type: 'dropdown',
       submenus: [
         {
-          title: 'Cargar Pedidos',
-          icon: "fa fa-upload",
-          route: "cargarPedidos"
+          title: 'Mapa GPS',
+          icon: "fa fa-map-o",
+          route: "mapaGPS"
         },
         {
-          title: 'Pedidos en curso',
-          icon: "fa fa-list-alt",
-          route: 'pedidosCurso'
-        },
+          title: 'Unidades actuales',
+          icon: "fa fa-address-card",
+          route: "unidadesActuales"
+        }
+      ]
+    },
+    {
+      title: 'Listado de Personal',
+      icon: 'fa fa-user-o',
+      active: false,
+      type: 'dropdown',
+      submenus: [
         {
-          title: 'Pedidos en cobranza',
-          icon: "fa fa-credit-card",
-          route: 'pedidosCobranza'
-        },
-        /* {
-          title: 'Historial de Pedidos',
-          icon: "fa fa-list",
-          route: 'historialPedidos'
-        }, */
+          title: 'Personal Activo',
+          icon: "fa fa-map-o",
+          route: "personalActivo"
+        }
       ]
     },
     /* {

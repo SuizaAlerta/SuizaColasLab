@@ -17,6 +17,7 @@ import 'firebase/database'
 import 'firebase/storage'
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -34,6 +35,11 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAAatGQSRkWM-3S5bWF0WX_qA7bLQ7ZmI8',
+      libraries: ['places']
+    })
+    
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent],
