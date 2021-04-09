@@ -6,6 +6,7 @@ import { ResolverService } from 'src/app/core/services/resolver.service';
 import { MapsComponent } from './components/maps/maps.component';
 import { UnidadesActualesComponent } from './components/unidades-actuales/unidades-actuales.component';
 import { BasePersonalComponent } from './components/base-personal/base-personal.component';
+import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,13 @@ const routes: Routes = [
       {
         path: 'personalActivo',
         component: BasePersonalComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'mantenimiento',
+        component: MantenimientoComponent,
         resolve: {
           user: ResolverService
         }

@@ -14,7 +14,7 @@ export class SidebarService {
     },
     {
       title: 'Mapa',
-      icon: 'fa fa-user-o',
+      icon: 'fa fa-map-marker ',
       active: false,
       type: 'dropdown',
       submenus: [
@@ -38,8 +38,21 @@ export class SidebarService {
       submenus: [
         {
           title: 'Personal Activo',
-          icon: "fa fa-map-o",
+          icon: "fa fa-user-o",
           route: "personalActivo"
+        }
+      ]
+    },
+    {
+      title: 'Mantenimiento',
+      icon: 'fa fa-cog',
+      active: false,
+      type: 'dropdown',
+      submenus: [
+        {
+          title: 'Mantenimiento',
+          icon: "fa fa-cog",
+          route: "mantenimiento"
         }
       ]
     },
