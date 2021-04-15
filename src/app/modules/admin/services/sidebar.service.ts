@@ -53,6 +53,11 @@ export class SidebarService {
           title: 'Mantenimiento',
           icon: "fa fa-cog",
           route: "mantenimiento"
+        },
+        {
+          title: 'Reporte Piloto',
+          icon: "fa fa-cog",
+          route: "reporte-pilotos"
         }
       ]
     },

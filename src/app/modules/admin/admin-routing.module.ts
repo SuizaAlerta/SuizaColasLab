@@ -7,6 +7,7 @@ import { MapsComponent } from './components/maps/maps.component';
 import { UnidadesActualesComponent } from './components/unidades-actuales/unidades-actuales.component';
 import { BasePersonalComponent } from './components/base-personal/base-personal.component';
 import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
+import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,13 @@ const routes: Routes = [
       {
         path: 'mantenimiento',
         component: MantenimientoComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'reporte-pilotos',
+        component: ReportePilotoComponent,
         resolve: {
           user: ResolverService
         }

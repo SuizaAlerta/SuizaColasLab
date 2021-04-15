@@ -14,13 +14,14 @@ import { AgmCoreModule } from '@agm/core';
 import { UnidadesActualesComponent } from './components/unidades-actuales/unidades-actuales.component';
 import { BasePersonalComponent } from './components/base-personal/base-personal.component';
 import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
+import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, MapsComponent, UnidadesActualesComponent, BasePersonalComponent, MantenimientoComponent],
+  declarations: [MainComponent, SidebarComponent, MapsComponent, UnidadesActualesComponent, BasePersonalComponent, MantenimientoComponent, ReportePilotoComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
