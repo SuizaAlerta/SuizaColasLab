@@ -24,7 +24,7 @@ export class MapsComponent implements OnInit {
 
   latitud = -12.110631;
   longitud = -77.021427;
-  zoom=15;
+  zoom=13;
             
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;

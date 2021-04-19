@@ -8,6 +8,7 @@ import { UnidadesActualesComponent } from './components/unidades-actuales/unidad
 import { BasePersonalComponent } from './components/base-personal/base-personal.component';
 import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
 import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
+import { ReporteCargaExitosaComponent } from './components/reporte-carga-exitosa/reporte-carga-exitosa.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,13 @@ const routes: Routes = [
       {
         path: 'reporte-pilotos',
         component: ReportePilotoComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'carga-exitosa',
+        component: ReporteCargaExitosaComponent,
         resolve: {
           user: ResolverService
         }

@@ -5,108 +5,67 @@
 
     <hr>
     <div class="card text-center">
-        <div class="card-header">
+        <div class="card-header" style="background-color: lightsteelblue;">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active">Active</a>
+                    <a class="nav-link" (click)="itemsMenu('1')" [ngClass]="{'active': opcion == 1}">Rep. Pil.</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Link</a>
+                    <a class="nav-link" (click)="itemsMenu('2')" [ngClass]="{'active': opcion == 2}">Insp. Diar.</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+                    <a class="nav-link" (click)="itemsMenu('3')" [ngClass]="{'active': opcion == 3}">Eval. UME</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
-            <form>
+            <form [formGroup]="miFormulario" (ngSubmit)="enviar(miFormulario.value)">
 
-                <div class="form-row">
-                    <div class="col-2">
-                        <label style="text-align: center;">N°:</label>
-                    </div>
-                    <div class="col-4">
-                        <input type="text" class="form-control" placeholder="State">
-                    </div>
-
-                    <div class="col-2">
-                        <label style="text-align: center;">UME:</label>
-                    </div>
-                    <div class="col-4">
-                        <input type="text" class="form-control" placeholder="State">
-                    </div>
-
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 30dp;">
-                    <div class="col">
-                        <label>Nombre del Piloto:</label>
-                        <input type="text" class="form-control" placeholder="State">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row">
-                    <div class="col-6">
-                        <label style="text-align: center;">Fecha Salida:</label>
-                        <input type="date" class="form-control" style="size: 4;" placeholder="State">
-                    </div>
-
-                    <div class="col-6">
-                        <label style="text-align: center;">Fecha Llegada:</label>
-                        <input type="date" class="form-control" style="size: 4;" placeholder="State">
-                    </div>
-                </div>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-6">
-                        <label style="text-align: center;">Hora Salida:</label>
-                        <input type="time" class="form-control" style="size: 4;" placeholder="State">
-                    </div>
-
-                    <div class="col-6">
-                        <label style="text-align: center;">Hora Llegada:</label>
-                        <input type="time" class="form-control" style="size: 4;" placeholder="State">
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- <div>
-        <div class="card">
-            <div class="card-header">
-                Datos Generales
-            </div>
-            <div class="card-body">
-                <form>
-
+                <div *ngIf="opcion == 1">
                     <div class="form-row">
                         <div class="col-2">
                             <label style="text-align: center;">N°:</label>
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" placeholder="State">
+                            <input type="text" class="form-control" formControlName="numero">
                         </div>
 
                         <div class="col-2">
                             <label style="text-align: center;">UME:</label>
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" placeholder="State">
+                            <div class="form-group">
+                                <select class="custom-select" formControlName="ume" (change)="onChange($event.target.value)">
+                                  <option value="UME12">12</option>
+                                  <option value="UME20">20</option>
+                                  <option value="UME21">21</option>
+                                  <option value="UME24">24</option>
+                                  <option value="UME25">25</option>
+                                  <option value="UME27">27</option>
+                                  <option value="UME29">29</option>
+                                  <option value="UME35">35</option>
+                                </select>
+                                <div class="invalid-feedback">Example invalid custom select feedback</div>
+                            </div>
                         </div>
 
                     </div>
 
                     <hr>
 
-                    <div class="form-row" style="margin-top: 30dp;">
+                    <div class="form-row" style="margin-top: 10dp;">
+                        <div class="col">
+                            <label>Placa:</label>
+                            <input type="text" class="form-control" formControlName="placa">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10dp;">
                         <div class="col">
                             <label>Nombre del Piloto:</label>
-                            <input type="text" class="form-control" placeholder="State">
+                            <input type="text" class="form-control" formControlName="nombrePiloto">
                         </div>
                     </div>
 
@@ -115,28 +74,237 @@
                     <div class="form-row">
                         <div class="col-6">
                             <label style="text-align: center;">Fecha Salida:</label>
-                            <input type="date" class="form-control" style="size: 4;" placeholder="State">
+                            <input type="date" class="form-control" style="size: 4;" formControlName="fechaSalida">
                         </div>
 
                         <div class="col-6">
                             <label style="text-align: center;">Fecha Llegada:</label>
-                            <input type="date" class="form-control" style="size: 4;" placeholder="State">
+                            <input type="date" class="form-control" style="size: 4;" formControlName="fechaLlegada">
                         </div>
                     </div>
 
                     <div class="form-row" style="margin-top: 10px;">
                         <div class="col-6">
                             <label style="text-align: center;">Hora Salida:</label>
-                            <input type="time" class="form-control" style="size: 4;" placeholder="State">
+                            <input type="time" class="form-control" style="size: 4;" formControlName="horaSalida">
                         </div>
 
                         <div class="col-6">
                             <label style="text-align: center;">Hora Llegada:</label>
-                            <input type="time" class="form-control" style="size: 4;" placeholder="State">
+                            <input type="time" class="form-control" style="size: 4;" formControlName="horaLlegada">
                         </div>
                     </div>
-                </form>
-            </div>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-6">
+                            <label style="text-align: center;">Km. de Salida:</label>
+                            <input type="number" class="form-control" style="size: 4;" formControlName="kmSalida">
+                        </div>
+
+                        <div class="col-6">
+                            <label style="text-align: center;">Km. de Llegada:</label>
+                            <input type="number" class="form-control" style="size: 4;" formControlName="kmLlegada">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="opcion == 2">
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Combustible:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="combustible">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Aceite:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="aceite">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Refrigerante:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="refrigerante">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Hidrolina:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="hidrolina">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Líquido de Freno:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="liquidoFreno">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Presión de Llantas:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="presionLlantas">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="opcion == 3">
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Motor:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="motor">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Sistema Eléctrico:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="sistemaElectrico">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Suspensión y/o Direcc.:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="suspensionDireccion">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Caja de cambios:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="cajaCambios">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Frenos:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="frenos">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Neumáticos:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="neumaticos">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Carrocería:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="carroceria">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Herramientas:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="herramientas">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Doc. de la Unidad:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="docUnidad">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Vasos:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" formControlName="vasos">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="exampleFormControlTextarea1">Conformidad Piloto Saliente</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="conformidadPilotoSaliente"></textarea>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="exampleFormControlTextarea1">Conformidad Piloto Entrante</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="conformidadPilotoEntrante"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <button type="submit" [disabled]="miFormulario.invalid" class="btn btn-primary">Cargar Datos</button>
+                    </div>
+
+                </div>
+
+            </form>
         </div>
-    </div> -->
+    </div>
 </div>

@@ -18,6 +18,8 @@ import 'firebase/storage'
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { AgmCoreModule } from '@agm/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 
 
@@ -29,6 +31,8 @@ import { AgmCoreModule } from '@agm/core';
   ],
   imports: [
     BrowserModule,
+    SignaturePadModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
