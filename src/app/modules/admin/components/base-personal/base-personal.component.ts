@@ -18,7 +18,6 @@ export class BasePersonalComponent implements OnInit {
   valorSeleccionado: string;
 
   itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
 
 
   constructor(private db: AngularFireDatabase) { }

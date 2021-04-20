@@ -9,6 +9,7 @@
                 <th scope="col">Piloto</th>
                 <th scope="col">Latitud</th>
                 <th scope="col">Longitud</th>
+                <th scope="col">Envío de GPS</th>
                 <th scope="col">Estado</th>
 
             </tr>
@@ -22,6 +23,7 @@
                 <td>{{unidades.nombrePiloto}}</td>
                 <td>{{unidades.lat}}</td>
                 <td>{{unidades.lon}}</td>
+                <td>{{unidades.ultimoEnvio}}</td>
                 <td>
                     <img width="70%" [src]="unidades.icon">
                 </td>

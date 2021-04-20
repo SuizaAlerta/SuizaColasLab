@@ -19,6 +19,7 @@ export class MapsComponent implements OnInit {
   piloto: string;
   lat: number;
   lon: number;
+  ultimoEnvio: string;
   atencion: string;
   icon: string;
 
@@ -44,10 +45,11 @@ export class MapsComponent implements OnInit {
           this.piloto = action.payload.val()['Piloto']
           this.lat = action.payload.val()['lat']
           this.lon = action.payload.val()['lon']
+          this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
           this.atencion = action.payload.val()['Atencion']
           this.icon = '../assets/icon/' + action.payload.val()['icon'] + ".png"
 
-          const data = new ListaUnidades(this.unidad,this.medico,this.paramedico,this.piloto,this.lat,this.lon,this.atencion,this.icon);
+          const data = new ListaUnidades(this.unidad,this.medico,this.paramedico,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.atencion,this.icon);
           this.unidadesGPS.push(data)
         });
 
@@ -58,9 +60,6 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-   
-    
     
   }
 

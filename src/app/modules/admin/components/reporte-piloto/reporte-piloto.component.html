@@ -1,20 +1,23 @@
 <div>
     <div style="text-align: center;">
-        <h3>Reporte de Piloto</h3>
+        <h3>{{title}}</h3>
     </div>
 
     <hr>
     <div class="card text-center">
         <div class="card-header" style="background-color: lightsteelblue;">
-            <ul class="nav nav-tabs card-header-tabs">
+            <ul class="nav nav-tabs card-header-tabs" style="margin: auto;">
                 <li class="nav-item">
-                    <a class="nav-link" (click)="itemsMenu('1')" [ngClass]="{'active': opcion == 1}">Rep. Pil.</a>
+                    <a class="nav-link" (click)="itemsMenu('1')" [ngClass]="{'active': opcion == 1}" style="min-width: 10px;">1</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click)="itemsMenu('2')" [ngClass]="{'active': opcion == 2}">Insp. Diar.</a>
+                    <a class="nav-link" (click)="itemsMenu('2')" [ngClass]="{'active': opcion == 2}" style="min-width: 10px;">2</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click)="itemsMenu('3')" [ngClass]="{'active': opcion == 3}">Eval. UME</a>
+                    <a class="nav-link" (click)="itemsMenu('3')" [ngClass]="{'active': opcion == 3}" style="min-width: 10px;">3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="itemsMenu('4')" [ngClass]="{'active': opcion == 4}" style="min-width: 10px;">4</a>
                 </li>
             </ul>
         </div>
@@ -56,7 +59,7 @@
                     <div class="form-row" style="margin-top: 10dp;">
                         <div class="col">
                             <label>Placa:</label>
-                            <input type="text" class="form-control" formControlName="placa">
+                            <input type="text" class="form-control" formControlName="placa" readonly>
                         </div>
                     </div>
 
@@ -65,7 +68,7 @@
                     <div class="form-row" style="margin-top: 10dp;">
                         <div class="col">
                             <label>Nombre del Piloto:</label>
-                            <input type="text" class="form-control" formControlName="nombrePiloto">
+                            <input type="text" class="form-control" formControlName="nombrePiloto" readonly>
                         </div>
                     </div>
 
@@ -298,8 +301,109 @@
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="conformidadPilotoEntrante"></textarea>
                     </div>
 
+
+                    <!-- Sección para cargar archivo -->
+
+
+
+
+
+                </div>
+
+                <div *ngIf="opcion == 4">
+
+                    <!-- Lado Frontal -->
+
+                    <div class="form-row" style="margin-top: 10dp;">
+
+                        <div class="col">
+                            <label>Lado Frontal:</label>
+
+                            <div style="margin: 10px;">
+                                <input type="file" (change)="ladoFrontal($event)" />
+                            </div>
+
+                            <div *ngIf="currentFileUpload" class="progress mt-2">
+                                <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ porcentajeFrontal }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: porcentajeFrontal + '%' }">
+                                    {{ porcentajeFrontal }}%
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <!-- Lado Izquierdo -->
+
+                    <div class="form-row" style="margin-top: 10dp;">
+
+                        <div class="col">
+                            <label>Lado Izquierdo:</label>
+
+                            <div style="margin: 10px;">
+                                <input type="file" (change)="ladoIzquierdo($event)" />
+
+                            </div>
+
+                            <div *ngIf="currentFileUpload" class="progress mt-2">
+                                <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ porcentajeIzquierda }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: porcentajeIzquierda + '%' }">
+                                    {{ porcentajeIzquierda }}%
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <!-- Lado Derecho -->
+
+                    <div class="form-row" style="margin-top: 10dp;">
+
+                        <div class="col">
+                            <label>Lado Derecho:</label>
+
+                            <div style="margin: 10px;">
+                                <input type="file" (change)="ladoDerecho($event)" />
+                            </div>
+
+                            <div *ngIf="currentFileUpload" class="progress mt-2">
+                                <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ porcentajeDerecha }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: porcentajeDerecha + '%' }">
+                                    {{ porcentajeDerecha }}%
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <!-- Lado Posterior -->
+
+                    <div class="form-row" style="margin-top: 10dp;">
+
+                        <div class="col">
+                            <label>Lado Posterior:</label>
+
+                            <div style="margin: 10px;">
+                                <input type="file" (change)="ladoPosterior($event)" />
+                            </div>
+
+                            <div *ngIf="currentFileUpload" class="progress mt-2">
+                                <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ porcentajePosterior }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: porcentajePosterior + '%' }">
+                                    {{ porcentajePosterior }}%
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+
                     <div class="form-group" style="margin-top: 10px;">
                         <button type="submit" [disabled]="miFormulario.invalid" class="btn btn-primary">Cargar Datos</button>
+                        <!-- <button type="submit" class="btn btn-primary">Cargar Datos</button> -->
                     </div>
 
                 </div>
