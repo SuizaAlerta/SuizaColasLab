@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -13,7 +14,7 @@ import { FileUpload } from '../models/fileUpload';
 })
 export class StorageService {
 
-  private basePath = '/uploads';
+  private basePath = 'SuizaAlertaApp/EvidenciaUME';
   public ruta: string;
   
   itemsFrontal = [];
@@ -25,7 +26,12 @@ export class StorageService {
 
   pushFileToStorage(fileUpload: FileUpload, posicion: string): Observable<number> {
     this.itemsFrontal = [];
-    const filePath = `${this.basePath}/${fileUpload.file.name}`;
+
+    const currentDate = new Date();
+    const fechaSistema = formatDate(currentDate, 'dd-MM-yyyy', 'en-US');
+    const horaActual = formatDate(currentDate, 'HH:mm:ss', 'en-US');
+
+    const filePath = `${this.basePath}/${fechaSistema +'_'+ horaActual +'_'+ fileUpload.file.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUpload.file);
 
@@ -48,8 +54,7 @@ export class StorageService {
           } else if( posicion == "posterior") {
             this.itemsPosterior.push(downloadURL)
           }
-
-
+          
         });
       })
     ).subscribe();

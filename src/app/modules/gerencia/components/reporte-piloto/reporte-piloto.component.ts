@@ -9,8 +9,8 @@ import { formatDate } from '@angular/common';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { FileUpload } from '../../models/fileUpload';
-import { StorageService } from '../../services/storage.service';
+import { FileUpload } from '../../../admin/models/fileUpload';
+import { StorageService } from '../../../admin/services/storage.service';
 
 
 @Component({
@@ -41,12 +41,10 @@ export class ReportePilotoComponent implements OnInit {
   porcentajeIzquierda: number;
   porcentajeDerecha: number;
   porcentajePosterior: number;
-  
-  constructor(
-    private _builder: FormBuilder, private firestore: AngularFirestore,private router: Router, private _route: ActivatedRoute, private db: AngularFireDatabase, private storage: AngularFireStorage, private uploadService: StorageService
-  ) {
 
-    const currentDate = new Date();
+  constructor(    private _builder: FormBuilder, private firestore: AngularFirestore,private router: Router, private _route: ActivatedRoute, private db: AngularFireDatabase, private storage: AngularFireStorage, private uploadService: StorageService
+    ) {
+      const currentDate = new Date();
 
     const fechaActual = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
     const fechaSistema = formatDate(currentDate, 'dd/MM/yyyy', 'en-US');
@@ -71,8 +69,7 @@ export class ReportePilotoComponent implements OnInit {
       fechaLlegada: [fechaActual, Validators.required],
       horaLlegada: [horaActual, Validators.required],
       kmLlegada: ['', Validators.required],
-      combustibleSalida: ['', Validators.required],
-      combustibleLlegada: ['', Validators.required],
+      combustible: ['', Validators.required],
       aceite: ['', Validators.required],
       refrigerante: ['', Validators.required],
       hidrolina: ['', Validators.required],
@@ -95,13 +92,12 @@ export class ReportePilotoComponent implements OnInit {
       ladoDerecho:[[], Validators.minLength(1)],
       ladoPosterior:[[], Validators.minLength(1)],
     })
-
-  }
+    }
 
   ngOnInit(): void {
-
   }
 
+  
   itemsMenu(valor){
     this.opcion = valor;
 
@@ -216,7 +212,8 @@ export class ReportePilotoComponent implements OnInit {
 
     this.db.database.ref('SuizaAlertaApp/informacionUME/'+values['ume']).child('kmSalida').set(values['kmLlegada'])
     this.miFormulario.reset();
-    this.router.navigate(['/admin/carga-exitosa']);
+    this.router.navigate(['/gerencia/carga-exitosa']);
 
   }
+
 }

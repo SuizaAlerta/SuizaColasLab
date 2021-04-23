@@ -71,11 +71,11 @@ export class HubResolverService {
         case 'admin': {
           return 'admin';
         }
-        case 'oficina': {
-          return 'oficina';
+        case 'operaciones': {
+          return 'operaciones';
         }
-        case 'almacen': {
-          return 'almacen';
+        case 'gerencia': {
+          return 'gerencia';
         }
         case 'contabilidad': {
           return 'contabilidad';

@@ -12,7 +12,7 @@ export class SidebarService {
       title: 'Menú',
       type: 'header'
     },
-    {
+    /* {
       title: 'Mapa',
       icon: 'fa fa-map-marker ',
       active: false,
@@ -29,20 +29,7 @@ export class SidebarService {
           route: "unidadesActuales"
         }
       ]
-    },
-    {
-      title: 'Listado de Personal',
-      icon: 'fa fa-user-o',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Personal Activo',
-          icon: "fa fa-user-o",
-          route: "personalActivo"
-        }
-      ]
-    },
+    }, */
     {
       title: 'Operaciones',
       icon: 'fa fa-cog',

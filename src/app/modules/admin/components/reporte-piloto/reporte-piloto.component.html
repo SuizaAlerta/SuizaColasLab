@@ -5,8 +5,8 @@
 
     <hr>
     <div class="card text-center">
-        <div class="card-header" style="background-color: lightsteelblue;">
-            <ul class="nav nav-tabs card-header-tabs" style="margin: auto;">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
                     <a class="nav-link" (click)="itemsMenu('1')" [ngClass]="{'active': opcion == 1}" style="min-width: 10px;">1</a>
                 </li>
@@ -25,33 +25,30 @@
             <form [formGroup]="miFormulario" (ngSubmit)="enviar(miFormulario.value)">
 
                 <div *ngIf="opcion == 1">
-                    <div class="form-row">
-                        <div class="col-2">
-                            <label style="text-align: center;">N°:</label>
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control" formControlName="numero">
-                        </div>
 
-                        <div class="col-2">
-                            <label style="text-align: center;">UME:</label>
-                        </div>
-                        <div class="col-4">
+                    <div class="form-row" style="margin-top: 10dp;">
+                        <div class="col">
+                            <label>N° de la Unidad:</label>
                             <div class="form-group">
                                 <select class="custom-select" formControlName="ume" (change)="onChange($event.target.value)">
-                                  <option value="UME12">12</option>
-                                  <option value="UME20">20</option>
-                                  <option value="UME21">21</option>
-                                  <option value="UME24">24</option>
-                                  <option value="UME25">25</option>
-                                  <option value="UME27">27</option>
-                                  <option value="UME29">29</option>
-                                  <option value="UME35">35</option>
+                                  <option value="UME12">UME 12</option>
+                                  <option value="UME20">UME 20</option>
+                                  <option value="UME21">UME 21</option>
+                                  <option value="UME24">UME 24</option>
+                                  <option value="UME25">UME 25</option>
+                                  <option value="UME27">UME 27</option>
+                                  <option value="UME29">UME 29</option>
+                                  <option value="UME35">UME 35</option>
+                                  <option value="CONSULTA15">Consulta 15</option>
+                                  <option value="CONSULTA16">Consulta 16</option>
+                                  <option value="CONSULTA19">Consulta 19</option>
+                                  <option value="CONSULTA21">Consulta 21</option>
+                                  <option value="CONSULTA22">Consulta 22</option>
+                                  <option value="CONSULTA23">Consulta 23</option>
                                 </select>
                                 <div class="invalid-feedback">Example invalid custom select feedback</div>
                             </div>
                         </div>
-
                     </div>
 
                     <hr>
@@ -101,7 +98,7 @@
                     <div class="form-row" style="margin-top: 10px;">
                         <div class="col-6">
                             <label style="text-align: center;">Km. de Salida:</label>
-                            <input type="number" class="form-control" style="size: 4;" formControlName="kmSalida">
+                            <input type="number" class="form-control" style="size: 4;" formControlName="kmSalida" readonly>
                         </div>
 
                         <div class="col-6">
@@ -112,14 +109,35 @@
                 </div>
 
                 <div *ngIf="opcion == 2">
-                    <div class="form-row" style="margin-top: 10px;">
+
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label style="text-align: center;">Combustible Sal.:</label>
+                            <input type="text" class="form-control" style="size: 4;" formControlName="combustibleSalida">
+                        </div>
+
+                        <div class="col-6">
+                            <label style="text-align: center;">Combustible Lleg.:</label>
+                            <div class="form-group">
+                                <select class="custom-select" formControlName="combustibleLlegada" (change)="onChange($event.target.value)">
+                                  <option value="UME12">1/4</option>
+                                  <option value="UME20">1/2</option>
+                                  <option value="UME21">3/4</option>
+                                  <option value="UME24">Full</option>
+                                </select>
+                                <div class="invalid-feedback">Example invalid custom select feedback</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-row" style="margin-top: 10px;">
                         <div class="col-4">
                             <label style="text-align: center;">Combustible:</label>
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" formControlName="combustible">
                         </div>
-                    </div>
+                    </div> -->
 
                     <hr>
 
@@ -127,8 +145,15 @@
                         <div class="col-4">
                             <label style="text-align: center;">Aceite:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="aceite">
+
+                        <div class="col-8 form-group">
+                            <select class="custom-select" formControlName="aceite" (change)="onChange($event.target.value)">
+                              <option value="UME12">1/4</option>
+                              <option value="UME20">1/2</option>
+                              <option value="UME21">3/4</option>
+                              <option value="UME24">Full</option>
+                            </select>
+                            <div class="invalid-feedback">Example invalid custom select feedback</div>
                         </div>
                     </div>
 
@@ -139,7 +164,12 @@
                             <label style="text-align: center;">Refrigerante:</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" formControlName="refrigerante">
+                            <select class="custom-select" formControlName="refrigerante" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
                         </div>
                     </div>
 
@@ -150,7 +180,12 @@
                             <label style="text-align: center;">Hidrolina:</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" formControlName="hidrolina">
+                            <select class="custom-select" formControlName="hidrolina" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
                         </div>
                     </div>
 
@@ -161,96 +196,172 @@
                             <label style="text-align: center;">Líquido de Freno:</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" formControlName="liquidoFreno">
+                            <select class="custom-select" formControlName="liquidoFreno" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
                         </div>
                     </div>
 
                     <hr>
 
-                    <div class="form-row" style="margin-top: 10px;">
+                    <!-- <div class="form-row" style="margin-top: 10px;">
                         <div class="col-4">
                             <label style="text-align: center;">Presión de Llantas:</label>
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" formControlName="presionLlantas">
                         </div>
+                    </div> -->
+
+                    <div class="form-row">
+                        <div class="col-4">
+                            <label style="text-align: center; font-size: 10pt;">Presión Frontal Izq.:</label>
+                            <select class="custom-select" formControlName="liquidoFreno" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
+                        </div>
+                        <div class="col-4" style="height: 100%;">
+                            <img style="width: 100%;" src="../../../../../assets/img/ambulancia.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <label style="text-align: center; font-size: 10pt;">Presión Frontal Der.</label>
+                            <select class="custom-select" formControlName="liquidoFreno" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
+                        </div>
+
                     </div>
+
+                    <div class="form-row">
+                        <div class="col-4">
+                            <select class="custom-select" formControlName="liquidoFreno" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
+                            <label style="text-align: center; font-size: 10pt;">Presión Posterior Izq.:</label>
+                        </div>
+                        <div class="col-4" style="font-size: 10pt;">
+                            <select class="custom-select" formControlName="liquidoFreno" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
+                            <label style="text-align: center;">Llanta de Respuesto:</label>
+                        </div>
+                        <div class="col-4">
+                            <select class="custom-select" formControlName="liquidoFreno" (change)="onChange($event.target.value)">
+                                <option value="UME12">1/4</option>
+                                <option value="UME20">1/2</option>
+                                <option value="UME21">3/4</option>
+                                <option value="UME24">Full</option>
+                            </select>
+                            <label style="text-align: center; font-size: 10pt;">Presión Posterior Der.:</label>
+                        </div>
+
+                    </div>
+
+
 
                 </div>
 
                 <div *ngIf="opcion == 3">
                     <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
+                        <div class="col-2">
                             <label style="text-align: center;">Motor:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="motor">
+                        <div class="col-10" style="text-align: right;">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="motor" id="motor1" value="option1" formControlName="motor">
+                                <label class="form-check-label" for="motor1">Conforme</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="motor" id="motor2" value="option2" formControlName="motor">
+                                <label class="form-check-label" for="motor2">No Conforme</label>
+                            </div>
                         </div>
                     </div>
 
                     <hr>
 
                     <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
+                        <div class="col-2">
                             <label style="text-align: center;">Sistema Eléctrico:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="sistemaElectrico">
+                        <div class="col-10" style="text-align: right;">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sistemaElectrico" id="sistemaElectrico1" value="option1" formControlName="sistemaElectrico">
+                                <label class="form-check-label" for="sistemaElectrico1">Conforme</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sistemaElectrico" id="sistemaElectrico2" value="option2" formControlName="sistemaElectrico">
+                                <label class="form-check-label" for="sistemaElectrico2">No Conforme</label>
+                            </div>
                         </div>
                     </div>
 
                     <hr>
 
                     <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
-                            <label style="text-align: center;">Suspensión y/o Direcc.:</label>
+                        <div class="col-2">
+                            <label style="text-align: center;">Susp. y/o Direcc.:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="suspensionDireccion">
+                        <div class="col-10" style="text-align: right;">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="suspensionDireccion" id="suspensionDireccion1" value="option1" formControlName="suspensionDireccion">
+                                <label class="form-check-label" for="suspensionDireccion1">Conforme</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="suspensionDireccion" id="suspensionDireccion2" value="option2" formControlName="suspensionDireccion">
+                                <label class="form-check-label" for="suspensionDireccion2">No Conforme</label>
+                            </div>
                         </div>
                     </div>
 
                     <hr>
 
                     <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
+                        <div class="col-2">
                             <label style="text-align: center;">Caja de cambios:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="cajaCambios">
+                        <div class="col-10" style="text-align: right;">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="cajaCambios" id="cajaCambios1" value="option1" formControlName="cajaCambios">
+                                <label class="form-check-label" for="cajaCambios1">Conforme</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="cajaCambios" id="cajaCambios2" value="option2" formControlName="cajaCambios">
+                                <label class="form-check-label" for="cajaCambios2">No Conforme</label>
+                            </div>
                         </div>
                     </div>
 
                     <hr>
 
                     <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
+                        <div class="col-2">
                             <label style="text-align: center;">Frenos:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="frenos">
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
-                            <label style="text-align: center;">Neumáticos:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="neumaticos">
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
-                            <label style="text-align: center;">Carrocería:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="carroceria">
+                        <div class="col-10" style="text-align: right;">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="frenos" id="frenos1" value="option1" formControlName="frenos">
+                                <label class="form-check-label" for="frenos1">Conforme</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="frenos" id="frenos2" value="option2" formControlName="frenos">
+                                <label class="form-check-label" for="frenos2">No Conforme</label>
+                            </div>
                         </div>
                     </div>
 
@@ -260,8 +371,64 @@
                         <div class="col-4">
                             <label style="text-align: center;">Herramientas:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="herramientas">
+                        <div class="col-8" style="text-align: left; padding-left: 20px;">
+                            <!--                             <input type="text" class="form-control" formControlName="herramientas">
+ -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="gata" formControlName="gata">
+                                <label class="form-check-label" for="gata">
+                                  Gata
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="llaveRueda" formControlName="llaveRueda">
+                                <label class="form-check-label" for="llaveRueda">
+                                  Llave de rueda
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="palanca" formControlName="palanca">
+                                <label class="form-check-label" for="palanca">
+                                  Palanca
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="seguroRuedas" formControlName="seguroRuedas">
+                                <label class="form-check-label" for="seguroRuedas">
+                                  Seguro de ruedas
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="dadoPRueda" formControlName="dadoPRueda">
+                                <label class="form-check-label" for="dadoPRueda">
+                                  Dado P/Rueda 
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="alicate" formControlName="alicate">
+                                <label class="form-check-label" for="alicate">
+                                  Alicate
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tapa" formControlName="tapa">
+                                <label class="form-check-label" for="tapa">
+                                  Tapa de ruedas "Logo"
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="destornillador" formControlName="destornillador">
+                                <label class="form-check-label" for="destornillador">
+                                  Destornillador
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="medidorAire" formControlName="medidorAire">
+                                <label class="form-check-label" for="medidorAire">
+                                  Medidor de aire
+                                </label>
+                            </div>
+
                         </div>
                     </div>
 
@@ -271,23 +438,31 @@
                         <div class="col-4">
                             <label style="text-align: center;">Doc. de la Unidad:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="docUnidad">
+                        <div class="col-8" style="text-align: left; padding-left: 20px;">
+                            <!--                             <input type="text" class="form-control" formControlName="docUnidad">
+ -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tarjetaPropiedad" formControlName="tarjetaPropiedad">
+                                <label class="form-check-label" for="tarjetaPropiedad">
+                                  Tarjeta de propiedad
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="soat" formControlName="soat">
+                                <label class="form-check-label" for="soat">
+                                  SOAT
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="revisionTecnica" formControlName="revisionTecnica">
+                                <label class="form-check-label" for="revisionTecnica">
+                                  Revisión Técnica
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <hr>
-
-                    <div class="form-row" style="margin-top: 10px;">
-                        <div class="col-4">
-                            <label style="text-align: center;">Vasos:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control" formControlName="vasos">
-                        </div>
-                    </div>
-
-                    <hr>
+                    <!-- <hr>
 
                     <div class="form-group" style="margin-top: 10px;">
                         <label for="exampleFormControlTextarea1">Conformidad Piloto Saliente</label>
@@ -299,7 +474,7 @@
                     <div class="form-group" style="margin-top: 10px;">
                         <label for="exampleFormControlTextarea1">Conformidad Piloto Entrante</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="conformidadPilotoEntrante"></textarea>
-                    </div>
+                    </div> -->
 
 
                     <!-- Sección para cargar archivo -->
@@ -320,7 +495,7 @@
                             <label>Lado Frontal:</label>
 
                             <div style="margin: 10px;">
-                                <input type="file" (change)="ladoFrontal($event)" />
+                                <input type="file" (change)="ladoFrontal($event)" accept="image/*" capture/>
                             </div>
 
                             <div *ngIf="currentFileUpload" class="progress mt-2">
@@ -342,7 +517,7 @@
                             <label>Lado Izquierdo:</label>
 
                             <div style="margin: 10px;">
-                                <input type="file" (change)="ladoIzquierdo($event)" />
+                                <input type="file" (change)="ladoIzquierdo($event)" accept="image/*" capture/>
 
                             </div>
 
@@ -365,7 +540,7 @@
                             <label>Lado Derecho:</label>
 
                             <div style="margin: 10px;">
-                                <input type="file" (change)="ladoDerecho($event)" />
+                                <input type="file" (change)="ladoDerecho($event)" accept="image/*" capture/>
                             </div>
 
                             <div *ngIf="currentFileUpload" class="progress mt-2">
@@ -387,7 +562,7 @@
                             <label>Lado Posterior:</label>
 
                             <div style="margin: 10px;">
-                                <input type="file" (change)="ladoPosterior($event)" />
+                                <input type="file" (change)="ladoPosterior($event)" accept="image/*" capture/>
                             </div>
 
                             <div *ngIf="currentFileUpload" class="progress mt-2">

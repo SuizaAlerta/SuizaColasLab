@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MainComponent } from './components/main/main.component';
 import { ResolverService } from 'src/app/core/services/resolver.service';
-
-import { MapsComponent } from './components/maps/maps.component';
-import { UnidadesActualesComponent } from './components/unidades-actuales/unidades-actuales.component';
-import { BasePersonalComponent } from './components/base-personal/base-personal.component';
-import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
-import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
+import { ListaRegistroComponent } from '../admin/components/lista-registro/lista-registro.component';
+import { MapsComponent } from '../admin/components/maps/maps.component';
 import { ReporteCargaExitosaComponent } from './components/reporte-carga-exitosa/reporte-carga-exitosa.component';
-import { ListaRegistroComponent } from './components/lista-registro/lista-registro.component';
+import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
+import { UnidadesActualesComponent } from '../admin/components/unidades-actuales/unidades-actuales.component';
+import { MainComponent } from './components/main/main.component';
 
 const routes: Routes = [
   {
@@ -31,17 +28,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'personalActivo',
-        component: BasePersonalComponent,
-        resolve: {
-          user: ResolverService
-        }
-      },
-      {
         path: 'lista-registros',
         component: ListaRegistroComponent,
         resolve: {
-          user: ResolverService
+        user: ResolverService
         }
       },
       {
@@ -66,4 +56,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule { }
+export class OperacionesRoutingModule { }

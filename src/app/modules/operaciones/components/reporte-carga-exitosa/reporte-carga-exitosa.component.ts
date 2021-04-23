@@ -8,18 +8,14 @@ import { Router } from '@angular/router';
 })
 export class ReporteCargaExitosaComponent implements OnInit {
 
-  closeResult: string;
-
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    
   }
 
   Inicio() {
-    this.router.navigate(['/admin/reporte-pilotos']);
+    this.router.navigate(['/operaciones/reporte-pilotos']);
     
   }
- 
 
 }

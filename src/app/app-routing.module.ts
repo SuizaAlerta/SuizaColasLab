@@ -25,6 +25,18 @@ const routes: Routes = [
     data: { expectedRoles: ['admin']}
   },
   {
+    path: 'operaciones',
+    loadChildren: () => import('./modules/operaciones/operaciones.module').then(m => m.OperacionesModule),
+    canLoad: [RoleGuard],
+    data: { expectedRoles: ['operaciones']}
+  },
+  {
+    path: 'gerencia',
+    loadChildren: () => import('./modules/gerencia/gerencia.module').then(m => m.GerenciaModule),
+    canLoad: [RoleGuard],
+    data: { expectedRoles: ['gerencia']}
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }
