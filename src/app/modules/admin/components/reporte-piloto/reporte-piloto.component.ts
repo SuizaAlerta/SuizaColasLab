@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,9 +41,15 @@ export class ReportePilotoComponent implements OnInit {
   porcentajeIzquierda: number;
   porcentajeDerecha: number;
   porcentajePosterior: number;
+
+  public habilitadorMotor = false;
+  public habilitadorSistemaElectrico = false;
+  public habilitadorSuspensionDireccion = false;
+  public habilitadorCajaCambios = false;
+  public habilitadorFrenos = false;
   
   constructor(
-    private _builder: FormBuilder, private firestore: AngularFirestore,private router: Router, private _route: ActivatedRoute, private db: AngularFireDatabase, private storage: AngularFireStorage, private uploadService: StorageService
+    private _builder: FormBuilder, private firestore: AngularFirestore,private router: Router, private _route: ActivatedRoute, private db: AngularFireDatabase, private storage: AngularFireStorage, private uploadService: StorageService, private cd: ChangeDetectorRef
   ) {
 
     const currentDate = new Date();
@@ -59,13 +65,12 @@ export class ReportePilotoComponent implements OnInit {
     }, err => { console.log("Error hub:", err) });
 
     this.miFormulario = this._builder.group({
-      numero: ['', Validators.required] ,
-      ume: ['', Validators.required],
+      vehiculo: ['', Validators.required],
       placa:['',Validators.required],
-      fechaSistema:[fechaSistema,Validators.required],
       nombrePiloto: [this.nombrePiloto,Validators.required],
-      fechaSalida: [fechaActual, Validators.required],
+      fechaSistema:[fechaSistema,Validators.required],
       horaSistema: [horaActual, Validators.required],
+      fechaSalida: [fechaActual, Validators.required],
       horaSalida: ['', Validators.required],
       kmSalida: ['', Validators.required],
       fechaLlegada: [fechaActual, Validators.required],
@@ -77,19 +82,33 @@ export class ReportePilotoComponent implements OnInit {
       refrigerante: ['', Validators.required],
       hidrolina: ['', Validators.required],
       liquidoFreno: ['', Validators.required],
-      presionLlantas: ['', Validators.required],
+      presionLlantaFrontalIzq: ['', Validators.required],
+      presionLlantaFrontalDer: ['', Validators.required],
+      presionLlantaPosteriorIzq: ['', Validators.required],
+      presionLlantaPosteriorDer: ['', Validators.required],
+      presionLlantaRepuesto: ['', Validators.required],
       motor: ['', Validators.required],
       sistemaElectrico: ['', Validators.required],
       suspensionDireccion: ['', Validators.required],
       cajaCambios: ['', Validators.required],
       frenos: ['', Validators.required],
-      neumaticos: ['', Validators.required],
-      carroceria: ['', Validators.required],
-      herramientas: ['', Validators.required],
-      docUnidad: ['', Validators.required],
-      vasos: ['', Validators.required],
-      conformidadPilotoSaliente: ['', Validators.required],
-      conformidadPilotoEntrante: ['', Validators.required],
+      motorObservacion: ['', Validators.required],
+      sistemaElectricoObservacion: ['', Validators.required],
+      suspensionDireccionObservacion: ['', Validators.required],
+      cajaCambiosObservacion: ['', Validators.required],
+      frenosObservacion: ['', Validators.required],
+      gata: [''],
+      llaveRueda: [''],
+      palanca: [''],
+      seguroRuedas: [''],
+      dadoPrueda: [''],
+      alicate: [''],
+      tapa: [''],
+      destornillador: [''],
+      medidorAire: [''],
+      tarjetaPropiedad: [''],
+      soat: [''],
+      revisionTecnica: [''],
       ladoFrontal:[[], Validators.minLength(1)],
       ladoIzquierdo:[[], Validators.minLength(1)],
       ladoDerecho:[[], Validators.minLength(1)],
@@ -139,7 +158,70 @@ export class ReportePilotoComponent implements OnInit {
       this.miFormulario.patchValue({placa: action.payload.val()['placa']})
       this.miFormulario.patchValue({kmSalida: action.payload.val()['kmSalida']})
 
+      if(action.payload.val()['combustibleSalida'] == '0.25') {
+        this.miFormulario.patchValue({combustibleSalida: '1/4'})
+      } else if(action.payload.val()['combustibleSalida'] == '0.5') {
+        this.miFormulario.patchValue({combustibleSalida: '1/2'})
+      } else if(action.payload.val()['combustibleSalida'] == '0.75') {
+        this.miFormulario.patchValue({combustibleSalida: '3/4'})
+      } else if(action.payload.val()['combustibleSalida'] == '1') {
+        this.miFormulario.patchValue({combustibleSalida: '1'})
+      }
+
+
     })
+  }
+
+  onChangeMotor(value, comparador){
+    this.habilitadorMotor = value
+    if(comparador == "Conforme"){
+      this.miFormulario.patchValue({motorObservacion: "Conforme"})
+    } else {
+      this.miFormulario.patchValue({motorObservacion: ""})
+    }
+    console.log(comparador);
+    
+
+
+  }
+
+  onChangeSistemaElectrico(value, comparador){
+    this.habilitadorSistemaElectrico = value;
+    if(comparador == "Conforme"){
+      this.miFormulario.patchValue({sistemaElectricoObservacion: "Conforme"})
+    } else {
+      this.miFormulario.patchValue({sistemaElectricoObservacion: ""})
+    }
+    
+  }
+
+  onChangesuspensionDireccion(value, comparador){
+    this.habilitadorSuspensionDireccion = value;
+    if(comparador == "Conforme"){
+      this.miFormulario.patchValue({suspensionDireccionObservacion: "Conforme"})
+    } else {
+      this.miFormulario.patchValue({suspensionDireccionObservacion: ""})
+    }
+    
+  }
+
+  onChangecajaCambios(value, comparador){
+    this.habilitadorCajaCambios = value;
+    if(comparador == "Conforme"){
+      this.miFormulario.patchValue({cajaCambiosObservacion: "Conforme"})
+    } else {
+      this.miFormulario.patchValue({cajaCambiosObservacion: ""})
+    }
+  }
+
+  onChangefrenos(value, comparador) {
+    this.habilitadorFrenos = value;
+    if(comparador == "Conforme"){
+      this.miFormulario.patchValue({frenosObservacion: "Conforme"})
+    } else {
+      this.miFormulario.patchValue({frenosObservacion: ""})
+    }
+    
   }
 
   ladoFrontal(event): void {
@@ -211,12 +293,16 @@ export class ReportePilotoComponent implements OnInit {
     values['uid']= myId;
     values['horaSistema'] = horaSistema;
 
-    this.firestore.collection('listaReportePiloto').doc(myId).set(values);
+    console.log(values);
+    
+
+
+    /* this.firestore.collection('listaReportePiloto').doc(myId).set(values);
     this.firestore.collection('consolidadoUME').doc(values['ume']).set(values);
 
     this.db.database.ref('SuizaAlertaApp/informacionUME/'+values['ume']).child('kmSalida').set(values['kmLlegada'])
     this.miFormulario.reset();
-    this.router.navigate(['/admin/carga-exitosa']);
+    this.router.navigate(['/admin/carga-exitosa']); */
 
   }
 }
