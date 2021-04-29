@@ -13,77 +13,15 @@ export class SidebarService {
       type: 'header'
     },
     {
-      title: 'Dashboard',
-      icon: 'fa fa-pie-chart',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Dashboard',
-          icon: "fa fa-pie-chart",
-          route: "dashboard"
-        }
-      ]
-    },
-    {
-      title: 'Mapa',
-      icon: 'fa fa-map-marker ',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Mapa GPS',
-          icon: "fa fa-map-o",
-          route: "mapaGPS"
-        },
-        {
-          title: 'Unidades actuales',
-          icon: "fa fa-address-card",
-          route: "unidadesActuales"
-        }
-      ]
-    },
-    {
-      title: 'Listado de Personal',
-      icon: 'fa fa-user-o',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Personal Activo',
-          icon: "fa fa-user-o",
-          route: "personalActivo"
-        }
-      ]
-    },
-    {
-      title: 'Operaciones',
+      title: 'Pilotos',
       icon: 'fa fa-cog',
       active: false,
       type: 'dropdown',
       submenus: [
         {
-          title: 'Lista de Registros',
-          icon: "fa fa-cog",
-          route: "lista-registros"
-        },
-        {
-          title: 'Reporte Piloto',
+          title: 'Reporte Digital',
           icon: "fa fa-cog",
           route: "reporte-pilotos"
-        }
-      ]
-    },
-    {
-      title: 'Paneles',
-      icon: 'fa fa-area-chart',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Revisión Técnica',
-          icon: "fa fa-eye",
-          route: "revision-tecnica"
         }
       ]
     },

@@ -2,7 +2,7 @@
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">UME</th>
+            <th scope="col">Vehículo</th>
             <th scope="col">Placa</th>
             <th scope="col">Nombre del Piloto</th>
             <th scope="col">Fecha Envio</th>
@@ -14,7 +14,7 @@
     <tbody>
         <tr *ngFor="let valores of reporte; let i = index;">
             <th scope="row">{{i+1}}</th>
-            <td>{{valores.ume}}</td>
+            <td>{{valores.vehiculo}}</td>
             <td>{{valores.placa}}</td>
             <td>{{valores.nombrePiloto}}</td>
             <td>{{valores.fechaSistema}}</td>
@@ -32,10 +32,12 @@
         <span aria-hidden="true">×</span>
       </button>
     </div>
+
+
     <div class="modal-body">
 
-        <div class="card-header" style="background-color: lightsteelblue;">
-            <ul class="nav nav-tabs card-header-tabs" style="margin: auto;">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
                     <a class="nav-link" (click)="itemsMenu('1')" [ngClass]="{'active': opcion == 1}" style="min-width: 10px;">1</a>
                 </li>
@@ -50,333 +52,541 @@
                 </li>
             </ul>
         </div>
-        <form style="margin-top: 20px;">
+        <div class="card-body">
+            <form>
 
-            <div *ngIf="opcion == 1">
-                <div class="form-row">
-                    <div class="col-2">
-                        <label style="text-align: center;">N°:</label>
-                    </div>
-                    <div class="col-4">
-                        <input type="text" class="form-control" value="{{itemsReportes.numero}}">
+                <div *ngIf="opcion == 1">
+
+                    <div class="form-row" style="margin-top: 10dp;">
+                        <div class="col">
+                            <label>N° de la Unidad:</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" value="{{itemsReportes.vehiculo}}">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-2">
-                        <label style="text-align: center;">UME:</label>
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10dp;">
+                        <div class="col">
+                            <label>Placa:</label>
+                            <input type="text" class="form-control" value="{{itemsReportes.placa}}">
+                        </div>
                     </div>
-                    <div class="col-4">
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10dp;">
+                        <div class="col">
+                            <label>Nombre del Piloto:</label>
+                            <input type="text" class="form-control" value="{{itemsReportes.nombrePiloto}}">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label style="text-align: center;">Fecha Salida:</label>
+                            <input type="date" class="form-control" value="{{itemsReportes.fechaSalida}}" style="size: 4;">
+                        </div>
+
+                        <div class="col-6">
+                            <label style="text-align: center;">Fecha Llegada:</label>
+                            <input type="date" class="form-control" value="{{itemsReportes.fechaLlegada}}" style="size: 4;">
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-6">
+                            <label style="text-align: center;">Hora Salida:</label>
+                            <input type="time" class="form-control" value="{{itemsReportes.horaSalida}}" style="size: 4;">
+                        </div>
+
+                        <div class="col-6">
+                            <label style="text-align: center;">Hora Llegada:</label>
+                            <input type="time" class="form-control" value="{{itemsReportes.horaLlegada}}" style="size: 4;">
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-6">
+                            <label style="text-align: center;">Km. de Salida:</label>
+                            <input type="number" class="form-control" style="size: 4;" value="{{itemsReportes.kmSalida}}" readonly>
+                        </div>
+
+                        <div class="col-6">
+                            <label style="text-align: center;">Km. de Llegada:</label>
+                            <input type="number" class="form-control" style="size: 4;" value="{{itemsReportes.kmLlegada}}">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-6">
+                            <label style="text-align: center;">Llenado de Combustible:</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.llenadoCombustible}}">
+                        </div>
+                    </div>
+
+                    <div class="form-group" *ngIf="itemsReportes.llenadoCombustible == 'Si'">
+                        <hr>
+                        <label>Seleccione nombre de la gasolinera</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" value="{{itemsReportes.ume}}">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.gasolinera}}">
+                        </div>
+                        <hr>
+
+                        <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-4">
+                                <label style="text-align: center;">Kilometraje:</label>
+                            </div>
+
+                            <div class="col-8 form-group">
+                                <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.gasolineraKilometraje}}">
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-4">
+                                <label style="text-align: center;">Galones:</label>
+                            </div>
+
+                            <div class="col-8 form-group">
+                                <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.gasolineraGalones}}">
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-4">
+                                <label style="text-align: center;">TOTAL (S/.):</label>
+                            </div>
+
+                            <div class="col-8 form-group">
+                                <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.gasolineraTotal}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="opcion == 2">
+
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label style="text-align: center;">Combustible Sal.:</label>
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.combustibleSalida}}" readonly>
+                        </div>
+
+                        <div class="col-6">
+                            <label style="text-align: center;">Combustible Lleg.:</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.combustibleLlegada}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Aceite:</label>
+                        </div>
+
+                        <div class="col-8 form-group">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.aceite}}">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Refrigerante:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.refrigerante}}">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Hidrolina:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.hidrolina}}">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Líquido de Freno:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.liquidoFreno}}">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row">
+                        <div class="col-4">
+                            <label style="text-align: center; font-size: 10pt;">Presión Frontal Izq.:</label>
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.presionLlantaFrontalIzq}}">
+                        </div>
+                        <div class="col-4" style="height: 100%;">
+                            <img style="width: 100%;" src="../../../../../assets/img/ambulancia.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <label style="text-align: center; font-size: 10pt;">Presión Frontal Der.</label>
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.presionLlantaFrontalDer}}">
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-4">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.presionLlantaPosteriorIzq}}">
+                            <label style="text-align: center; font-size: 10pt;">Presión Posterior Izq.:</label>
+                        </div>
+                        <div class="col-4" style="font-size: 10pt;">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.presionLlantaRepuesto}}">
+                            <label style="text-align: center;">Llanta de Respuesto:</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.presionLlantaPosteriorDer}}">
+                            <label style="text-align: center; font-size: 10pt;">Presión Posterior Der.:</label>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div *ngIf="opcion == 3">
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Motor:</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.motor}}">
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="form-group" *ngIf="itemsReportes.motor == 'NoConforme'">
+                        <input type="text" class="form-control" placeholder="Ingresar observación" value="{{itemsReportes.motorObservacion}}">
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Sistema Eléctrico:</label>
+                        </div>
+                        <div class="col-8" style="text-align: right;">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.sistemaElectrico}}">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group" *ngIf="itemsReportes.sistemaElectrico == 'NoConforme'">
+                        <input type="text" class="form-control" placeholder="Ingresar observación" value="{{itemsReportes.sistemaElectricoObservacion}}">
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Susp. y/o Direcc.:</label>
+                        </div>
+                        <div class="col-8" style="text-align: right;">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.suspensionDireccion}}">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group" *ngIf="itemsReportes.suspensionDireccion == 'NoConforme'">
+                        <input type="text" class="form-control" placeholder="Ingresar observación" value="{{itemsReportes.suspensionDireccionObservacion}}">
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Caja de cambios:</label>
+                        </div>
+                        <div class="col-8" style="text-align: right;">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.cajaCambios}}">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group" *ngIf="itemsReportes.cajaCambios == 'NoConforme'">
+                        <input type="text" class="form-control" placeholder="Ingresar observación" value="{{itemsReportes.cajaCambiosObservacion}}">
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Frenos:</label>
+                        </div>
+                        <div class="col-8" style="text-align: right;">
+                            <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.frenos}}">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group" *ngIf="itemsReportes.frenos == 'NoConforme'">
+                        <input type="text" class="form-control" placeholder="Ingresar observación" value="{{itemsReportes.frenosObservacion}}">
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Herramientas:</label>
+                        </div>
+                        <div class="col-8" style="text-align: left; padding-left: 20px;">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.gata">
+                                <label class="form-check-label" for="gata">
+                                  Gata
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.llaveRueda">
+                                <label class="form-check-label" for="llaveRueda">
+                                  Llave de rueda
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.palanca">
+                                <label class="form-check-label" for="palanca">
+                                  Palanca
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.seguroRuedas">
+                                <label class="form-check-label" for="seguroRuedas">
+                                  Seguro de ruedas
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.dadoPrueda">
+                                <label class="form-check-label" for="dadoPrueda">
+                                  Dado P/Rueda 
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.alicate">
+                                <label class="form-check-label" for="alicate">
+                                  Alicate
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.tapa">
+                                <label class="form-check-label" for="tapa">
+                                  Tapa de ruedas "Logo"
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.destornillador">
+                                <label class="form-check-label" for="destornillador">
+                                  Destornillador
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.medidorAire">
+                                <label class="form-check-label" for="medidorAire">
+                                  Medidor de aire
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-row" style="margin-top: 10px;">
+                        <div class="col-4">
+                            <label style="text-align: center;">Doc. de la Unidad:</label>
+                        </div>
+                        <div class="col-8" style="text-align: left; padding-left: 20px;">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.tarjetaPropiedad">
+                                <label class="form-check-label" for="tarjetaPropiedad">
+                                  Tarjeta de propiedad
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.soat">
+                                <label class="form-check-label" for="soat">
+                                  SOAT
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="itemsReportes.revisionTecnica">
+                                <label class="form-check-label" for="revisionTecnica">
+                                  Revisión Técnica
+                                </label>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
-                <hr>
+                <div *ngIf="opcion == 4">
 
-                <div class="form-row" style="margin-top: 10dp;">
-                    <div class="col">
-                        <label>Placa:</label>
-                        <input type="text" class="form-control" value="{{itemsReportes.placa}}">
-                    </div>
-                </div>
+                    <!-- Lado Frontal -->
 
-                <hr>
+                    <div class="form-row" style="margin-top: 10dp;">
 
-                <div class="form-row" style="margin-top: 10dp;">
-                    <div class="col">
-                        <label>Nombre del Piloto:</label>
-                        <input type="text" class="form-control" value="{{itemsReportes.nombrePiloto}}">
-                    </div>
-                </div>
+                        <div class="col">
 
-                <hr>
 
-                <div class="form-row">
-                    <div class="col-6">
-                        <label style="text-align: center;">Fecha Salida:</label>
-                        <input type="date" class="form-control" style="size: 4;" value="{{itemsReportes.fechaSalida}}">
-                    </div>
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <label>Lado Frontal:</label>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <label for="">Ploteo Frontal: </label>
+                                    </div>
 
-                    <div class="col-6">
-                        <label style="text-align: center;">Fecha Llegada:</label>
-                        <input type="date" class="form-control" style="size: 4;" value="{{itemsReportes.fechaLlegada}}">
-                    </div>
-                </div>
+                                    <div style="text-align: right;">
+                                        <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.ploteoFrontal}}">
+                                    </div>
 
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-6">
-                        <label style="text-align: center;">Hora Salida:</label>
-                        <input type="time" class="form-control" style="size: 4;" value="{{itemsReportes.horaSalida}}">
+                                    <div style="margin: 20px;">
+                                        <img [src]="itemsReportes.ladoFrontal" style="width: 100%;" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-6">
-                        <label style="text-align: center;">Hora Llegada:</label>
-                        <input type="time" class="form-control" style="size: 4;" value="{{itemsReportes.horaLlegada}}">
+                    <hr>
+
+                    <!-- Lado Izquierdo -->
+
+                    <div class="form-row" style="margin-top: 10dp;">
+
+                        <div class="col">
+
+
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <label>Lado Izquierdo:</label>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <label for="">Ploteo Izquierdo: </label>
+                                    </div>
+
+                                    <div style="text-align: right;">
+                                        <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.ploteoIzquierdo}}">
+                                    </div>
+
+                                    <div style="margin: 20px;">
+                                        <img [src]="itemsReportes.ladoIzquierdo" style="width: 100%;" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-6">
-                        <label style="text-align: center;">Km. de Salida:</label>
-                        <input type="number" class="form-control" style="size: 4;" value="{{itemsReportes.kmSalida}}">
+                    <hr>
+
+                    <!-- Lado Derecho -->
+
+                    <div class="form-row" style="margin-top: 10dp;">
+
+                        <div class="col">
+
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <label>Lado Derecho:</label>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <label for="">Ploteo Derecho: </label>
+                                    </div>
+
+                                    <div style="text-align: right;">
+                                        <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.ploteoDerecho}}">
+                                    </div>
+
+                                    <div style="margin: 20px;">
+                                        <img [src]="itemsReportes.ladoDerecho" style="width: 100%;" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-6">
-                        <label style="text-align: center;">Km. de Llegada:</label>
-                        <input type="number" class="form-control" style="size: 4;" value="{{itemsReportes.kmLlegada}}">
+                    <hr>
+
+                    <!-- Lado Posterior -->
+
+                    <div class="form-row" style="margin-top: 10dp;">
+
+                        <div class="col">
+
+
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <label>Lado Posterior:</label>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <label for="">Ploteo Posterior: </label>
+                                    </div>
+
+                                    <div style="text-align: right;">
+                                        <input type="text" class="form-control" style="size: 4;" value="{{itemsReportes.ploteoPosterior}}">
+                                    </div>
+
+                                    <div style="margin: 20px;">
+                                        <img [src]="itemsReportes.ladoPosterior" style="width: 100%;" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-            </div>
 
-            <div *ngIf="opcion == 2">
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Combustible:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.combustible}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Aceite:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.aceite}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Refrigerante:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.refrigerante}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Hidrolina:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.hidrolina}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Líquido de Freno:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.liquidoFreno}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Presión de Llantas:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.presionLlantas}}">
-                    </div>
-                </div>
-
-            </div>
-
-            <div *ngIf="opcion == 3">
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Motor:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.motor}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label style="text-align: center;">Sistema Eléctrico:</label>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" class="form-control" value="{{itemsReportes.sistemaElectrico}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-4">
-                        <label>Suspensión y/o Direcc.:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.suspensionDireccion}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row " style="margin-top: 10px; ">
-                    <div class="col-4 ">
-                        <label style="text-align: center; ">Caja de cambios:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.cajaCambios}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row " style="margin-top: 10px; ">
-                    <div class="col-4 ">
-                        <label style="text-align: center; ">Frenos:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.frenos}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row " style="margin-top: 10px; ">
-                    <div class="col-4 ">
-                        <label style="text-align: center; ">Neumáticos:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.neumaticos}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row " style="margin-top: 10px; ">
-                    <div class="col-4 ">
-                        <label style="text-align: center; ">Carrocería:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.carroceria}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row " style="margin-top: 10px; ">
-                    <div class="col-4 ">
-                        <label style="text-align: center; ">Herramientas:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.herramientas}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row " style="margin-top: 10px; ">
-                    <div class="col-4 ">
-                        <label style="text-align: center; ">Doc. de la Unidad:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.docUnidad}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-row " style="margin-top: 10px;">
-                    <div class="col-4 ">
-                        <label style="text-align: center; ">Vasos:</label>
-                    </div>
-                    <div class="col-8 ">
-                        <input type="text " class="form-control" value="{{itemsReportes.vasos}}">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-group " style="margin-top: 10px; ">
-                    <label for="exampleFormControlTextarea1 ">Conformidad Piloto Saliente</label>
-                    <textarea class="form-control " id="exampleFormControlTextarea1 " rows="3" value="{{itemsReportes.conformidadPilotoSaliente}}"></textarea>
-                </div>
-
-                <hr>
-
-                <div class="form-group " style="margin-top: 10px; ">
-                    <label for="exampleFormControlTextarea1 ">Conformidad Piloto Entrante</label>
-                    <textarea class="form-control " id="exampleFormControlTextarea1 " rows="3" value="{{itemsReportes.conformidadPilotoEntrante}}"></textarea>
-                </div>
+                    <hr>
 
 
-                <!-- Sección para cargar archivo -->
-
-            </div>
-
-            <div *ngIf="opcion==4 ">
-
-                <!-- Lado Frontal -->
-
-                <div class="form-row " style="margin-top: 10dp; ">
-                    <div class="col ">
-                        <label>Lado Frontal:</label>
-                        <img width="100%" src="{{itemsReportes.ladoFrontal[0]}}" alt="">
-                    </div>
-                </div>
-
-                <hr>
-
-                <!-- Lado Izquierdo -->
-
-                <div class="form-row " style="margin-top: 10dp; ">
-
-                    <div class="col ">
-                        <label>Lado Izquierdo:</label>
-                        <img width="100%" src="{{itemsReportes.ladoIzquierdo[0]}}" alt="">
-                    </div>
 
                 </div>
 
-                <hr>
+            </form>
+        </div>
 
-                <!-- Lado Derecho -->
 
-                <div class="form-row " style="margin-top: 10dp; ">
-
-                    <div class="col ">
-                        <label>Lado Derecho:</label>
-                        <img width="100%" src="{{itemsReportes.ladoDerecho[0]}}" alt="">
-                    </div>
-
-                </div>
-
-                <hr>
-
-                <!-- Lado Posterior -->
-
-                <div class="form-row " style="margin-top: 10dp; ">
-
-                    <div class="col ">
-                        <label>Lado Posterior:</label>
-                        <img width="100%" src="{{itemsReportes.ladoPosterior[0]}}" alt="">
-                    </div>
-
-                </div>
-
-            </div>
-
-        </form>
 
 
 

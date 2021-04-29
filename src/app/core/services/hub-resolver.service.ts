@@ -77,8 +77,8 @@ export class HubResolverService {
         case 'gerencia': {
           return 'gerencia';
         }
-        case 'contabilidad': {
-          return 'contabilidad';
+        case 'pilotos': {
+          return 'pilotos';
         }
         case 'ventas': {
           return 'ventas';

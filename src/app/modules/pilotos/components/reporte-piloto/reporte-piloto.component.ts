@@ -52,7 +52,11 @@ export class ReportePilotoComponent implements OnInit {
   public tipoCombustible: string;
   public tipoVehiculo: string;
   public vehiculo: string;
-  
+
+  vehiculosDatos: AngularFireObject<any>;
+  itemFotos: any;
+
+
   constructor(
     private _builder: FormBuilder, private firestore: AngularFirestore,private router: Router, private _route: ActivatedRoute, private db: AngularFireDatabase, private storage: AngularFireStorage, private uploadService: StorageService, private cd: ChangeDetectorRef
   ) {
@@ -62,6 +66,7 @@ export class ReportePilotoComponent implements OnInit {
     const fechaActual = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
     const fechaSistema = formatDate(currentDate, 'dd/MM/yyyy', 'en-US');
     const horaActual = formatDate(currentDate, 'HH:mm', 'en-US');
+
 
     this._route.data.subscribe((data: { user: User }) => {
       this.nombrePiloto = data.user['nombre'];
@@ -133,9 +138,15 @@ export class ReportePilotoComponent implements OnInit {
       validadorDerecho:['',Validators.required],
       validadorPosterior:['',Validators.required]
     })
+
+    
+  
+
+
   }
 
   ngOnInit(): void {
+
   }
 
   itemsMenu(valor){
@@ -166,7 +177,26 @@ export class ReportePilotoComponent implements OnInit {
 
   onChange(deviceValue) {
     console.log(deviceValue);
-    this. vehiculo = deviceValue;
+    this.vehiculo = deviceValue;
+
+    this.vehiculosDatos = this.db.object('SuizaAlertaApp/EvidenciaUME/'+this.vehiculo);
+    this.itemFotos = this.vehiculosDatos.valueChanges().subscribe(value => {
+      console.log(value);
+      
+    if(value.frontal.url != "" || value.frontal.url == undefined){
+      this.miFormulario.patchValue({ladoFrontal: value.frontal.url})
+    }
+    if(value.izquierda.url != "" || value.izquierda.url == undefined){
+      this.miFormulario.patchValue({ladoIzquierdo: value.izquierda.url})
+    }
+    if(value.derecha.url != "" || value.derecha.url == undefined){
+      this.miFormulario.patchValue({ladoDerecho: value.derecha.url})
+    }
+    if(value.posterior.url != "" || value.posterior.url == undefined){
+      this.miFormulario.patchValue({ladoPosterior: value.posterior.url})
+    }
+    
+    })
     
     this.item = this.db.object('SuizaAlertaApp/informacionUME/'+deviceValue);
     this.item.snapshotChanges().subscribe(action => {
@@ -174,7 +204,7 @@ export class ReportePilotoComponent implements OnInit {
       this.tipoCombustible = action.payload.val()['tipoCombustible'];  
       this.tipoVehiculo = action.payload.val()['tipoVehiculo']    
 
-      console.log(this.tipoVehiculo);
+      console.log(this.tipoVehiculo);  
       
       this.kmSalida = action.payload.val()['kmSalida']
       this.miFormulario.patchValue({placa: action.payload.val()['placa']})
@@ -250,6 +280,7 @@ export class ReportePilotoComponent implements OnInit {
       this.miFormulario.patchValue({gasolineraGalones: "0"})
       this.miFormulario.patchValue({gasolineraTotal: "0"})
     }
+
   }
 
   ladoFrontal(event): void {
@@ -299,6 +330,7 @@ export class ReportePilotoComponent implements OnInit {
       percentage => {
         /* this.percentage = Math.round(percentage); */
 
+
         if(posicion == "frontal") {
           this.porcentajeFrontal = Math.round(percentage);
           /* if(this.porcentajeFrontal == 100) {
@@ -340,7 +372,11 @@ export class ReportePilotoComponent implements OnInit {
 
     this.db.database.ref('SuizaAlertaApp/informacionUME/'+values['vehiculo']).child('kmSalida').set(values['kmLlegada'])
     this.db.database.ref('SuizaAlertaApp/informacionUME/'+values['vehiculo']).child('combustibleSalida').set(values['combustibleLlegada'])
+
+    this.vehiculosDatos.set({frontal:"",izquierda:"",derecha:"",posterior:""})
+
     this.router.navigate(['/pilotos/carga-exitosa']);
     this.miFormulario.reset();
   }
+
 }

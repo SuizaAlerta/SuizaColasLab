@@ -12,7 +12,7 @@ export class SidebarService {
       title: 'Menú',
       type: 'header'
     },
-    /* {
+    {
       title: 'Mapa',
       icon: 'fa fa-map-marker ',
       active: false,
@@ -29,7 +29,7 @@ export class SidebarService {
           route: "unidadesActuales"
         }
       ]
-    }, */
+    },
     {
       title: 'Operaciones',
       icon: 'fa fa-cog',

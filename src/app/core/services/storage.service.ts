@@ -1,13 +1,14 @@
-import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { formatDate } from '@angular/common';
+
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { ReporteCargaExitosaComponent } from '../components/reporte-carga-exitosa/reporte-carga-exitosa.component';
-import { ReportePilotoComponent } from '../components/reporte-piloto/reporte-piloto.component';
+
 import { FileUpload } from '../models/fileUpload';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,10 @@ export class StorageService {
   private basePath = 'SuizaAlertaApp/EvidenciaUME';
   public ruta: string;
   
-  itemsFrontal = [];
-  itemsIzquierda = [];
-  itemsDerecha = [];
-  itemsPosterior = [];
 
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
 
-  pushFileToStorage(fileUpload: FileUpload, posicion: string): Observable<number> {
-    this.itemsFrontal = [];
+  pushFileToStorage(fileUpload: FileUpload, posicion: string, vehiculo: string): Observable<number> {
 
     const currentDate = new Date();
     const fechaSistema = formatDate(currentDate, 'dd-MM-yyyy', 'en-US');
@@ -41,11 +37,12 @@ export class StorageService {
 
           fileUpload.url = downloadURL;
           fileUpload.name = fileUpload.file.name;
-          this.saveFileData(fileUpload);
+          this.saveFileData(fileUpload, posicion, vehiculo);
 
-          this.ruta = downloadURL;            
+          this.ruta = downloadURL;        
+          
 
-          if(posicion == "frontal") {
+          /* if(posicion == "frontal") {
             this.itemsFrontal.push(downloadURL)
           } else if( posicion == "izquierda") {
             this.itemsIzquierda.push(downloadURL)
@@ -53,7 +50,9 @@ export class StorageService {
             this.itemsDerecha.push(downloadURL)
           } else if( posicion == "posterior") {
             this.itemsPosterior.push(downloadURL)
-          }
+          } else {
+
+          } */
           
         });
       })
@@ -62,7 +61,7 @@ export class StorageService {
     return uploadTask.percentageChanges();
   }
 
-  getFotoFrontal() {
+ /*  getFotoFrontal() {
     return this.itemsFrontal;
   }
 
@@ -76,11 +75,11 @@ export class StorageService {
 
   getFotoPosterior() {
     return this.itemsPosterior;
-  }
+  } */
 
 
-  private saveFileData(fileUpload: FileUpload): void {
-    this.db.list(this.basePath).push(fileUpload);
+  private saveFileData(fileUpload: FileUpload, posicion: string, vehiculo: string): void {
+    this.db.list(this.basePath+"/"+vehiculo+"/"+posicion).set("url",fileUpload.url);
   }
 
   /* getFiles(numberItems): AngularFireList<FileUpload> {
@@ -104,5 +103,4 @@ export class StorageService {
     const storageRef = this.storage.ref(this.basePath);
     storageRef.child(name).delete();
   } */
-
 }

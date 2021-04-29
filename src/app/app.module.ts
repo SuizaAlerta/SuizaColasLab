@@ -20,14 +20,13 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
 import { AgmCoreModule } from '@agm/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignaturePadModule } from 'angular2-signaturepad';
-
-
-
+import { APP_BASE_HREF } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,14 +40,18 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
+    FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAAatGQSRkWM-3S5bWF0WX_qA7bLQ7ZmI8',
       libraries: ['places']
     })
     
   ],
+  
   providers: [AngularFirestore],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
+
+

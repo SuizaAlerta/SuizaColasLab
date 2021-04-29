@@ -1,0 +1,29 @@
+<div>
+    <div style="text-align: center;">
+        <h1>Revisión Tecnica</h1>
+    </div>
+    <hr>
+    <div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Vehículo</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Fecha Revisión Técnica</th>
+                    <th scope="col">Días</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let valor of datosVehiculos; let i = index">
+                    <th style="font-size: small;" scope="row">{{i+1}}</th>
+                    <td style="font-size: small;">{{valor.vehiculo}}</td>
+                    <td style="font-size: small;">{{valor.placa}}</td>
+                    <td style="font-size: small;">@mdo</td>
+                    <td style="font-size: small;">@mdo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

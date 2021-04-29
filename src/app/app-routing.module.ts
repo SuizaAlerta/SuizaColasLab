@@ -37,6 +37,12 @@ const routes: Routes = [
     data: { expectedRoles: ['gerencia']}
   },
   {
+    path: 'pilotos',
+    loadChildren: () => import('./modules/pilotos/pilotos.module').then(m => m.PilotosModule),
+    canLoad: [RoleGuard],
+    data: { expectedRoles: ['pilotos']}
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }

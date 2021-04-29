@@ -25,7 +25,7 @@
     <div style="width: 100%; height: auto;">
         <agm-map [latitude]='latitud' [longitude]='longitud' [zoom]="zoom" style="display: block; height: 85vh;">
             <agm-marker *ngFor="let marker of mapaGPS" [latitude]="marker.lat" [longitude]="marker.lon" [animation]="'NONE'" [iconUrl]="marker.icon" [title]="marker.unidad">
-                <agm-info-window [isOpen]="true" [disableAutoPan]="false" #infoWindow>
+                <agm-info-window [isOpen]="true" [disableAutoPan]="true">
                     <span style="font-weight: bold;">{{ marker.unidad }}</span>
                 </agm-info-window>
             </agm-marker>

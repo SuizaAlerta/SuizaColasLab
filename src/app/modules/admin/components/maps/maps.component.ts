@@ -26,6 +26,36 @@ export class MapsComponent implements OnInit {
   latitud = -12.110631;
   longitud = -77.021427;
   zoom=13;
+
+  dataArray = {
+    "totalItems": 2,
+    "items": [
+      {
+        "id": 1,
+        "name": "foo"
+  
+      },
+      {
+        "id": 2,
+        "name": "bar"
+      },
+      ]
+  }
+
+  dataArray1 = {
+    "totalItems": 2,
+    "items": [
+      {
+        "id": 100,
+        "name": "foo"
+  
+      },
+      {
+        "id": 200,
+        "name": "bar"
+      },
+      ]
+  }
             
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
@@ -53,14 +83,19 @@ export class MapsComponent implements OnInit {
           this.unidadesGPS.push(data)
         });
 
-        this.mapaGPS = this.unidadesGPS;
+        this.updateMapa(this.unidadesGPS);
 
       });
-    
   }
 
   ngOnInit(): void {
+    this.dataArray = this.dataArray1;
+    console.log(this.dataArray);
     
+  }
+
+  updateMapa(valor){
+    this.mapaGPS = valor;
   }
 
 

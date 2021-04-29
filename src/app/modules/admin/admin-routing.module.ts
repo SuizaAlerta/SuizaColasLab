@@ -10,6 +10,7 @@ import { MantenimientoComponent } from './components/mantenimiento/mantenimiento
 import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
 import { ReporteCargaExitosaComponent } from './components/reporte-carga-exitosa/reporte-carga-exitosa.component';
 import { ListaRegistroComponent } from './components/lista-registro/lista-registro.component';
+import { RevisionTecnicaComponent } from './components/revision-tecnica/revision-tecnica.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,13 @@ const routes: Routes = [
       {
         path: 'carga-exitosa',
         component: ReporteCargaExitosaComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'revision-tecnica',
+        component: RevisionTecnicaComponent,
         resolve: {
           user: ResolverService
         }
