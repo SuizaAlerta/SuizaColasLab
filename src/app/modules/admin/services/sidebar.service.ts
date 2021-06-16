@@ -63,6 +63,11 @@ export class SidebarService {
       type: 'dropdown',
       submenus: [
         {
+          title: 'Consolidado',
+          icon: "fa fa-cog",
+          route: "consolidado"
+        },
+        {
           title: 'Lista de Registros',
           icon: "fa fa-cog",
           route: "lista-registros"

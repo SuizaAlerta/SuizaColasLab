@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/core/models/user.model';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-consolidado-unidades',
-  templateUrl: './consolidado-unidades.component.html',
-  styleUrls: ['./consolidado-unidades.component.css']
+  selector: 'app-listado-registros',
+  templateUrl: './listado-registros.component.html',
+  styleUrls: ['./listado-registros.component.css']
 })
-export class ConsolidadoUnidadesComponent implements OnInit {
+export class ListadoRegistrosComponent implements OnInit {
+
+  public nombrePiloto: string;
 
   public itemsReportes: any;
   public reporte : any;
@@ -16,14 +20,21 @@ export class ConsolidadoUnidadesComponent implements OnInit {
   public title: string = "Reporte del Piloto";
   opcion: number = 1;
 
-  constructor(private firestore: AngularFirestore, private modalService: NgbModal) {
+  constructor(private firestore: AngularFirestore, private modalService: NgbModal, private _route: ActivatedRoute) {
     let today = new Date();
     let startDate = new Date(today);
 
-    this.firestore.collection<any>('consolidadoUME').valueChanges().subscribe(val => {
+    this._route.data.subscribe((data: { user: User }) => {
+      this.nombrePiloto = data.user['nombre'];
+      
+    }, err => { console.log("Error hub:", err) });
+
+    this.firestore.collection<any>('listaReportePiloto',ref => ref.where("nombrePiloto", '==', this.nombrePiloto)).valueChanges().subscribe(val => {
       this.reporte = val;
-      console.log(val);
+      let newarr = val.sort((a, b) => b.timestamp - a.timestamp);
+      console.log(newarr);
     });
+
   }
 
   ngOnInit(): void {

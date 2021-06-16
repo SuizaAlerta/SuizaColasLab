@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { ListaUnidades } from 'src/app/core/models/ListaUnidades';
+import { UnidadesActualesComponent } from '../unidades-actuales/unidades-actuales.component';
 
 @Component({
   selector: 'app-maps',
@@ -11,6 +12,7 @@ import { ListaUnidades } from 'src/app/core/models/ListaUnidades';
 export class MapsComponent implements OnInit {
 
   public unidadesGPS: ListaUnidades[] = [];
+  public nuevaLista = []
   mapaGPS: any;
 
   unidad: string;
@@ -27,35 +29,8 @@ export class MapsComponent implements OnInit {
   longitud = -77.021427;
   zoom=13;
 
-  dataArray = {
-    "totalItems": 2,
-    "items": [
-      {
-        "id": 1,
-        "name": "foo"
-  
-      },
-      {
-        "id": 2,
-        "name": "bar"
-      },
-      ]
-  }
+  selectedOptions = "TODOS";
 
-  dataArray1 = {
-    "totalItems": 2,
-    "items": [
-      {
-        "id": 100,
-        "name": "foo"
-  
-      },
-      {
-        "id": 200,
-        "name": "bar"
-      },
-      ]
-  }
             
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
@@ -63,40 +38,74 @@ export class MapsComponent implements OnInit {
     this.itemsRef = db.list('SuizaAlertaApp/gpsUbicacion');  
 
     this.itemsRef.snapshotChanges()
-      .subscribe(async actions => {
-        this.unidadesGPS = [];
+    .subscribe(async actions => {
+      this.unidadesGPS = [];
+      this.nuevaLista = [];
+      
+      
+      actions.forEach(action => {
+
+        this.unidad = action.payload.val()['UME']
+        this.medico = action.payload.val()['Medico']
+        this.paramedico = action.payload.val()['Paramedico']
+        this.piloto = action.payload.val()['Piloto']
+        this.lat = action.payload.val()['lat']
+        this.lon = action.payload.val()['lon']
+        this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
+        this.atencion = action.payload.val()['Atencion']
         
-        
-         actions.forEach(action => {
 
-          this.unidad = action.payload.val()['UME']
-          this.medico = action.payload.val()['Medico']
-          this.paramedico = action.payload.val()['Paramedico']
-          this.piloto = action.payload.val()['Piloto']
-          this.lat = action.payload.val()['lat']
-          this.lon = action.payload.val()['lon']
-          this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
-          this.atencion = action.payload.val()['Atencion']
-          this.icon = '../assets/icon/' + action.payload.val()['icon'] + ".png"
+        if(this.unidad == "UME36" || this.unidad == "UME37" || this.unidad == "UME38"){
+          this.icon = '../assets/icon/linea2.png'
+        } else if(this.unidad[0] == 'C' || this.unidad[0] == 'A') {
+            this.icon = '../assets/icon/A' + action.payload.val()['icon'] + ".png"
+        } else {
+            this.icon = '../assets/icon/' + action.payload.val()['icon'] + ".png"
+        }
 
-          const data = new ListaUnidades(this.unidad,this.medico,this.paramedico,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.atencion,this.icon);
-          this.unidadesGPS.push(data)
-        });
 
-        this.updateMapa(this.unidadesGPS);
-
+        const data = new ListaUnidades(this.unidad,this.medico,this.paramedico,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.atencion,this.icon);
+        this.unidadesGPS.push(data)
       });
+
+
+      if(this.selectedOptions == "UME"){
+        
+        this.unidadesGPS.forEach(val => {
+          if(val['unidad'][0] == "U") {
+            this.nuevaLista.push(val)
+          } 
+        })
+      } else if(this.selectedOptions == "CONSULTAS Y APOYO"){
+        this.unidadesGPS.forEach(val => {
+          if(val['unidad'][0] == "A" || val['unidad'][0] == "C") {
+            this.nuevaLista.push(val)
+          } 
+        })
+      } else {
+        this.nuevaLista = this.unidadesGPS
+      }
+
+      this.updateMapa(this.nuevaLista);
+
+    });
+
+    
   }
 
   ngOnInit(): void {
-    this.dataArray = this.dataArray1;
-    console.log(this.dataArray);
-    
+  }
+
+
+
+  onChange($event) {
+
+
+
   }
 
   updateMapa(valor){
     this.mapaGPS = valor;
   }
-
 
 }

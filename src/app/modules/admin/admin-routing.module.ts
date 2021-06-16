@@ -11,12 +11,21 @@ import { ReportePilotoComponent } from './components/reporte-piloto/reporte-pilo
 import { ReporteCargaExitosaComponent } from './components/reporte-carga-exitosa/reporte-carga-exitosa.component';
 import { ListaRegistroComponent } from './components/lista-registro/lista-registro.component';
 import { RevisionTecnicaComponent } from './components/revision-tecnica/revision-tecnica.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ConsolidadoUnidadesComponent } from './components/consolidado-unidades/consolidado-unidades.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
       {
         path: 'mapaGPS',
         component: MapsComponent,
@@ -34,6 +43,13 @@ const routes: Routes = [
       {
         path: 'personalActivo',
         component: BasePersonalComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'consolidado',
+        component: ConsolidadoUnidadesComponent,
         resolve: {
           user: ResolverService
         }

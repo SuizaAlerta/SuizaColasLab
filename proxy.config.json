@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "http://119.8.153.52/ws_suizaalertaprod",
+        "secure": false,
+        "loglevel": "debug"
+    }
+}

@@ -37,14 +37,14 @@ export class SidebarService {
       type: 'dropdown',
       submenus: [
         {
-          title: 'Lista de Registros',
-          icon: "fa fa-cog",
-          route: "lista-registros"
+          title: 'Consolidado',
+          icon: "fa fa-list",
+          route: "consolidado-unidades"
         },
         {
-          title: 'Reporte Piloto',
-          icon: "fa fa-cog",
-          route: "reporte-pilotos"
+          title: 'Lista de Registros',
+          icon: "fa fa-list",
+          route: "lista-registros"
         }
       ]
     },

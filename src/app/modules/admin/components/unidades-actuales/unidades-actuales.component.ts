@@ -41,7 +41,22 @@ export class UnidadesActualesComponent implements OnInit {
           this.lon = action.payload.val()['lon']
           this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
           this.atencion = action.payload.val()['Atencion']
-          this.icon = '../assets/icon/' + action.payload.val()['icon'] + ".png"
+/*           this.icon = '../assets/icon/' + action.payload.val()['icon'] + ".png"
+ */
+
+          if(this.unidad == "UME36" || this.unidad == "UME37" || this.unidad == "UME38"){
+            this.icon = '../assets/icon/linea2.png'
+          } else if(this.unidad[0] == 'C' || this.unidad[0] == 'A') {
+              this.icon = '../assets/icon/A' + action.payload.val()['icon'] + ".png"
+          } else {
+              this.icon = '../assets/icon/' + action.payload.val()['icon'] + ".png"
+          }
+
+            
+          
+
+          
+          
 
           
           
@@ -56,5 +71,6 @@ export class UnidadesActualesComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
 
 }

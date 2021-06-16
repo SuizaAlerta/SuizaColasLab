@@ -22,6 +22,11 @@ export class SidebarService {
           title: 'Reporte Digital',
           icon: "fa fa-cog",
           route: "reporte-pilotos"
+        },
+        {
+          title: 'Listado de Registros',
+          icon: "fa fa-list",
+          route: "listado-registros"
         }
       ]
     },

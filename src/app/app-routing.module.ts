@@ -43,6 +43,10 @@ const routes: Routes = [
     data: { expectedRoles: ['pilotos']}
   },
   {
+    path: 'general',
+    loadChildren: () => import('./modules/general/general.module').then(m => m.GeneralModule),
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }

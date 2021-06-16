@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DataService } from './data.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,31 +12,23 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AppComponent {
   title = 'general';
 
-  lat = 22.4064172;
-  long = 69.0750171;
-  zoom=7;
-  
-  markers = [
-        {
-            lat: 21.1594627,
-            lng: 72.6822083,
-            label: 'Surat'
-        },
-        {
-            lat: 23.0204978,
-            lng: 72.4396548,
-            label: 'Ahmedabad'
-        },
-        {
-            lat: 22.2736308,
-            lng: 70.7512555,
-            label: 'Rajkot'
-        }
-    ];
+  public barChartOptions: any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public barChartLabels: string[];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
+
+  public barChartData: any[] = [
+    { data: [], label: 'Volume Sales' },
+    { data: [], label: 'Value Sales' }
+  ];
 
   constructor(
     private router: Router,
     private spinnerService: NgxSpinnerService,
+    private _emp: DataService
   ) {
 
     this.router.events.subscribe((event: Event) => {
@@ -53,4 +47,15 @@ export class AppComponent {
       }
     });
   }
+
+  ngOnInit() {
+    this._emp.getSales().subscribe(data => {
+      this.barChartLabels = Object.keys(data);
+      this.barChartLabels.forEach(label => {
+        this.barChartData[0].data.push(data[label]['volumeSales']);
+        this.barChartData[1].data.push(data[label]['valueSales']);
+      });
+    });;
+  }
+  
 }

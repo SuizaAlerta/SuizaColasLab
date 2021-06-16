@@ -20,18 +20,26 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
 import { AgmCoreModule } from '@agm/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DataService } from './data.service';
+import { ChartsModule } from 'ng2-charts'
+import { NgApexchartsModule } from "ng-apexcharts";
+import { OrderByPipe } from './order-by.pipe';
+import { FichaSintomatologiaComponent } from './modules/general/components/ficha-sintomatologia/ficha-sintomatologia.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    OrderByPipe,
+    FichaSintomatologiaComponent,
   ],
   imports: [
     BrowserModule,
     SignaturePadModule,
     ReactiveFormsModule,
+    ChartsModule,
     AppRoutingModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
@@ -41,6 +49,7 @@ import { FormsModule } from '@angular/forms';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     FormsModule,
+    NgApexchartsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAAatGQSRkWM-3S5bWF0WX_qA7bLQ7ZmI8',
       libraries: ['places']
@@ -48,7 +57,7 @@ import { FormsModule } from '@angular/forms';
     
   ],
   
-  providers: [AngularFirestore],
+  providers: [AngularFirestore, DataService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

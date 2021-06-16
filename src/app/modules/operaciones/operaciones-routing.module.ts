@@ -7,6 +7,7 @@ import { ReporteCargaExitosaComponent } from './components/reporte-carga-exitosa
 import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
 import { UnidadesActualesComponent } from '../admin/components/unidades-actuales/unidades-actuales.component';
 import { MainComponent } from './components/main/main.component';
+import { ConsolidadoUnidadesComponent } from '../admin/components/consolidado-unidades/consolidado-unidades.component';
 
 const routes: Routes = [
   {
@@ -28,12 +29,19 @@ const routes: Routes = [
         }
       },
       {
+        path: 'consolidado-unidades',
+        component: ConsolidadoUnidadesComponent,
+        resolve: {
+        user: ResolverService
+        }
+      },
+      {
         path: 'lista-registros',
         component: ListaRegistroComponent,
         resolve: {
         user: ResolverService
         }
-      },
+      }/* ,
       {
         path: 'reporte-pilotos',
         component: ReportePilotoComponent,
@@ -47,7 +55,7 @@ const routes: Routes = [
         resolve: {
           user: ResolverService
         }
-      }
+      } */
     ]
   }
 ];
