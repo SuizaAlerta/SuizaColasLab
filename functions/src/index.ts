@@ -1,21 +1,15 @@
 import * as functions from "firebase-functions"
 
+const admin = require('firebase-admin');
+admin.initializeApp(functions.config().firebase);
+
+
 export const helloWorld = functions.https.onRequest((request, response) => {
 
 
-
-  const axios = require('axios');
-
+  const https = require('http');
+ 
   
-  axios
-    .post('http://119.8.152.20/ws_suizaalertaapppreprod/api/login/app_fichaSintomatologica?idEmpleado=20&tipoDocumento=1&nroDocumento=1&puestoTrabajo=2&areaTrabajo=2&nroTelefono=972396963&direccion=8&fechaCreacion=2020-09-20&usuario=EDDY&idSintoma1=1&idSintoma2=1&idSintoma3=1&idSintoma4=1&idSintoma5=1&idSintoma6=1&detalles=EDDY')
-    .then(res => {
-        console.log(`statusCode: ${res.statusCode}`)
-        console.log(res)
-    })
-    .catch(error => {
-        console.error(error)
-    })
 
   //const axios = require('axios');
 
@@ -37,8 +31,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
     idSintoma6: 1,
     detalles: 'John Doe'
   }; */
-  response.send("Eddy");
-  /* axios.post('http://119.8.152.20/ws_suizaalertaapppreprod/api/login/app_fichaSintomatologica?idEmpleado=20&tipoDocumento=1&nroDocumento=1&puestoTrabajo=2&areaTrabajo=2&nroTelefono=972396963&direccion=8&fechaCreacion=2020-09-20&usuario=EDDY&idSintoma1=1&idSintoma2=1&idSintoma3=1&idSintoma4=1&idSintoma5=1&idSintoma6=1&detalles=EDUARDS')
+    /* axios.post('http://119.8.152.20/ws_suizaalertaapppreprod/api/login/app_fichaSintomatologica?idEmpleado=20&tipoDocumento=1&nroDocumento=1&puestoTrabajo=2&areaTrabajo=2&nroTelefono=972396963&direccion=8&fechaCreacion=2020-09-20&usuario=EDDY&idSintoma1=1&idSintoma2=1&idSintoma3=1&idSintoma4=1&idSintoma5=1&idSintoma6=1&detalles=EDUARDS')
       .then((res) => {
           console.log(`Status: ${res.status}`);
           console.log('Body: ', res.data);
@@ -86,7 +79,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
     req.end() */
 
 
-    /* https.get('http://119.8.153.52/ws_suizaalertaprod/api/medicamento/app_listarkardex?idunidadmedica=CONS%2016', (resp) => {
+    https.get('http://119.8.152.20/ws_suizaalertaapppreprod/api/login/app_obtenerempleados', (resp) => {
      let data = '';
    
      // A chunk of data has been received.
@@ -96,14 +89,22 @@ export const helloWorld = functions.https.onRequest((request, response) => {
    
      // The whole response has been received. Print out the result.
      resp.on('end', () => {
-      functions.logger.info(JSON.parse(data));
+      //functions.logger.info(JSON.parse(data));
        response.send(JSON.parse(data));
+
+       functions.database.ref('/Proyectos/MAE_TIPO_DOCUMENTOS').onCreate((snap, context) => {
+        return snap.ref.set({nombre:"Eddy"}) 
+       })
+
+       
+
+
      });
    
    }).on("error", (err) => {
      console.log("Error: " + err.message);
      functions.logger.info("Error: " + err.message);
-   }); */
+   });
 
   
 

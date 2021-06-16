@@ -15,7 +15,7 @@ export class FichaSintomatologiaComponent implements OnInit {
 
   ngOnInit(): void {
     this.https.get<any>('/api/login/app_listarparamedico').subscribe(data => {
-            console.log(data  );
+            console.log(data);
         })
   }
 }
