@@ -295,7 +295,7 @@ export class ReportePilotoComponent implements OnInit {
     this.selectedFiles = undefined;
 
     this.currentFileUpload = new FileUpload(file);
-    this.uploadService.pushFileToStorage(this.currentFileUpload, posicion, this.vehiculo).subscribe(
+    this.uploadService.pushFileToStorage(this.currentFileUpload, posicion, this.vehiculo, "").subscribe(
       percentage => {
         /* this.percentage = Math.round(percentage); */
 

@@ -16,7 +16,7 @@ export class ReporteCargaExitosaComponent implements OnInit {
   }
 
   Inicio() {
-    this.router.navigate(['/pilotos/reporte-pilotos']); 
+    this.router.navigate(['/pilotos/reporte-pilotosv2']); 
   }
 
 }

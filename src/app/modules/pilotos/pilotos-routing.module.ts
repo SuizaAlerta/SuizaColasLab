@@ -4,6 +4,7 @@ import { ResolverService } from 'src/app/core/services/resolver.service';
 import { ListadoRegistrosComponent } from './components/listado-registros/listado-registros.component';
 import { MainComponent } from './components/main/main.component';
 import { ReporteCargaExitosaComponent } from './components/reporte-carga-exitosa/reporte-carga-exitosa.component';
+import { ReportePilotoV2Component } from './components/reporte-piloto-v2/reporte-piloto-v2.component';
 import { ReportePilotoComponent } from './components/reporte-piloto/reporte-piloto.component';
 
 const routes: Routes = [
@@ -14,6 +15,13 @@ const routes: Routes = [
       {
         path: 'reporte-pilotos',
         component: ReportePilotoComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'reporte-pilotosv2',
+        component: ReportePilotoV2Component,
         resolve: {
           user: ResolverService
         }

@@ -22,7 +22,7 @@ export class RevisionTecnicaComponent implements OnInit {
 
       values.forEach(value => {
 
-        const itemsRT = new RevisionTecnica(value['vehiculo'],value['placa'],value['placa'],value['vehiculo'])
+        const itemsRT = new RevisionTecnica(value['vehiculo'],value['placa'],value['soat'],value['vehiculo'])
         this.datosVehiculos.push(itemsRT)
         
       })
@@ -33,7 +33,7 @@ export class RevisionTecnicaComponent implements OnInit {
 
 
   
-    /* var fecha1 = moment('2021-01-01');
+    var fecha1 = moment('2021-06-25');
     var date = new Date();
 
     const horaSistema = formatDate(date, 'yyyy-MM-dd', 'en-US');
@@ -42,7 +42,7 @@ export class RevisionTecnicaComponent implements OnInit {
     
     var fecha2 = moment(horaSistema);
 
-    console.log(fecha2.diff(fecha1, 'days'), ' dias de diferencia'); */
+    console.log(fecha2.diff(fecha1, 'days'), ' dias de diferencia');
     
   }
 

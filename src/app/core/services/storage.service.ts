@@ -21,7 +21,7 @@ export class StorageService {
 
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
 
-  pushFileToStorage(fileUpload: FileUpload, posicion: string, vehiculo: string): Observable<number> {
+  pushFileToStorage(fileUpload: FileUpload, posicion: string, vehiculo: string, ruta_key: string): Observable<number> {
 
     const currentDate = new Date();
     const fechaSistema = formatDate(currentDate, 'dd-MM-yyyy', 'en-US');
@@ -35,11 +35,18 @@ export class StorageService {
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
 
+          console.log(ruta_key);
+          
+
           fileUpload.url = downloadURL;
           fileUpload.name = fileUpload.file.name;
           this.saveFileData(fileUpload, posicion, vehiculo);
 
           this.ruta = downloadURL;        
+
+
+          console.log(this.ruta);
+          
           
 
           /* if(posicion == "frontal") {

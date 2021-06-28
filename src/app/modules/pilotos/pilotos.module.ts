@@ -9,6 +9,7 @@ import { ReporteCargaExitosaComponent } from './components/reporte-carga-exitosa
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListadoRegistrosComponent } from './components/listado-registros/listado-registros.component';
+import { ReportePilotoV2Component } from './components/reporte-piloto-v2/reporte-piloto-v2.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -16,7 +17,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, ListadoRegistrosComponent],
+  declarations: [MainComponent, SidebarComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, ListadoRegistrosComponent, ReportePilotoV2Component],
   imports: [
     CommonModule,
     PilotosRoutingModule,
