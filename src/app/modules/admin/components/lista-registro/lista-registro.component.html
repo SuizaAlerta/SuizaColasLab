@@ -1,3 +1,14 @@
+<div style="margin: 10px;">
+    <div class="mb-2 row">
+        <label for="staticEmail" class="col-sm-2.5 col-form-label"> SELECCIONAR TIPO DE UNIDAD: </label>
+        <div class="col-sm-4">
+            <input name="date" type="date" (change)="changedDate($event)">
+        </div>
+    </div>
+    <hr>
+</div>
+
+
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -588,19 +599,20 @@
 
                     <hr>
 
-
-
                 </div>
 
             </form>
         </div>
 
-
-
-
-
     </div>
-    <div class="modal-footer ">
-        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'Save click') ">Ok</button>
+
+    <div class="form-row" style="margin-left: 35px; margin-bottom: 10px;">
+        <div class="col">
+            <h6>FO-FLO-01</h6>
+            <h6>30/10/2019 V. 01</h6>
+        </div>
+        <div class="col" style="text-align: end; margin-right: 35px;">
+            <button type="button" class="btn btn-outline-dark " (click)="modal.close( 'Save click') ">Ok</button>
+        </div>
     </div>
 </ng-template>

@@ -16,6 +16,8 @@ export class ListaRegistroComponent implements OnInit {
   public title: string = "Reporte del Piloto";
   opcion: number = 1;
 
+  public fechaFiltro: any; 
+
   constructor(private firestore: AngularFirestore, private modalService: NgbModal) {
     let today = new Date();
     let startDate = new Date(today);
@@ -80,4 +82,9 @@ export class ListaRegistroComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
+
+  changedDate(value){
+    console.log(value);
+  }
+
 }
