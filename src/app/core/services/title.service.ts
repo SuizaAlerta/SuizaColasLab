@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class TitleService {
 
-  private title = new BehaviorSubject<String>('SUIZA ALERTA');
+  private title = new BehaviorSubject<String>('SUIZA MOTO');
   private title$ = this.title.asObservable();
 
   constructor() { }

@@ -13,6 +13,7 @@ import { ListaRegistroComponent } from './components/lista-registro/lista-regist
 import { RevisionTecnicaComponent } from './components/revision-tecnica/revision-tecnica.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ConsolidadoUnidadesComponent } from './components/consolidado-unidades/consolidado-unidades.component';
+import { ReporteMotosComponent } from './components/reporte-motos/reporte-motos.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,13 @@ const routes: Routes = [
       {
         path: 'unidadesActuales',
         component: UnidadesActualesComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'reporte-motos',
+        component: ReporteMotosComponent,
         resolve: {
           user: ResolverService
         }

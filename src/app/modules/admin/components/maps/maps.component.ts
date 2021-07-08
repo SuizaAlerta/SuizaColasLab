@@ -35,22 +35,37 @@ export class MapsComponent implements OnInit {
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
   constructor(db: AngularFireDatabase) {
-    this.itemsRef = db.list('SuizaAlertaApp/gpsUbicacion');  
+    this.itemsRef = db.list('SuizaMoto/UbicacionUnidades');  
 
     this.itemsRef.snapshotChanges()
     .subscribe(async actions => {
       this.unidadesGPS = [];
       this.nuevaLista = [];
-      
-      
+
       actions.forEach(action => {
+        console.log(action.payload.val());
+
+        this.lat = action.payload.val()['latitud']
+        this.lon = action.payload.val()['longitud']
+        this.piloto = action.payload.val()['nombrePiloto']
+        this.unidad = action.payload.val()['placa']
+        this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
+        this.icon = '../assets/icon/moto.png'
+      })
+      
+      const data = new ListaUnidades(this.unidad,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.icon);
+      this.unidadesGPS.push(data)
+      
+      this.nuevaLista = this.unidadesGPS
+      
+      /* actions.forEach(action => {
 
         this.unidad = action.payload.val()['UME']
         this.medico = action.payload.val()['Medico']
         this.paramedico = action.payload.val()['Paramedico']
         this.piloto = action.payload.val()['Piloto']
-        this.lat = action.payload.val()['lat']
-        this.lon = action.payload.val()['lon']
+        this.lat = action.payload.val()['latitud']
+        this.lon = action.payload.val()['longitud']
         this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
         this.atencion = action.payload.val()['Atencion']
         
@@ -84,7 +99,7 @@ export class MapsComponent implements OnInit {
         })
       } else {
         this.nuevaLista = this.unidadesGPS
-      }
+      } */
 
       this.updateMapa(this.nuevaLista);
 

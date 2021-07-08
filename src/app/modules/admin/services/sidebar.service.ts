@@ -40,6 +40,11 @@ export class SidebarService {
           title: 'Unidades actuales',
           icon: "fa fa-address-card",
           route: "unidadesActuales"
+        },
+        {
+          title: 'Descargar reporte',
+          icon: "fa fa-address-card",
+          route: "reporte-motos"
         }
       ]
     },
