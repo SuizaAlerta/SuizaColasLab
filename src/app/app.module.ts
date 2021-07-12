@@ -51,12 +51,13 @@ import { FichaSintomatologiaComponent } from './modules/general/components/ficha
     FormsModule,
     NgApexchartsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAAatGQSRkWM-3S5bWF0WX_qA7bLQ7ZmI8',
+      /* apiKey: 'AIzaSyAAatGQSRkWM-3S5bWF0WX_qA7bLQ7ZmI8', */
+      apiKey: 'AIzaSyCoC7beaO4Xwg_ReHQHCBajJHexvc1-BKQ',
       libraries: ['places']
     })
     
   ],
-  
+    
   providers: [AngularFirestore, DataService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

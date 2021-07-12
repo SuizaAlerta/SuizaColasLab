@@ -51,10 +51,14 @@ export class MapsComponent implements OnInit {
         this.unidad = action.payload.val()['placa']
         this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
         this.icon = '../assets/icon/moto.png'
+
+
+        const data = new ListaUnidades(this.unidad,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.icon);
+        this.unidadesGPS.push(data)
+
       })
       
-      const data = new ListaUnidades(this.unidad,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.icon);
-      this.unidadesGPS.push(data)
+      
       
       this.nuevaLista = this.unidadesGPS
       
@@ -102,6 +106,9 @@ export class MapsComponent implements OnInit {
       } */
 
       this.updateMapa(this.nuevaLista);
+
+      console.log(this.updateMapa);
+      
 
     });
 

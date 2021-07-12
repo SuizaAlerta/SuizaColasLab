@@ -61,7 +61,8 @@
         "popper.js": "^1.16.1",
         "rxjs": "~6.6.0",
         "tslib": "^2.0.0",
-        "xlsx": "^0.16.7",
+        "xlsx": "^0.16.9",
+        "xlsx-import": "^2.3.5",
         "zone.js": "~0.10.2"
     },
     "devDependencies": {

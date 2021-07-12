@@ -27,9 +27,14 @@ export class SidebarService {
           title: 'Unidades actuales',
           icon: "fa fa-address-card",
           route: "unidadesActuales"
+        },
+        {
+          title: 'Descargar Reporte',
+          icon: "fa fa-download",
+          route: "reporte-motos"
         }
       ]
-    },
+    },/* ,
     {
       title: 'Operaciones',
       icon: 'fa fa-cog',
@@ -47,7 +52,7 @@ export class SidebarService {
           route: "lista-registros"
         }
       ]
-    },
+    }, */
     /* {
       title: 'Oficina',
       icon: 'fa fa-cube',
