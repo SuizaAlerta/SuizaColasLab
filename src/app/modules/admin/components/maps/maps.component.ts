@@ -35,7 +35,7 @@ export class MapsComponent implements OnInit {
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
   constructor(db: AngularFireDatabase) {
-    this.itemsRef = db.list('SuizaMoto/UbicacionUnidades');  
+    this.itemsRef = db.list('SuizaMoto/UbicacionUnidadesActual');  
 
     this.itemsRef.snapshotChanges()
     .subscribe(async actions => {
@@ -43,7 +43,6 @@ export class MapsComponent implements OnInit {
       this.nuevaLista = [];
 
       actions.forEach(action => {
-        console.log(action.payload.val());
 
         this.lat = action.payload.val()['latitud']
         this.lon = action.payload.val()['longitud']
@@ -52,13 +51,10 @@ export class MapsComponent implements OnInit {
         this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
         this.icon = '../assets/icon/moto.png'
 
-
         const data = new ListaUnidades(this.unidad,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.icon);
         this.unidadesGPS.push(data)
 
       })
-      
-      
       
       this.nuevaLista = this.unidadesGPS
       
@@ -106,13 +102,7 @@ export class MapsComponent implements OnInit {
       } */
 
       this.updateMapa(this.nuevaLista);
-
-      console.log(this.updateMapa);
-      
-
     });
-
-    
   }
 
   ngOnInit(): void {
@@ -121,9 +111,6 @@ export class MapsComponent implements OnInit {
 
 
   onChange($event) {
-
-
-
   }
 
   updateMapa(valor){

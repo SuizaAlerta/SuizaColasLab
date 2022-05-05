@@ -1,0 +1,41 @@
+.tableFixHead {
+    overflow: auto;
+    height: 100vh;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 7px 12px;
+    font-size: small;
+}
+
+th {
+    background: #eee;
+}
+
+.blanco {
+    background-color: white;
+}
+
+.verde {
+    background-color: #58D68D;
+}
+
+.amarillo {
+    background-color: #F7DC6F;
+}
+
+.rojo {
+    background-color: #EC7063;
+}

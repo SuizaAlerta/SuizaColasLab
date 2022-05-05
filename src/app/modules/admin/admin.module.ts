@@ -21,13 +21,14 @@ import { ListaRegistroComponent } from './components/lista-registro/lista-regist
 import { RevisionTecnicaComponent } from './components/revision-tecnica/revision-tecnica.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReporteMotosComponent } from './components/reporte-motos/reporte-motos.component';
+import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, MapsComponent, UnidadesActualesComponent, BasePersonalComponent, MantenimientoComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, ConsolidadoUnidadesComponent, ListaRegistroComponent, RevisionTecnicaComponent, DashboardComponent, ReporteMotosComponent],
+  declarations: [MainComponent, SidebarComponent, MapsComponent, UnidadesActualesComponent, BasePersonalComponent, MantenimientoComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, ConsolidadoUnidadesComponent, ListaRegistroComponent, RevisionTecnicaComponent, DashboardComponent, ReporteMotosComponent, RegistrarUsuarioComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

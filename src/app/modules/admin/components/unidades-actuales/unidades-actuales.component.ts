@@ -25,8 +25,8 @@ export class UnidadesActualesComponent implements OnInit {
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
 
-  constructor(db: AngularFireDatabase) {
-    this.itemsRef = db.list('SuizaMoto/UbicacionUnidades'); 
+  constructor(private db: AngularFireDatabase) {
+    this.itemsRef = db.list('SuizaMoto/UbicacionUnidadesActual'); 
     this.itemsRef.snapshotChanges()
       .subscribe(async actions => {
         this.unidadesActuales = [];
@@ -57,6 +57,10 @@ export class UnidadesActualesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  Reset() {
+    this.db.list('SuizaMoto/UbicacionUnidadesActual').remove(); 
   }
   
 

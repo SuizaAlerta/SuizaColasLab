@@ -1,0 +1,125 @@
+<div>
+
+    <div style="text-align:center;">
+        <h3>Panel de Registro de Atenciones</h3>
+    </div>
+
+    <hr>
+
+    <div>
+
+        <div class="card">
+            <div class="card-header">
+                Asignar Atención
+            </div>
+            <div class="card-body">
+                <form [formGroup]="formularioInicial" (ngSubmit)="cargarPrimerFormulario(formularioInicial.value)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Ingresar Cod. Referencia</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder="Cod. Referencia" formControlName="codUbicacion">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Seleccionar Motorizado</label>
+                        </div>
+                        <div class="col-md-4" style="margin-bottom: 10px;">
+                            <select class="form-control" formControlName="nombre">
+                                <option *ngFor="let user of usuarios">{{user.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-info" (click)="Buscar()"><i class="fa fa-search fa-lg"></i> Buscar</a>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label>Dirección</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Dirección" formControlName="direccion" readonly>
+                        </div>
+                        <div class="col-md-1">
+                            <label>Placa</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder="N° Placa" formControlName="placa" readonly>
+                        </div>
+                        <div class="col-md-1">
+                            <label>Lat/Lon</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Latitud" formControlName="latitud">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Longitud" formControlName="longitud">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-10" style="margin-bottom: 10px;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Comentario:</span>
+                                </div>
+                                <textarea class="form-control" aria-label="With textarea" formControlName="comentario" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" style="width: inherit; margin:4px" [disabled]="formularioInicial.invalid">Enviar</button>
+                            <a class="btn btn-success" style="width: inherit; margin:4px" (click)="ActualizarAtencion()">Actualizar</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <hr>
+
+        <div style="text-align:center">
+            <label style="font-size:25pt">Listado de Servicios del día de Hoy</label>
+        </div>
+
+        <div class="tableFixHead">
+            <table class="table table-bordered">
+                <thead style="text-align:center">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cod. Referencia</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Motorizado</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Tiempo (min.)</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align:center">
+                    <tr *ngFor="let dato of servicios; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{dato['codUbicacion']}}</td>
+                        <td>{{dato['direccion']}}</td>
+                        <td>{{dato['nombre']}}</td>
+                        <td>{{dato['comentario']}}</td>
+                        <td [ngClass]="{'blanco': dato['tiempoTranscurrido'] == '', 'verde': dato['tiempoTranscurrido'] <= 15 && dato['tiempoTranscurrido'] > 0, 'amarillo': dato['tiempoTranscurrido'] <= 25 && dato['tiempoTranscurrido'] > 15, 'rojo': dato['tiempoTranscurrido'] > 25}">{{dato['tiempoTranscurrido'] | number}}</td>
+                        <td>{{dato['estado']}}</td>
+                        <td>
+                            <button type="button" style="margin-right: 10px;" class="btn btn-primary btn-sm" (click)="Editar(dato['uid'])" [disabled]="dato['estado'] == 'Finalizado'"><i class="fa fa-pencil-square-o"></i></button>
+                            <!-- <button type="button" style="margin-right: 10px;" class="btn btn-success btn-sm" (click)="Finalizar(dato['uid'])"><i class="fa fa-check"></i></button> -->
+                            <button type="button" style="margin-right: 10px;" class="btn btn-danger btn-sm" (click)="Eliminar(dato['uid'])" [disabled]="dato['estado'] == 'Finalizado'"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>

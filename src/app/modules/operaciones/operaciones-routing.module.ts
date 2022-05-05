@@ -9,12 +9,36 @@ import { UnidadesActualesComponent } from '../admin/components/unidades-actuales
 import { MainComponent } from './components/main/main.component';
 import { ConsolidadoUnidadesComponent } from '../admin/components/consolidado-unidades/consolidado-unidades.component';
 import { ReporteMotosComponent } from '../admin/components/reporte-motos/reporte-motos.component';
+import { RegistrarUsuarioComponent } from '../admin/components/registrar-usuario/registrar-usuario.component';
+import { AsignarAtencionComponent } from './components/asignar-atencion/asignar-atencion.component';
+import { RegistroAtencionesComponent } from './components/registro-atenciones/registro-atenciones.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     children: [
+      {
+        path: 'registrar-usuario',
+        component: RegistrarUsuarioComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'asignar-atencion',
+        component:AsignarAtencionComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'registro-atenciones',
+        component:RegistroAtencionesComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
       {
         path: 'mapaGPS',
         component: MapsComponent,
@@ -35,21 +59,7 @@ const routes: Routes = [
         resolve: {
           user: ResolverService
         }
-      },/* ,
-      {
-        path: 'reporte-pilotos',
-        component: ReportePilotoComponent,
-        resolve: {
-          user: ResolverService
-        }
       },
-      {
-        path: 'carga-exitosa',
-        component: ReporteCargaExitosaComponent,
-        resolve: {
-          user: ResolverService
-        }
-      } */
     ]
   }
 ];

@@ -13,8 +13,8 @@ export class SidebarService {
       type: 'header'
     },
     {
-      title: 'Mapa',
-      icon: 'fa fa-map-marker ',
+      title: 'LOCALIZACIÓN',
+      icon: 'fa fa-map-marker',
       active: false,
       type: 'dropdown',
       submenus: [
@@ -32,6 +32,24 @@ export class SidebarService {
           title: 'Descargar Reporte',
           icon: "fa fa-download",
           route: "reporte-motos"
+        }
+      ]
+    },
+    {
+      title: 'ATENCIONES',
+      icon: 'fa fa-motorcycle',
+      active: false,
+      type: 'dropdown',
+      submenus: [
+        {
+          title: 'Registrar Atención',
+          icon: "fa fa-plus-circle",
+          route: "asignar-atencion"
+        },
+        {
+          title: 'Lista de Atenciones',
+          icon: "fa fa-file-text-o",
+          route: "registro-atenciones"
         }
       ]
     },/* ,
