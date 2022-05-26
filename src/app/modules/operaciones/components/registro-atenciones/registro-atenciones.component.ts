@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ExcelService } from 'src/app/core/services/excel.service';
 
 @Component({
   selector: 'app-registro-atenciones',
@@ -15,7 +16,10 @@ export class RegistroAtencionesComponent implements OnInit {
   mydate: string;
   formularioInicial: FormGroup;
 
-  constructor(private firestore: AngularFirestore, private _builder: FormBuilder,) {
+  // headerInfo = ['latlongFinRecorrido','placa','timestamp','uid','direccion','estado','codUbicacion','fechaRegistro','dtInicioRecorrido','longitud','nombre','latitud','latlongInicioRecorrido','timestampInicioRecorrido','dtFinRecorrido','comentario','timestampFinRecorrido','tiempoTranscurrido','distancia','Observacion'];
+
+  headerInfo = ['dtInicioRecorrido','codUbicacion','direccion','nombre','placa','distancia','tiempoTranscurrido','comentario','Observacion']
+  constructor(private firestore: AngularFirestore, private _builder: FormBuilder, private excelExport: ExcelService) {
 
     const today = new Date();
     this.mydate = formatDate(today, 'yyyy-MM-dd', 'en-US');
@@ -60,7 +64,6 @@ export class RegistroAtencionesComponent implements OnInit {
         return data['estado'] == "Finalizado"
       })
 
-
       atencionesFinalizadas.forEach(dato => {
         if(dato['timestampFinRecorrido'] != "") {
           this.tiempoatencion = (new Date(new Date(dato['timestampFinRecorrido'].seconds*1000)).getTime() - new Date(new Date(dato['timestampInicioRecorrido'].seconds*1000)).getTime()) / (1000*60);
@@ -73,12 +76,14 @@ export class RegistroAtencionesComponent implements OnInit {
 
       })
       
-      this.listaAtenciones = atencionesFinalizadas;
-
-      console.log(this.listaAtenciones);
-      
+      this.listaAtenciones = atencionesFinalizadas;      
       
     })
+    
+  }
+
+  exportarDataExcel() {
+    this.excelExport.exportAsExcelFile(this.listaAtenciones,"Datos",this.headerInfo);
     
   }
 

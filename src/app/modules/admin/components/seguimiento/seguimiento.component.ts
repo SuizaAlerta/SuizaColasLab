@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { ListaUnidades } from 'src/app/core/models/ListaUnidades';
 
 @Component({
-  selector: 'app-maps',
-  templateUrl: './maps.component.html',
-  styleUrls: ['./maps.component.css']
+  selector: 'app-seguimiento',
+  templateUrl: './seguimiento.component.html',
+  styleUrls: ['./seguimiento.component.css']
 })
-export class MapsComponent implements OnInit {
+export class SeguimientoComponent implements OnInit {
 
   public unidadesGPS: ListaUnidades[] = [];
   public nuevaLista = []

@@ -50,6 +50,11 @@ export class SidebarService {
           title: 'Lista de Atenciones',
           icon: "fa fa-file-text-o",
           route: "registro-atenciones"
+        },
+        {
+          title: 'Seguimiento',
+          icon: "fa fa-file-text-o",
+          route: "seguimiento"
         }
       ]
     },/* ,

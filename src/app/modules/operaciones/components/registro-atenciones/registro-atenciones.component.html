@@ -24,6 +24,10 @@
                             <button class="btn btn-primary btn-sm" style="margin-right: 10px; font-size: 12x">Buscar</button>
                         </div>
 
+                        <div class="col-sm-2" style="text-align: start;">
+                            <a class="btn btn-success btn-sm" style="margin-right: 10px; font-size: 12x" (click)="exportarDataExcel()">Descargar Excel</a>
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -35,6 +39,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Fecha y Hora</th>
                     <th scope="col">Cod. Referencia</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Motorizado</th>
@@ -46,6 +51,7 @@
             <tbody>
                 <tr *ngFor="let dato of listaAtenciones; let i = index">
                     <th scope="row">{{i+1}}</th>
+                    <td>{{dato['timestamp'].seconds*1000 | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                     <td>{{dato['codUbicacion']}}</td>
                     <td>{{dato['direccion']}}</td>
                     <td>{{dato['nombre']}}</td>

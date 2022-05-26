@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -34,7 +35,6 @@ export class AsignarAtencionComponent implements OnInit {
       val.forEach(user => {
         this.usuarios.push(user)
       })      
-      console.log(this.usuarios);
       
       this.formularioInicial.patchValue({nombre:this.usuarios[0]['nombre']})
     })
@@ -64,9 +64,7 @@ export class AsignarAtencionComponent implements OnInit {
         }
 
       })
-      
-      //console.log(this.servicios);
-      
+            
     },10000)
   }
 
@@ -96,6 +94,11 @@ export class AsignarAtencionComponent implements OnInit {
     values.timestampInicioRecorrido = '';
     values.timestampFinRecorrido = '';
     values.timestamp = new Date();
+    values.fechaRegistro = formatDate(new Date(),'dd-MM-yyyy','en-US')
+
+    if(values.comentario == null) {
+      values.comentario = "";
+    }
 
     const token = this.usuarios.find(x => x.nombre == values.nombre).token;
 
@@ -123,11 +126,7 @@ export class AsignarAtencionComponent implements OnInit {
       this.uidUpdate = val['uid']
     })
   }
-/* 
-  Finalizar(value) {
-    this.firestore.collection('AtencionesCurso').doc(value).update({estado:"Finalizado"});
-  } */
-
+  
   Eliminar(value) {
     this.firestore.collection('AtencionesCurso').doc(value).delete();
   }
