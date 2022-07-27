@@ -13,6 +13,19 @@ export class SidebarService {
       type: 'header'
     },
     {
+      title: 'USUARIO',
+      icon: 'fa fa-user',
+      active: false,
+      type: 'dropdown',
+      submenus: [
+        {
+          title: 'Crear Nuevo Usuario',
+          icon: "fa fa-user",
+          route: "registrar-usuario"
+        }
+      ]
+    },
+    {
       title: 'LOCALIZACIÓN',
       icon: 'fa fa-map-marker',
       active: false,
@@ -35,7 +48,7 @@ export class SidebarService {
         }
       ]
     },
-    {
+     {
       title: 'ATENCIONES',
       icon: 'fa fa-motorcycle',
       active: false,
@@ -57,7 +70,8 @@ export class SidebarService {
           route: "seguimiento"
         }
       ]
-    },/* ,
+    }, 
+    /* ,
     {
       title: 'Operaciones',
       icon: 'fa fa-cog',

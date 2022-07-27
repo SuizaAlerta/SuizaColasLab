@@ -12,13 +12,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsignarAtencionComponent } from './components/asignar-atencion/asignar-atencion.component';
 import { RegistroAtencionesComponent } from './components/registro-atenciones/registro-atenciones.component';
 import { SeguimientoComponent } from '../admin/components/seguimiento/seguimiento.component';
+import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, AsignarAtencionComponent, RegistroAtencionesComponent, SeguimientoComponent],
+  declarations: [MainComponent, SidebarComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, AsignarAtencionComponent, RegistroAtencionesComponent, SeguimientoComponent, CrearUsuarioComponent],
   imports: [
     CommonModule,
     OperacionesRoutingModule,

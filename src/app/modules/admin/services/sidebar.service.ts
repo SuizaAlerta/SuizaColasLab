@@ -97,7 +97,7 @@ export class SidebarService {
         }
       ]
     },
-    /* {
+    {
       title: 'Oficina',
       icon: 'fa fa-cube',
       active: false,
@@ -127,7 +127,7 @@ export class SidebarService {
           route: "almacenCarga"
         }
       ]
-    }, */
+    },
     {
       title: 'Salir',
       icon: 'fa fa-sign-out',

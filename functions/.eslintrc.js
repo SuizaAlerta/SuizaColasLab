@@ -26,6 +26,7 @@ module.exports = {
     'import',
   ],
   rules: {
+    'linebreak-style': 0,
     'jsx-quotes': ['error', 'prefer-double'],
     'no-console': 'off',
     '@typescript-eslint/no-var-requires': 0,
