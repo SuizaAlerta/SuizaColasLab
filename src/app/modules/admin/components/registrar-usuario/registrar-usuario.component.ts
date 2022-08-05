@@ -46,8 +46,9 @@ export class RegistrarUsuarioComponent implements OnInit {
   }
 
   cargarNuevoUsuario(value) { 
-    console.log(value);
     value['contraseña'] = value['password']
+    value['dni'] = parseInt(value['dni']) 
+    
     this.db.object('SuizaMoto/Usuarios/'+value['dni']).set(value).then(() => {
       alert("Se registro el usuario correctamente!")
     })

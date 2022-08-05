@@ -1,5 +1,6 @@
-<div>
+<div style="zoom: 85%;">
 
+    <!--     <input id="my-file-selector" type="file" (change)="uploadData($event)" name="uploadExcel"> -->
     <div style="text-align:center;">
         <h3>Panel de Registro de Atenciones</h3>
     </div>
@@ -19,13 +20,13 @@
                             <label>Ingresar Cod. Referencia</label>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" placeholder="Cod. Referencia" formControlName="codUbicacion">
+                            <input type="text" class="form-control" placeholder="Cod. Referencia" formControlName="numeroReferencia">
                         </div>
                         <div class="col-md-2">
                             <label>Seleccionar Motorizado</label>
                         </div>
                         <div class="col-md-4" style="margin-bottom: 10px;">
-                            <select class="form-control" formControlName="nombre">
+                            <select class="form-control" formControlName="motorizado">
                                 <option *ngFor="let user of usuarios">{{user.nombre}}</option>
                             </select>
                         </div>
@@ -38,10 +39,16 @@
 
                     <div class="row">
                         <div class="col-md-1">
+                            <label>Ubicación</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>{{listaCompleta['UbicacionGeneral']}}</label>
+                        </div>
+                        <div class="col-md-1">
                             <label>Dirección</label>
                         </div>
-                        <div class="col-md-3">
-                            <input type="text" class="form-control" placeholder="Dirección" formControlName="direccion" readonly>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder="Dirección" formControlName="direccionRecojo" readonly>
                         </div>
                         <div class="col-md-1">
                             <label>Placa</label>
@@ -49,7 +56,15 @@
                         <div class="col-md-2">
                             <input type="text" class="form-control" placeholder="N° Placa" formControlName="placa" readonly>
                         </div>
+
                         <div class="col-md-1">
+                            <label>Forma Pago</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder="FormaPago" formControlName="formaPago" readonly>
+                        </div>
+
+                        <!-- <div class="col-md-1">
                             <label>Lat/Lon</label>
                         </div>
                         <div class="col">
@@ -57,10 +72,37 @@
                         </div>
                         <div class="col">
                             <input type="text" class="form-control" placeholder="Longitud" formControlName="longitud">
-                        </div>
+                        </div> -->
                     </div>
 
                     <br>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="checkboxAgencia($event)">
+                        <label class="form-check-label" for="exampleCheck1">Ingresar Agencia</label>
+                    </div>
+
+                    <hr>
+
+                    <div *ngIf="checkBoxAgencia" class="row" style="margin-bottom: 15px;">
+                        <div class="col-md-2">
+                            <label>Nombre Agencia:</label>
+                        </div>
+                        <div class="col-md-3" style="margin-bottom: 10px;">
+                            <select class="form-control" formControlName="agencia" (change)="seleccionarAgencia($event)">
+                                <option *ngFor="let data of agencias">{{data.AGENCIA}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Seleccionar Dirección:</label>
+                        </div>
+                        <div class="col-md-4" style="margin-bottom: 10px;">
+                            <select class="form-control" formControlName="agenciadireccion">
+                                <option *ngFor="let data of direcciones['DIRECCIONES']; let i = index">{{data}}</option>
+                            </select>
+                        </div>
+
+                    </div>
 
                     <div class="row">
                         <div class="col-md-10" style="margin-bottom: 10px;">
@@ -68,12 +110,12 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Comentario:</span>
                                 </div>
-                                <textarea class="form-control" aria-label="With textarea" formControlName="comentario" rows="3"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" formControlName="observacion" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" style="width: inherit; margin:4px" [disabled]="formularioInicial.invalid">Enviar</button>
-                            <a class="btn btn-success" style="width: inherit; margin:4px" (click)="ActualizarAtencion()">Actualizar</a>
+                            <button *ngIf="btnEnviarVisible" class="btn btn-primary" style="width: inherit; margin:4px" [disabled]="formularioInicial.invalid">Enviar</button>
+                            <a *ngIf="btnUpdateVisible" class="btn btn-success" style="width: inherit; margin:4px" (click)="ActualizarAtencion()">Actualizar</a>
                         </div>
                     </div>
 
@@ -93,10 +135,11 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Cod. Referencia</th>
-                        <th scope="col">Dirección</th>
+                        <th scope="col" style="min-width: 150px;">Dirección</th>
                         <th scope="col">Motorizado</th>
                         <th scope="col">Comentario</th>
-                        <th scope="col">Tiempo (min.)</th>
+                        <th scope="col">Tiempo de Llegada (min.)</th>
+                        <th scope="col">Tiempo de Espera (min.)</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -104,22 +147,30 @@
                 <tbody style="text-align:center">
                     <tr *ngFor="let dato of servicios; let i = index">
                         <th scope="row">{{i+1}}</th>
-                        <td>{{dato['codUbicacion']}}</td>
-                        <td>{{dato['direccion']}}</td>
-                        <td>{{dato['nombre']}}</td>
-                        <td>{{dato['comentario']}}</td>
-                        <td [ngClass]="{'blanco': dato['tiempoTranscurrido'] == '', 'verde': dato['tiempoTranscurrido'] <= 15 && dato['tiempoTranscurrido'] > 0, 'amarillo': dato['tiempoTranscurrido'] <= 25 && dato['tiempoTranscurrido'] > 15, 'rojo': dato['tiempoTranscurrido'] > 25}">{{dato['tiempoTranscurrido'] | number}}</td>
+                        <td>{{dato['numeroReferencia']}}</td>
+                        <td>
+                            <p>{{dato['direccion']}}</p>
+                            <div class="input-group input-group-sm mb-3" *ngIf="dato.habilitadorAgencia">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Agencia</span>
+                                </div>
+                                <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm" readonly value="{{dato['agencia']}}">
+                                <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm" readonly value="{{dato['agenciadireccion']}}">
+                            </div>
+                        </td>
+                        <td>{{dato['motorizado']}}</td>
+                        <td>{{dato['observacion']}}</td>
+                        <td>{{dato['tiempoLlegada'] | number}}</td>
+                        <td [ngClass]="{'blanco': dato['tiempoEspera'] == '', 'verde': dato['tiempoEspera'] <= 15 && dato['tiempoEspera'] > 0, 'rojo': dato['tiempoEspera'] <= 25 && dato['tiempoEspera'] > 15}">{{dato['tiempoEspera'] | number}}</td>
                         <td>{{dato['estado']}}</td>
                         <td>
                             <button type="button" style="margin-right: 10px;" class="btn btn-primary btn-sm" (click)="Editar(dato['uid'])" [disabled]="dato['estado'] == 'Finalizado'"><i class="fa fa-pencil-square-o"></i></button>
-                            <!-- <button type="button" style="margin-right: 10px;" class="btn btn-success btn-sm" (click)="Finalizar(dato['uid'])"><i class="fa fa-check"></i></button> -->
                             <button type="button" style="margin-right: 10px;" class="btn btn-danger btn-sm" (click)="Eliminar(dato['uid'])" [disabled]="dato['estado'] == 'Finalizado'"><i class="fa fa-trash-o"></i></button>
+                            <!-- <button type="button" style="margin-right: 10px;" class="btn btn-success btn-sm" (click)="Finalizar(dato['uid'])"><i class="fa fa-check"></i></button> -->
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
     </div>
-
 </div>

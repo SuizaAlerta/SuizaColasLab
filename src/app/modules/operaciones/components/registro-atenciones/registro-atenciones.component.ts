@@ -36,8 +36,8 @@ export class RegistroAtencionesComponent implements OnInit {
 
   distancia(lat1, long1, lat2, long2) {
     
-    const R = 6371e3; // metres
-    const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+    const R = 6371e3; // metros
+    const φ1 = lat1 * Math.PI/180; // φ, λ radianes
     const φ2 = lat2 * Math.PI/180;
     const Δφ = (lat2-lat1) * Math.PI/180;
     const Δλ = (long2-long1) * Math.PI/180;
@@ -47,9 +47,10 @@ export class RegistroAtencionesComponent implements OnInit {
               Math.sin(Δλ/2) * Math.sin(Δλ/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-    const d = R * c; // in metres
+    const d = R * c; // metros
 
-    return d/1000; 
+    return d/1000;
+
   }
 
   cargarAtenciones(values) {

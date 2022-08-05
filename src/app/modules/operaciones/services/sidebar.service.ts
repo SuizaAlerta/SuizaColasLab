@@ -71,56 +71,6 @@ export class SidebarService {
         }
       ]
     }, 
-    /* ,
-    {
-      title: 'Operaciones',
-      icon: 'fa fa-cog',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Consolidado',
-          icon: "fa fa-list",
-          route: "consolidado-unidades"
-        },
-        {
-          title: 'Lista de Registros',
-          icon: "fa fa-list",
-          route: "lista-registros"
-        }
-      ]
-    }, */
-    /* {
-      title: 'Oficina',
-      icon: 'fa fa-cube',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Cargar Pedidos',
-          icon: "fa fa-car",
-          route: "cargarPedidos"
-        },
-        {
-          title: 'Ver Pedidos',
-          icon: "fa fa-cubes",
-          route: "almacenCarga"
-        }
-      ]
-    },
-    {
-      title: 'Almacén',
-      icon: 'fa fa-cube',
-      active: false,
-      type: 'dropdown',
-      submenus: [
-        {
-          title: 'Cargar Pedidos',
-          icon: "fa fa-cubes",
-          route: "almacenCarga"
-        }
-      ]
-    }, */
     {
       title: 'Salir',
       icon: 'fa fa-sign-out',
