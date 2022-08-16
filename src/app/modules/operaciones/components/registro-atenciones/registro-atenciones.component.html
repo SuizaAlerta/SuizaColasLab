@@ -52,10 +52,10 @@
                 <tr *ngFor="let dato of listaAtenciones; let i = index">
                     <th scope="row">{{i+1}}</th>
                     <td>{{dato['timestamp'].seconds*1000 | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                    <td>{{dato['codUbicacion']}}</td>
-                    <td>{{dato['direccion']}}</td>
-                    <td>{{dato['nombre']}}</td>
-                    <td>{{dato['tiempoTranscurrido']}}</td>
+                    <td>{{dato['numeroReferencia']}}</td>
+                    <td>{{dato['direccionRecojo']}}</td>
+                    <td>{{dato['motorizado']}}</td>
+                    <td>{{dato['tiempoEspera']}}</td>
                     <td>{{dato['distancia'] | number}} <label *ngIf="dato['distancia']">Km</label></td>
                     <td>{{dato['estado']}}</td>
                 </tr>

@@ -14,6 +14,7 @@ import { RevisionTecnicaComponent } from './components/revision-tecnica/revision
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ConsolidadoUnidadesComponent } from './components/consolidado-unidades/consolidado-unidades.component';
 import { ReporteMotosComponent } from './components/reporte-motos/reporte-motos.component';
+import { SeguimientoComponent } from './components/seguimiento/seguimiento.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,12 @@ const routes: Routes = [
       {
         path: 'mapaGPS',
         component: MapsComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },{
+        path: 'seguimiento',
+        component: SeguimientoComponent,
         resolve: {
           user: ResolverService
         }

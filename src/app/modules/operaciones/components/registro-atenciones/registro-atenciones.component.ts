@@ -12,7 +12,7 @@ import { ExcelService } from 'src/app/core/services/excel.service';
 export class RegistroAtencionesComponent implements OnInit {
 
   listaAtenciones: any = [];
-  tiempoatencion: any;
+  tiempoEspera: any;
   mydate: string;
   formularioInicial: FormGroup;
 
@@ -67,17 +67,20 @@ export class RegistroAtencionesComponent implements OnInit {
 
       atencionesFinalizadas.forEach(dato => {
         if(dato['timestampFinRecorrido'] != "") {
-          this.tiempoatencion = (new Date(new Date(dato['timestampFinRecorrido'].seconds*1000)).getTime() - new Date(new Date(dato['timestampInicioRecorrido'].seconds*1000)).getTime()) / (1000*60);
-          dato['tiempoTranscurrido'] = parseInt(this.tiempoatencion);
+          this.tiempoEspera = (new Date(new Date(dato['timestampFinRecorrido'].seconds*1000)).getTime() - new Date(new Date(dato['timestampRegistroLlegada'].seconds*1000)).getTime()) / (1000*60);
+          dato['tiempoEspera'] = parseInt(this.tiempoEspera);
         } 
 
         if(dato['latlongInicioRecorrido'] != undefined) {
-          dato['distancia'] = this.distancia(dato['latlongInicioRecorrido'].split(',')[0],dato['latlongInicioRecorrido'].split(',')[1],dato['latitud'],dato['longitud'])
+          dato['distancia'] = this.distancia(dato['latlongInicioRecorrido'].split(',')[0],dato['latlongInicioRecorrido'].split(',')[1],dato['latlongFinRecorrido'].split(',')[0],dato['latlongFinRecorrido'].split(',')[1])
         }
 
       })
       
-      this.listaAtenciones = atencionesFinalizadas;      
+      this.listaAtenciones = atencionesFinalizadas;   
+      
+      console.log(this.listaAtenciones);
+      
       
     })
     

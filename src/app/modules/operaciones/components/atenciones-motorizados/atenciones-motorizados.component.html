@@ -1,0 +1,147 @@
+<div style="zoom: 85%;">
+    <div style="text-align: center; font-size: 20pt;">
+        <label>Atenciones por Motorizado</label>
+    </div>
+    <hr>
+    <div>
+        <div class="card">
+            <div class="card-header">
+                Buscar Motorizado
+            </div>
+            <div class="card-body">
+                <form [formGroup]="formularioBuscarMotorizado" (ngSubmit)="buscarMotorizado(formularioBuscarMotorizado.value)">
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-1">Desde:</label>
+                        <div class="col-sm-2">
+                            <input type="date" formControlName="DESDE" id="staticEmail">
+                        </div>
+
+                        <label for="staticEmail" class="col-sm-1">Hasta:</label>
+                        <div class="col-sm-2">
+                            <input type="date" formControlName="HASTA" id="staticEmail">
+                        </div>
+
+                        <div class="col-md-4" style="margin-bottom: 10px;">
+                            <select class="form-control" formControlName="MOTORIZADO">
+                                <option *ngFor="let user of usuarios">{{user.nombre}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-1" style="text-align: end;">
+                            <button class="btn btn-primary btn-sm" style="margin-right: 10px; font-size: 12x" data-toggle="modal" data-target="#myModal">Buscar</button>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <label style="font-size: 10pt; font-weight: bold;">Desde {{rangoAtenciones.DESDE | date:'dd-MM-yyyy'}} hasta {{rangoAtenciones.HASTA | date:'dd-MM-yyyy'}}</label>
+                    <h4 style="color: #F00;">REPORTE VISITA MOTORIZADO</h4>
+                </div>
+
+                <button type="button" class="close" #closebutton data-dismiss="modal">&times;</button>
+                <hr>
+            </div>
+
+            <div style="text-align: end; margin-right: 20px; margin-left: 20px; margin-top: 10px;">
+                <button class="btn btn-danger" style="margin-right: 15px;" printSectionId="print-section" [useExistingCss]="true" ngxPrint><i class="fa fa-file-pdf-o"></i> Descargar PDF</button>
+                <button class="btn btn-success" (click)="exportarDataExcel()"><i class="fa fa-file-excel-o"></i> Descargar Excel</button>
+            </div>
+
+            <div id="print-section">
+                <div *ngFor="let fecha of listaFechas; let i = index">
+                    <div>
+
+                        <div style="margin: 16px; text-align: center; font-weight: bold;">Día: {{fecha}}</div>
+
+                        <div style="margin: 16px; text-align: center;">Nombre Motorizado: {{listaAtenciones[0]['motorizado']}}</div>
+
+
+                        <div class="modal-body tableFixHead">
+
+                            <table class="table table-bordered table-sm">
+                                <thead class="thead-dark">
+                                    <tr style="text-align: center;">
+                                        <th scope="col" style="width: 80px;">Referencia</th>
+                                        <th scope="col" style="width: 120px;">Compañia</th>
+                                        <th scope="col" style="width: 120px;">Dirección</th>
+                                        <th scope="col" style="width: 100px;">Hora Registro</th>
+                                        <th scope="col" style="width: 100px;">Inic. Recorrido</th>
+                                        <th scope="col" style="width: 100px;">Registro Llegada</th>
+                                        <th scope="col" style="width: 100px;">Atención Finalizada</th>
+                                        <th scope="col" style="width: 120px;">Tiempo Espera</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let global of listaAtenciones; let i = index" style="text-align: center;">
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['numeroReferencia']}}</td>
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['nombreCompania']}}</td>
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['direccionRecojo']}}</td>
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['fechaRegistro']}} {{global['horaRegistro']}}</td>
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['dtInicioRecorrido']}}</td>
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['dtRegistroLlegada']}}</td>
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['dtFinRecorrido']}}</td>
+                                        <td *ngIf="fecha === global.fechaRegistro">{{global['tiempoEspera'] | number}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <!-- <div class="modal-body tableFixHead" *ngIf="fecha == global.fechaRegistro">
+                            <table class="table table-bordered table-sm">
+                                <thead class="thead-dark">
+                                    <tr style="text-align: center;">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Referencia</th>
+                                        <th scope="col">Compañia</th>
+                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Inic. Recorrido</th>
+                                        <th scope="col">Registro Llegada</th>
+                                        <th scope="col">Atención Finalizada</th>
+                                        <th scope="col" style="width: 120px;">Tiempo Espera</th>
+                                        <th scope="col">Hora Registro</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let dato of listaAtenciones; let i = index" style="text-align: center;">
+                                        <th scope="row">{{i+1}}</th>
+                                        <td>{{dato['numeroReferencia']}}</td>
+                                        <td>{{dato['nombreCompania']}}</td>
+                                        <td>{{dato['direccionRecojo']}}</td>
+                                        <td>{{dato['dtInicioRecorrido']}}</td>
+                                        <td>{{dato['dtRegistroLlegada']}}</td>
+                                        <td>{{dato['dtFinRecorrido']}}</td>
+                                        <td>{{dato['tiempoEspera'] | number}}</td>
+                                        <td>{{dato['fechaRegistro']}} {{dato['horaRegistro']}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+ -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

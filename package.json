@@ -57,6 +57,7 @@
         "ngx-bootstrap": "^6.1.0",
         "ngx-moment": "^5.0.0",
         "ngx-perfect-scrollbar": "^10.0.1",
+        "ngx-print": "^1.2.1",
         "ngx-spinner": "^10.0.1",
         "npm": "^7.8.0",
         "popper.js": "^1.16.1",

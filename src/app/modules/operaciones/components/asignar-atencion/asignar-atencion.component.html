@@ -1,6 +1,6 @@
 <div style="zoom: 85%;">
 
-    <!--     <input id="my-file-selector" type="file" (change)="uploadData($event)" name="uploadExcel"> -->
+    <!-- <input id="my-file-selector" type="file" (change)="uploadData($event)" name="uploadExcel"> -->
     <div style="text-align:center;">
         <h3>Panel de Registro de Atenciones</h3>
     </div>
@@ -161,8 +161,8 @@
                         <td>{{dato['motorizado']}}</td>
                         <td>{{dato['observacion']}}</td>
                         <td>{{dato['tiempoLlegada'] | number}}</td>
-                        <td [ngClass]="{'blanco': dato['tiempoEspera'] == '', 'verde': dato['tiempoEspera'] <= 15 && dato['tiempoEspera'] > 0, 'rojo': dato['tiempoEspera'] <= 25 && dato['tiempoEspera'] > 15}">{{dato['tiempoEspera'] | number}}</td>
-                        <td>{{dato['estado']}}</td>
+                        <td [ngClass]="{'blanco': dato['tiempoEspera'] == '', 'verde':dato['tiempoEspera'] <= 0,'verde': dato['tiempoEspera'] <= 15 && dato['tiempoEspera'] > 0, 'rojo': dato['tiempoEspera'] <= 25 && dato['tiempoEspera'] > 15}">{{dato['tiempoEspera'] | number}}</td>
+                        <td [ngClass]="{'blanco': dato['estado'] == '', 'verde':dato['estado'] == 'Finalizado','amarillo': dato['estado'] == 'Llegada al Destino'}">{{dato['estado']}}</td>
                         <td>
                             <button type="button" style="margin-right: 10px;" class="btn btn-primary btn-sm" (click)="Editar(dato['uid'])" [disabled]="dato['estado'] == 'Finalizado'"><i class="fa fa-pencil-square-o"></i></button>
                             <button type="button" style="margin-right: 10px;" class="btn btn-danger btn-sm" (click)="Eliminar(dato['uid'])" [disabled]="dato['estado'] == 'Finalizado'"><i class="fa fa-trash-o"></i></button>

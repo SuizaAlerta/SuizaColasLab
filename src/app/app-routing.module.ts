@@ -31,22 +31,6 @@ const routes: Routes = [
     data: { expectedRoles: ['operaciones']}
   },
   {
-    path: 'gerencia',
-    loadChildren: () => import('./modules/gerencia/gerencia.module').then(m => m.GerenciaModule),
-    canLoad: [RoleGuard],
-    data: { expectedRoles: ['gerencia']}
-  },
-  {
-    path: 'pilotos',
-    loadChildren: () => import('./modules/pilotos/pilotos.module').then(m => m.PilotosModule),
-    canLoad: [RoleGuard],
-    data: { expectedRoles: ['pilotos']}
-  },
-  {
-    path: 'general',
-    loadChildren: () => import('./modules/general/general.module').then(m => m.GeneralModule),
-  },
-  {
     path: '**',
     component: PageNotFoundComponent
   }

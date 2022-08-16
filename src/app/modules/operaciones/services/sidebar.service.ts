@@ -65,6 +65,11 @@ export class SidebarService {
           route: "registro-atenciones"
         },
         {
+          title: 'Atenciones Motorizados',
+          icon: "fa fa-file-text-o",
+          route: "atenciones-motorizados"
+        },
+        {
           title: 'Seguimiento',
           icon: "fa fa-file-text-o",
           route: "seguimiento"

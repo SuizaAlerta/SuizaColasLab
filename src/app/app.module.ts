@@ -25,7 +25,6 @@ import { DataService } from './data.service';
 import { ChartsModule } from 'ng2-charts'
 import { NgApexchartsModule } from "ng-apexcharts";
 import { OrderByPipe } from './order-by.pipe';
-import { FichaSintomatologiaComponent } from './modules/general/components/ficha-sintomatologia/ficha-sintomatologia.component';
 
 
 @NgModule({
@@ -33,7 +32,6 @@ import { FichaSintomatologiaComponent } from './modules/general/components/ficha
     AppComponent,
     PageNotFoundComponent,
     OrderByPipe,
-    FichaSintomatologiaComponent,
   ],
   imports: [
     BrowserModule,

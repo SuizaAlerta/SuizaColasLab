@@ -9,6 +9,7 @@ import { RegistrarUsuarioComponent } from '../admin/components/registrar-usuario
 import { AsignarAtencionComponent } from './components/asignar-atencion/asignar-atencion.component';
 import { RegistroAtencionesComponent } from './components/registro-atenciones/registro-atenciones.component';
 import { SeguimientoComponent } from '../admin/components/seguimiento/seguimiento.component';
+import { AtencionesMotorizadosComponent } from './components/atenciones-motorizados/atenciones-motorizados.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,13 @@ const routes: Routes = [
       {
         path: 'registro-atenciones',
         component:RegistroAtencionesComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
+      {
+        path: 'atenciones-motorizados',
+        component:AtencionesMotorizadosComponent,
         resolve: {
           user: ResolverService
         }

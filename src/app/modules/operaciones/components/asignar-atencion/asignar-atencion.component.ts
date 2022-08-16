@@ -81,7 +81,6 @@ export class AsignarAtencionComponent implements OnInit {
       this.agencias = val;
       this.direcciones = this.agencias[0];
       
-
       this.formularioInicial.patchValue({agencia: this.agencias[0]['AGENCIA'], agenciadireccion: this.agencias[0]['DIRECCIONES'][0] })
 
     })
