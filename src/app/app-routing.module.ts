@@ -31,6 +31,12 @@ const routes: Routes = [
     data: { expectedRoles: ['operaciones']}
   },
   {
+    path: 'comercial',
+    loadChildren: () => import('./modules/comercial/comercial.module').then(m => m.ComercialModule),
+    canLoad: [RoleGuard],
+    data: { expectedRoles: ['comercial']}
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }

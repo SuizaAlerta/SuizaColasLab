@@ -1,5 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ListaUnidades } from 'src/app/core/models/ListaUnidades';
 
@@ -10,65 +13,68 @@ import { ListaUnidades } from 'src/app/core/models/ListaUnidades';
 })
 export class SeguimientoComponent implements OnInit {
 
-  public unidadesGPS: ListaUnidades[] = [];
-  public nuevaLista = []
-  mapaGPS: any;
-
-  unidad: string;
-  medico: string;
-  paramedico: string;
-  piloto: string;
-  lat: number;
-  lon: number;
-  ultimoEnvio: string;
-  atencion: string;
-  icon: string;
+  public usuarios = [];
 
   latitud = -12.110631;
   longitud = -77.021427;
   zoom=13;
 
-  selectedOptions = "TODOS";
+  start_end_mark = [];
+  latitudlongitud = [];
 
-            
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
+  formularioInicial: FormGroup;
   
-  constructor(db: AngularFireDatabase) {
-    this.itemsRef = db.list('SuizaMoto/UbicacionUnidadesActual');  
+  constructor(private firestore: AngularFirestore, private db: AngularFireDatabase, private _builder: FormBuilder) {
 
-    this.itemsRef.snapshotChanges()
-    .subscribe(async actions => {
-      this.unidadesGPS = [];
-      this.nuevaLista = [];
+    const currentDate = new Date();
+    const fechaActual = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
 
-      actions.forEach(action => {
-
-        this.lat = action.payload.val()['latitud']
-        this.lon = action.payload.val()['longitud']
-        this.piloto = action.payload.val()['nombrePiloto']
-        this.unidad = action.payload.val()['placa']
-        this.ultimoEnvio = action.payload.val()['ultimoEnvioGPS']
-        this.icon = '../assets/icon/moto.png'
-
-        const data = new ListaUnidades(this.unidad,this.piloto,this.lat,this.lon, this.ultimoEnvio,this.icon);
-        this.unidadesGPS.push(data)
-
-      })
-      
-      this.nuevaLista = this.unidadesGPS
-      this.updateMapa(this.nuevaLista);
+    this.formularioInicial = this._builder.group({
+      fecha: [fechaActual, Validators.required],
+      motorizado: ['', Validators.required]
     });
+
+    this.db.list('SuizaMoto/Usuarios').valueChanges().subscribe(val => {
+      this.usuarios = [];
+      val.forEach(user => {
+        this.usuarios.push(user)
+      })      
+      this.formularioInicial.patchValue({motorizado:this.usuarios[0]['nombre']})
+    })
+
+    
+
   }
 
   ngOnInit(): void {
   }
 
-  onChange($event) {
-  }
+  cargarFormulario(values) {
+    console.log(values);
 
-  updateMapa(valor){
-    this.mapaGPS = valor;
-  }
+    this.firestore.collection("AtencionesCurso", ref => ref.where("motorizado","==",values['motorizado']).where("fechaRegistro","==",values['fecha'].split("-")[2] + "-" + values['fecha'].split("-")[1] + "-" + values['fecha'].split("-")[0]) ).valueChanges().subscribe(val => {
+      this.latitudlongitud = []
+
+
+      const data = val.sort((a,b) => a["timestampRegistroLlegada"].seconds < b["timestampRegistroLlegada"].seconds ? -1 : 0)
+
+      console.log(data);
+      
+
+      val.forEach(valor => {
+
+        if(valor["estado"] == "Finalizado" || valor["estado"] == "Llegada al Destino") {
+          valor['latitudLlegada'] = parseFloat(valor["latlongRegistroLlegada"].split(",")[0])
+          valor['longitudLlegada'] = parseFloat(valor["latlongRegistroLlegada"].split(",")[1])
+          this.latitudlongitud.push(valor)
+        }
+       
+      })
+
+      this.start_end_mark.push(this.latitudlongitud[0]);
+      this.start_end_mark.push(this.latitudlongitud[this.latitudlongitud.length - 1]);
+      
+    })
+  } 
 
 }

@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { OperacionesRoutingModule } from './operaciones-routing.module';
@@ -13,7 +14,13 @@ import { AsignarAtencionComponent } from './components/asignar-atencion/asignar-
 import { RegistroAtencionesComponent } from './components/registro-atenciones/registro-atenciones.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { AtencionesMotorizadosComponent } from './components/atenciones-motorizados/atenciones-motorizados.component';
+import {ConnectionServiceModule} from 'ng-connection-service';
 import {NgxPrintModule} from 'ngx-print';
+
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -27,7 +34,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OperacionesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxPrintModule
+    NgxPrintModule,
+    MatTableModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    HttpClientModule
   ],
   providers: [
     {

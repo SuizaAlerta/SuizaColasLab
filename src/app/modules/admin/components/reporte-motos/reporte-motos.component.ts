@@ -45,7 +45,7 @@ export class ReporteMotosComponent implements OnInit {
     });
 
 
-const currentDate = new Date();
+    const currentDate = new Date();
 
     const fechaActual = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
 

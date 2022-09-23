@@ -43,8 +43,6 @@
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
-
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -58,7 +56,7 @@
             </div>
 
             <div style="text-align: end; margin-right: 20px; margin-left: 20px; margin-top: 10px;">
-                <button class="btn btn-danger" style="margin-right: 15px;" printSectionId="print-section" [useExistingCss]="true" ngxPrint><i class="fa fa-file-pdf-o"></i> Descargar PDF</button>
+                <button class="btn btn-danger" style="margin-right: 15px;" printSectionId="print-section" formtarget="_blank" [useExistingCss]="true" ngxPrint><i class="fa fa-file-pdf-o"></i> Descargar PDF</button>
                 <button class="btn btn-success" (click)="exportarDataExcel()"><i class="fa fa-file-excel-o"></i> Descargar Excel</button>
             </div>
 
@@ -70,12 +68,12 @@
 
                         <div style="margin: 16px; text-align: center;">Nombre Motorizado: {{listaAtenciones[0]['motorizado']}}</div>
 
-
                         <div class="modal-body tableFixHead">
 
                             <table class="table table-bordered table-sm">
                                 <thead class="thead-dark">
                                     <tr style="text-align: center;">
+                                        <th style="width: 40px; font-weight: bold;">#</th>
                                         <th scope="col" style="width: 80px;">Referencia</th>
                                         <th scope="col" style="width: 120px;">Compañia</th>
                                         <th scope="col" style="width: 120px;">Dirección</th>
@@ -85,57 +83,24 @@
                                         <th scope="col" style="width: 100px;">Atención Finalizada</th>
                                         <th scope="col" style="width: 120px;">Tiempo Espera</th>
 
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let global of listaAtenciones; let i = index" style="text-align: center;">
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['numeroReferencia']}}</td>
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['nombreCompania']}}</td>
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['direccionRecojo']}}</td>
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['fechaRegistro']}} {{global['horaRegistro']}}</td>
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['dtInicioRecorrido']}}</td>
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['dtRegistroLlegada']}}</td>
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['dtFinRecorrido']}}</td>
-                                        <td *ngIf="fecha === global.fechaRegistro">{{global['tiempoEspera'] | number}}</td>
+                                    <tr *ngFor="let global of listadoAtencionesGeneral[fecha]; let i = index" style="text-align: center;">
+                                        <td style="font-weight: bold;">{{i+1}}</td>
+                                        <td>{{global['numeroReferencia']}}</td>
+                                        <td>{{global['nombreCompania']}}</td>
+                                        <td>{{global['direccionRecojo']}}</td>
+                                        <td>{{global['fechaRegistro']}} {{global['horaRegistro']}}</td>
+                                        <td>{{global['dtInicioRecorrido']}}</td>
+                                        <td>{{global['dtRegistroLlegada']}}</td>
+                                        <td>{{global['dtFinRecorrido']}}</td>
+                                        <td>{{global['tiempoEspera'] | number}}</td>
                                     </tr>
                                 </tbody>
                             </table>
 
                         </div>
-
-                        <!-- <div class="modal-body tableFixHead" *ngIf="fecha == global.fechaRegistro">
-                            <table class="table table-bordered table-sm">
-                                <thead class="thead-dark">
-                                    <tr style="text-align: center;">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Referencia</th>
-                                        <th scope="col">Compañia</th>
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Inic. Recorrido</th>
-                                        <th scope="col">Registro Llegada</th>
-                                        <th scope="col">Atención Finalizada</th>
-                                        <th scope="col" style="width: 120px;">Tiempo Espera</th>
-                                        <th scope="col">Hora Registro</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let dato of listaAtenciones; let i = index" style="text-align: center;">
-                                        <th scope="row">{{i+1}}</th>
-                                        <td>{{dato['numeroReferencia']}}</td>
-                                        <td>{{dato['nombreCompania']}}</td>
-                                        <td>{{dato['direccionRecojo']}}</td>
-                                        <td>{{dato['dtInicioRecorrido']}}</td>
-                                        <td>{{dato['dtRegistroLlegada']}}</td>
-                                        <td>{{dato['dtFinRecorrido']}}</td>
-                                        <td>{{dato['tiempoEspera'] | number}}</td>
-                                        <td>{{dato['fechaRegistro']}} {{dato['horaRegistro']}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
- -->
                     </div>
                 </div>
 

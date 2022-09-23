@@ -3,12 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SimpleOuterSubscriber } from 'rxjs/internal/innerSubscribe';
+import { ActivatedRoute } from '@angular/router';
+import { User } from 'firebase';
+import Swal from 'sweetalert2';
+import { ConnectionService } from 'ng-connection-service';  
 import * as uuid from 'uuid';
-
 import * as XLSX from 'xlsx';
-
-type AOA = any[][];
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-asignar-atencion',
@@ -18,14 +19,17 @@ type AOA = any[][];
 export class AsignarAtencionComponent implements OnInit {
 
   formularioInicial: FormGroup;
+  formularioBuscarCodigoReferencia: FormGroup;
   public listaCompleta: any = [];
   public usuarios = [];
   public servicios = [];
+  public serviciosBusqueda = [];
   public agencias = [];
   public direcciones: any = [];
   public uidUpdate = '';
   tiempoLlegada: any;
   tiempoEspera: any;
+  usuarioCreacion: string = "";
 
   checkBoxAgencia = false
 
@@ -36,11 +40,12 @@ export class AsignarAtencionComponent implements OnInit {
 
   arrayModelo = {'AGENCIA':"", 'DIRECCIONES':[]}
 
-  constructor(private firestore: AngularFirestore, private db: AngularFireDatabase, private _builder: FormBuilder,) {
+  constructor(private firestore: AngularFirestore, private db: AngularFireDatabase, private _builder: FormBuilder, private _route: ActivatedRoute,private connectionService: ConnectionService, private http : HttpClient) {
 
     this.formularioInicial = this._builder.group({
       numeroReferencia: ['', Validators.required],
       motorizado: ['', Validators.required],
+      estadoChecboxAgencia: [false],
       direccion: [''],
       direccionRecojo: ['', Validators.required],
       distrito: [''],
@@ -59,19 +64,26 @@ export class AsignarAtencionComponent implements OnInit {
       c_celcia: [''],
       c_emacia: [''],
       c_nomcont1: [''],
-      placa: [''],
+      placa: ['', Validators.required],
       latitud: [''],
       longitud: [''],
       agencia: [''],
       agenciadireccion: [''],
       observacion: [''],
+      usuarioCreacion: ['']
     });
+
+    this.formularioBuscarCodigoReferencia = this._builder.group({
+      numeroReferencia: ['', Validators.required]
+    })
 
     this.db.list('SuizaMoto/Usuarios').valueChanges().subscribe(val => {
       this.usuarios = [];
       val.forEach(user => {
         this.usuarios.push(user)
-      })      
+      })
+
+      this.usuarios.sort((a,b) => a['nombre'] < b['nombre'] ? -1:0)
       
       this.formularioInicial.patchValue({motorizado:this.usuarios[0]['nombre']})
     })
@@ -88,6 +100,16 @@ export class AsignarAtencionComponent implements OnInit {
     this.firestore.collection('AtencionesCurso', ref => ref.where('timestamp','>=',new Date(new Date().setHours(0,0,0,0))).orderBy('timestamp',"desc")).valueChanges().subscribe(val => {
       const ordenamiento = val.sort((a,b) => (a['timestamp'] < b['timestamp'] ? -1 : 1))
       this.servicios = ordenamiento;
+      this.servicios.sort((a,b) => a['motorizado'] < b['motorizado'] ? -1:0)
+    })
+    
+
+    this._route.data.subscribe((data: {user: User}) => {
+      const user = data.user['nombre']
+      this.usuarioCreacion = data.user['nombre'];
+
+      this.formularioInicial.patchValue({usuarioCreacion:user})
+      
     })
 
   }
@@ -127,8 +149,10 @@ export class AsignarAtencionComponent implements OnInit {
         }
 
       })
+
+      this.servicios.sort((a,b) => a['motorizado'] < b['motorizado'] ? -1:0)
             
-    },10000)
+    },10000) 
   }
 
   Buscar() {
@@ -137,8 +161,6 @@ export class AsignarAtencionComponent implements OnInit {
 
       this.db.list('SuizaMoto/Usuarios', ref => ref.orderByChild('nombre').equalTo(this.formularioInicial.get('motorizado').value)).valueChanges().subscribe(val => {
         if(val != null) {
-
-          console.log(val);
           
           this.formularioInicial.patchValue({placa:val[0]['placa']})
         }
@@ -151,7 +173,6 @@ export class AsignarAtencionComponent implements OnInit {
           this.listaCompleta['UbicacionGeneral'] = val['departamento'] + "/" + val["provincia"] + "/" + val["distritoRecojo"]
 
           this.formularioInicial.patchValue(val)
-          console.log(this.formularioInicial.value);
         }
       })
 
@@ -162,7 +183,6 @@ export class AsignarAtencionComponent implements OnInit {
   cargarPrimerFormulario(values) {
 
     const myId = uuid.v4();
-
     values.uid = myId;
     values.estado = 'Activo';
     values.dtInicioRecorrido = '';
@@ -174,12 +194,18 @@ export class AsignarAtencionComponent implements OnInit {
     values.timestamp = new Date();
     values.fechaRegistro = formatDate(new Date(),'dd-MM-yyyy','en-US')
     values.horaRegistro = formatDate(new Date(),'HH:mm:ss','en-US')
+    values.usuarioCreacion = this.usuarioCreacion;
 
     if(values.observacion == null) {
       values.observacion = "";
     }
 
-    if(!this.checkBoxAgencia) {
+    if(!values.estadoChecboxAgencia) {
+      values.agencia = "";
+      values.agenciadireccion = "";
+    }
+
+    if(values.agencia == null || values.agenciadireccion == null) {
       values.agencia = "";
       values.agenciadireccion = "";
     }
@@ -188,10 +214,42 @@ export class AsignarAtencionComponent implements OnInit {
 
     if(token != undefined) {
       this.db.object("SuizaMoto/EnvioNotificaciones").set({dtEnvio:new Date().getTime(),token:token});
-    }    
+    }
 
-    this.firestore.collection('AtencionesCurso').doc(myId).set(values);
+    
+
+    this.firestore.collection('AtencionesCurso').doc(myId).set(values).then(() => {
+      Swal.fire(
+        'Pedido Registrado Correctamente!',
+        '',
+        'success'
+      )
+    }).catch((error) => {
+      console.log("Ha ocurrido un error" + error);
+      
+    })
+
+
     this.formularioInicial.reset();
+
+    this.checkBoxAgencia = false;
+
+  }
+
+  buscarCodigoReferencia(values) {
+    this.firestore.collection('AtencionesCurso', ref => ref.where('numeroReferencia','==',values['numeroReferencia'])).valueChanges().subscribe(val => {
+      this.serviciosBusqueda = val; 
+      this.serviciosBusqueda.forEach(val => {
+        this.tiempoLlegada = (new Date(new Date(val['timestampRegistroLlegada'].seconds*1000)).getTime() - new Date(new Date(val['timestampInicioRecorrido'].seconds*1000)).getTime()) / (1000*60);
+        this.tiempoEspera = (new Date(new Date(val['timestampFinRecorrido'].seconds*1000)).getTime() - new Date(new Date(val['timestampRegistroLlegada'].seconds*1000)).getTime()) / (1000*60);
+        val['tiempoLlegada'] = parseInt(this.tiempoLlegada)
+        val['tiempoEspera'] = parseInt(this.tiempoEspera)
+      })
+      this.serviciosBusqueda.sort((a,b) => (a['timestampFinRecorrido'] < b['timestampFinRecorrido'] ? 1 : -1))
+      /* const ordenamiento = val.sort((a,b) => (a['timestamp'] < b['timestamp'] ? -1 : 1))
+      this.servicios = ordenamiento;
+      this.servicios.sort((a,b) => a['motorizado'] < b['motorizado'] ? -1:0) */
+    })
     
   }
 
@@ -200,9 +258,41 @@ export class AsignarAtencionComponent implements OnInit {
   }
 
   seleccionarAgencia(value: any) {
-    const listaDirecciones = this.agencias.find( valor => valor['AGENCIA'] === value.target.value )
+    const listaDirecciones = this.agencias.find( valor => valor['AGENCIA'] === value.target.value)
     this.direcciones = listaDirecciones;
     this.formularioInicial.patchValue({agencia: value.target.value, agenciadireccion: this.direcciones["DIRECCIONES"][0] })    
+  }
+
+  seleccionarEventMotorizado(value: any) {
+    
+    this.db.list('SuizaMoto/Usuarios', ref => ref.orderByChild('nombre').equalTo(value.target.value)).valueChanges().subscribe(val => {
+      if(val != null) {
+        
+        this.formularioInicial.patchValue({placa:val[0]['placa']})
+      }
+    })
+
+  }
+
+  seleccionarEventNumeroReferencia(value: any) {
+
+    this.db.object('SuizaMotoUbicaciones/CodReferencia/' + value.target.value).valueChanges().subscribe( val => {
+      if(val != null) {
+
+        this.listaCompleta = val;
+        this.listaCompleta['UbicacionGeneral'] = val['departamento'] + "/" + val["provincia"] + "/" + val["distritoRecojo"]
+
+        this.formularioInicial.patchValue(val)
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Número de Referencia no registrado!'
+        })
+        
+      }
+    })
+    
   }
 
   ActualizarAtencion(){
@@ -223,23 +313,56 @@ export class AsignarAtencionComponent implements OnInit {
   }
 
   Editar(value) {    
-    this.firestore.collection('AtencionesCurso').doc(value).valueChanges().subscribe(val => {
+    /* this.firestore.collection('AtencionesCurso').doc(value).valueChanges().subscribe(val => {
       this.formularioInicial.patchValue(val);
       this.uidUpdate = val['uid']
       this.btnEnviarVisible = false;
       this.btnUpdateVisible = true;
-    })
+    }) */
+    console.log("Se debe de Editar");
+    
   }
   
-  Eliminar(value) {
-    if(confirm("¿Desea eliminar el registro?")) {
+  async Eliminar(uid) {
+
+    const { value: text } = await Swal.fire({
+      input: 'textarea',
+      inputLabel: 'Para anular debe ingresar un motivo',
+      inputPlaceholder: 'Ingresar motivo...',
+      inputAttributes: {
+        'aria-label': 'Type your message here'
+      },
+      showCancelButton: true
+    })
+    
+    if (text) {
+      console.log(uid);
+      this.firestore.collection('AtencionesCurso').doc(uid).update({motivo: text, estado: "Anulado"}).then(() => {
+        Swal.fire(
+          'Anulado!',
+          'El número de Referencia fue Anulado de manera exitosa.',
+          'success'
+        )
+      })
+    } else {
+      console.log("no ha ingresado el motivo");
+      Swal.fire(
+        'Cancel',
+        'No se eliminó ningun registro.',
+        'error'
+      )
+    }
+    
+
+    /* if(confirm("¿Desea eliminar el registro?")) {
       this.firestore.collection('AtencionesCurso').doc(value).delete();
     } else {
-      console.log("No se elimino");
       
-    }
+    } */
     /* this.firestore.collection('AtencionesCurso').doc(value).delete(); */
   }
+
+  
 
   uploadData(evt: any) : void { 
 
@@ -259,24 +382,11 @@ export class AsignarAtencionComponent implements OnInit {
 
         const valores = jsonData['Hoja1']
 
-        console.log(valores);
 
         /* this.db.object('SuizaMotoUbicaciones/CodReferencia').remove() */
         valores.forEach(val => {
           this.db.object('SuizaMotoUbicaciones/CodReferencia/'+val["numeroReferencia"]).set(val)
         }) 
-  
-        /* 
-  
-  
-        valores.forEach(val => {
-          console.log(val);
-                  
-        }) */
-        
-  
-        /* */
-  
   
       }
       reader.readAsBinaryString(file);

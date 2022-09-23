@@ -1,0 +1,118 @@
+<div>
+    <div>
+        <div>
+            <div class="example-header">
+
+                <div class="row" style="margin-bottom: 5px;">
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Realizar Búsqueda">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-8">
+                        <form [formGroup]="formularioInicial" (ngSubmit)="cargarAtenciones(formularioInicial.value)">
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-1">Desde:</label>
+                                <div class="col-sm-3">
+                                    <input type="date" formControlName="DESDE" id="staticEmail">
+                                </div>
+
+                                <label for="staticEmail" class="col-sm-1">Hasta:</label>
+                                <div class="col-sm-3" style="margin-bottom: 5px;">
+                                    <input type="date" formControlName="HASTA" id="staticEmail">
+                                </div>
+
+                                <div class="col-sm-4" style="text-align: start;">
+                                    <button class="btn btn-primary btn-sm" style="margin-right: 10px; font-size: 12x"><i class="fa fa-search"></i> Buscar</button>
+                                    <button class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Descargar Excel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="example-container mat-elevation-z8">
+
+                <mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="fechaRegistro">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>FECHA REGISTRO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.fechaRegistro}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numeroReferencia">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header># REFERENCIA</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.numeroReferencia}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombreCompania">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>COMPAÑIA</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.nombreCompania}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="direccionRecojo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DIRECCION RECOJO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.direccionRecojo}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="motorizado">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>MOTORIZADO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.motorizado}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="placa">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>PLACA</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.placa}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="observacion">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>MENSAJE</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.observacion}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Observacion">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>OBSERVACIÓN MOTORIZADO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.Observacion}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="formaPago">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>FORMA PAGO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.formaPago}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="montoRecibido">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>MONTO RECIBIDO (S/.)</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.montoRecibido}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tiempoLlegada">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>TIEMPO LLEGADA</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.tiempoLlegada}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tiempoEspera">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>TIEMPO ESPERA</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.tiempoEspera}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estado">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>ESTADO</mat-header-cell>
+                        <mat-cell *matCellDef="let row" [ngClass]="{'blanco': row.estado == '', 'verde':row.estado == 'Finalizado','amarillo': row.estado == 'Llegada al Destino'}">{{row.estado}}</mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+            </div>
+
+
+        </div>
+    </div>
+</div>

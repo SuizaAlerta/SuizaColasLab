@@ -1,0 +1,28 @@
+<div class="page-wrapper" [ngClass]="{'toggled' : getSideBarState()}">
+    <app-sidebar></app-sidebar>
+    <main class="page-content">
+        <nav class="navbar navbar-dark bg-dark static-top">
+            <h4 class="navbar-brand" href="#">{{title|async}}</h4>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar1" (click)="toggleSidebar()">
+                ☰
+            </button>
+        </nav>
+
+        <div class="container-fluid mt-2">
+            <router-outlet></router-outlet>
+
+
+            <div class="attribution text-center badge badge-danger">
+                <!-- <strong>SUIZA MOTO</strong> -->
+            </div>
+        </div>
+
+        <div class="overlay" (click)="toggleSidebar()" [ngClass]="{'show' : !getSideBarState()}"></div>
+
+
+
+
+    </main>
+
+
+</div>

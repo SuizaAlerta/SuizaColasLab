@@ -1,0 +1,486 @@
+<div>
+    <div>
+
+    </div>
+    <div>
+        <div>
+            <div class="example-header">
+
+                <div class="row" style="margin-bottom: 5px;">
+                    <div class="col-md-8">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Realizar Búsqueda">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4" style="text-align: end;">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#myModalAgregarReferencia"><i class="fa fa-plus-circle"></i> Añadir Referencia</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="example-container mat-elevation-z8">
+
+                <mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="numeroReferencia">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header style="min-width: 150px; max-width: 150px; text-align: center;"># REFERENCIA</mat-header-cell>
+                        <mat-cell *matCellDef="let row" style="min-width: 150px; max-width: 150px; text-align: center;">{{row.numeroReferencia}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombreCompania">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header style="min-width: 150px; max-width: 150px; text-align: center;">COMPAÑIA</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.nombreCompania}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="razonSocial">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>RAZÓN SOCIAL</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.razonSocial}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ruc">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>RUC</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.ruc}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="departamento">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DEPARTAMENTO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.departamento}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="provincia">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>PROVINCIA</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.provincia}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="distrito">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DISTRITO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.distrito}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="distritoRecojo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DISTRITO RECOJO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.distritoRecojo}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="direccion">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DIRECCIÓN</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.direccion}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="direccionRecojo">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DIRECCIÓN RECOJO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.direccionRecojo}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nomprom">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>NOMPROM</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.nomprom}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numprom">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>NUMPROM</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.numprom}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="telefono">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>TELÉFONO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.telefono}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="c_emacia">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>EMAIL</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.c_emacia}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="formaPago">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>FORMA PAGO</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.formaPago}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>ACCIONES</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button class="btn btn-primary btn-sm" style="margin-right: 2px;" data-toggle="modal" data-target="#myModalEditarReferencia" (click)="editarNumeroReferencia(row.numeroReferencia)"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" style="margin-left: 2px;" (click)="eliminarNumeroReferencia(row.numeroReferencia)"><i class="fa fa-trash"></i></button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal Crear Nuevo # Referencia -->
+
+<div class="modal fade" id="myModalAgregarReferencia" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Añadir Nueva Referencia</h2>
+                <button type="button" class="close" #closebutton data-dismiss="modal">&times;</button>
+            </div>
+            <form [formGroup]="formularioAgregarReferencia" (ngSubmit)="agregarReferencia(formularioAgregarReferencia.value)" class="was-validated">
+                <div class="modal-body">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"># Referencia:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="numeroReferencia" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Nombre Compañia:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputPassword4" formControlName="nombreCompania" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Razón Social:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="razonSocial" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Ruc:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputPassword4" formControlName="ruc" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Departamento:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="departamento" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Provincia:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="provincia" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Distrito:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="distrito" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Distrito Recojo:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="distritoRecojo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Dirección:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="direccion" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Dirección Recojo:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="direccionRecojo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">Celular:</label>
+                            <div class="input-group is-invalid">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend"><i class="fa fa-phone"></i></span>
+                                </div>
+                                <input type="number" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="celular" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">Email:</label>
+                            <div class="input-group is-invalid">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend">@</span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm is-invalid" aria-describedby="validatedInputGroupPrepend" formControlName="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">Forma de Pago:</label>
+                            <div class="input-group is-invalid">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend">S/.</span>
+                                </div>
+                                <select class="custom-select custom-select-sm is-invalid" formControlName="formaPago" required>
+                                    <option value="CONTADO">CONTADO</option>
+                                    <option value="CREDITO">CREDITO</option>
+                                    <option value="NO APLICA">NO APLICA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Nombre Promotor:</label>
+                            <input type="text" class="form-control form-control-sm" id="inputEmail4" formControlName="nombrePromotor" readonly required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email Promotor:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend">@</span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" aria-describedby="validatedInputGroupPrepend" formControlName="emailPromotor" readonly required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <div style="text-align: center;">
+                                <img [src]="imgURL" height="200" *ngIf="imgURL">
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" #file class="custom-file-input" accept='image/*' id="validatedCustomFile" (change)="archivo(file.files)">
+                                <label class="custom-file-label" for="validatedCustomFile"><div *ngIf="!imgURL">Elegir Imagen</div><div *ngIf="imgURL">{{nombreArchivo}}</div></label>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="form-group">
+                        <label for="puesto"># PUESTO</label>
+                        <input type="text" class="form-control" id="puesto" autocomplete="off" formControlName="PUESTO">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombresunarp">NOMBRE DE SUNARP</label>
+                        <input type="text" class="form-control" id="nombresunarp" formControlName="NOMBRESUNARP">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ruc">RUC</label>
+                        <input type="text" class="form-control" id="ruc" formControlName="RUC">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dni1">DNI 1</label>
+                        <input type="text" class="form-control" id="dni1" formControlName="DNI1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dni2">DNI 2</label>
+                        <input type="text" class="form-control" id="dni2" formControlName="DNI2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ficha">FICHA</label>
+                        <input type="text" class="form-control" id="ficha" formControlName="FICHA">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partida">PARTIDA</label>
+                        <input type="text" class="form-control" id="partida" formControlName="PARTIDA">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="porcentaje">PORCENTAJEPARTICIPACION</label>
+                        <input type="text" class="form-control" id="porcentaje" formControlName="PORCENTAJEPARTICIPACION">
+                    </div> -->
+
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="submit" class="btn btn-success" [disabled]="formularioAgregarReferencia.invalid">Guardar</button> -->
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
+
+            <hr>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Editar Número de Referencia -->
+
+<div class="modal fade" id="myModalEditarReferencia" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Añadir Nueva Referencia</h2>
+                <button type="button" class="close" #closebuttonEditar data-dismiss="modal">&times;</button>
+            </div>
+            <form [formGroup]="formularioEditarReferencia" (ngSubmit)="editarReferencia(formularioEditarReferencia.value)" class="was-validated">
+                <div class="modal-body">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"># Referencia:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="numeroReferencia" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Nombre Compañia:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputPassword4" formControlName="nombreCompania" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Razón Social:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="razonSocial" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Ruc:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputPassword4" formControlName="ruc" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Departamento:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="departamento" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Provincia:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="provincia" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Distrito:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="distrito" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Distrito Recojo:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="distritoRecojo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Dirección:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="direccion" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Dirección Recojo:</label>
+                            <input type="text" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="direccionRecojo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">Celular:</label>
+                            <div class="input-group is-invalid">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend"><i class="fa fa-phone"></i></span>
+                                </div>
+                                <input type="number" class="form-control form-control-sm is-invalid" id="inputEmail4" formControlName="celular" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">Email:</label>
+                            <div class="input-group is-invalid">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend">@</span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm is-invalid" aria-describedby="validatedInputGroupPrepend" formControlName="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">Forma de Pago:</label>
+                            <div class="input-group is-invalid">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend">S/.</span>
+                                </div>
+                                <select class="custom-select custom-select-sm is-invalid" formControlName="formaPago" required>
+                                    <option value="CONTADO">CONTADO</option>
+                                    <option value="CREDITO">CREDITO</option>
+                                    <option value="NO APLICA">NO APLICA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Nombre Promotor:</label>
+                            <input type="text" class="form-control form-control-sm" id="inputEmail4" formControlName="nombrePromotor" readonly required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email Promotor:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend" style="height: 31px;">
+                                    <span class="input-group-text" id="validatedInputGroupPrepend">@</span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" aria-describedby="validatedInputGroupPrepend" formControlName="emailPromotor" readonly required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <div style="text-align: center;">
+                                <img [src]="imgURL" height="200" *ngIf="imgURL">
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" #file class="custom-file-input" accept='image/*' id="validatedCustomFile" (change)="archivo(file.files)">
+                                <label class="custom-file-label" for="validatedCustomFile"><div *ngIf="!imgURL">Elegir Imagen</div><div *ngIf="imgURL">{{nombreArchivo}}</div></label>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="form-group">
+                        <label for="puesto"># PUESTO</label>
+                        <input type="text" class="form-control" id="puesto" autocomplete="off" formControlName="PUESTO">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombresunarp">NOMBRE DE SUNARP</label>
+                        <input type="text" class="form-control" id="nombresunarp" formControlName="NOMBRESUNARP">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ruc">RUC</label>
+                        <input type="text" class="form-control" id="ruc" formControlName="RUC">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dni1">DNI 1</label>
+                        <input type="text" class="form-control" id="dni1" formControlName="DNI1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dni2">DNI 2</label>
+                        <input type="text" class="form-control" id="dni2" formControlName="DNI2">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ficha">FICHA</label>
+                        <input type="text" class="form-control" id="ficha" formControlName="FICHA">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partida">PARTIDA</label>
+                        <input type="text" class="form-control" id="partida" formControlName="PARTIDA">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="porcentaje">PORCENTAJEPARTICIPACION</label>
+                        <input type="text" class="form-control" id="porcentaje" formControlName="PORCENTAJEPARTICIPACION">
+                    </div> -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+
+                </div>
+            </form>
+
+            <hr>
+
+        </div>
+
+    </div>
+</div>

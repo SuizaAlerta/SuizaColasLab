@@ -1,26 +1,31 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExcelService } from 'src/app/core/services/excel.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-registro-atenciones',
-  templateUrl: './registro-atenciones.component.html',
-  styleUrls: ['./registro-atenciones.component.css']
+  selector: 'app-lista-atenciones',
+  templateUrl: './lista-atenciones.component.html',
+  styleUrls: ['./lista-atenciones.component.css']
 })
-export class RegistroAtencionesComponent implements OnInit {
+export class ListaAtencionesComponent implements OnInit {
+
+  displayedColumns = ['fechaRegistro', 'numeroReferencia', 'nombreCompania', 'direccionRecojo', 'motorizado', 'placa', 'observacion', 'Observacion', 'formaPago', 'montoRecibido', 'tiempoLlegada', 'tiempoEspera', 'estado'];
+  dataSource: MatTableDataSource<PuestoData>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   listaAtenciones: any = [];
   tiempoLlegada: any;
   tiempoEspera: any;
   mydate: string;
   formularioInicial: FormGroup;
-
-  // headerInfo = ['latlongFinRecorrido','placa','timestamp','uid','direccion','estado','codUbicacion','fechaRegistro','dtInicioRecorrido','longitud','nombre','latitud','latlongInicioRecorrido','timestampInicioRecorrido','dtFinRecorrido','comentario','timestampFinRecorrido','tiempoTranscurrido','distancia','Observacion'];
-
-  headerInfo = ['dtInicioRecorrido','codUbicacion','direccion','nombre','placa','distancia','tiempoTranscurrido','comentario','Observacion']
-  constructor(private firestore: AngularFirestore, private _builder: FormBuilder, private excelExport: ExcelService) {
+  
+  constructor(private firestore: AngularFirestore, private _builder: FormBuilder,) {
 
     const today = new Date();
     this.mydate = formatDate(today, 'yyyy-MM-dd', 'en-US');
@@ -55,7 +60,6 @@ export class RegistroAtencionesComponent implements OnInit {
   }
 
   cargarAtenciones(values) {
-
     let start = new Date(values.DESDE);
     let end = new Date(values.HASTA);
     end.setDate(end.getDate()+1)
@@ -81,17 +85,37 @@ export class RegistroAtencionesComponent implements OnInit {
       })
       
       this.listaAtenciones = atencionesFinalizadas;   
-      
-      console.log(this.listaAtenciones);
+
+      this.dataSource = new MatTableDataSource(this.listaAtenciones);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       
       
     })
     
   }
 
-  exportarDataExcel() {
-    this.excelExport.exportAsExcelFile(this.listaAtenciones,"Datos",this.headerInfo);
-    
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
+}
+
+export interface PuestoData {
+  fechaRegistro: string;
+  numeroReferencia: string;
+  nombreCompania: string;
+  direccionRecojo: string;
+  motorizado: string;
+  placa: string;
+  observacion: string;
+  Observacion: string;
+  formaPago: string;
+  montoRecibido: string;
+  tiempoLlegada: string;
+  tiempoEspera: string;
+  estado: string;
 }

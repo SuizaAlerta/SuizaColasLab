@@ -34,30 +34,68 @@
         </div>
     </div>
 
-    <div>
+    <div style="width: 100%; overflow-x: auto;">
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th>
                     <th scope="col">Fecha y Hora</th>
                     <th scope="col">Cod. Referencia</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Motorizado</th>
                     <th scope="col">Tiempo de Recojo</th>
                     <th scope="col">Distancia Recorrida</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Estado</th> -->
+                    <th scope="col">#</th>
+                    <th scope="col" style="min-width: 120px;">Fecha Registro</th>
+                    <th scope="col" style="min-width: 100px;">Cod. Referencia</th>
+
+                    <th scope="col" style="min-width: 180px;">Compañia</th>
+                    <th scope="col" style="min-width: 400px;">Dirección</th>
+                    <th scope="col" style="min-width: 220px;">Motorizado</th>
+                    <th scope="col" style="min-width: 80px;">Placa</th>
+                    <th scope="col" style="min-width: 220px;">Comentario Adm.</th>
+                    <th scope="col" style="min-width: 220px;">Comentario Motori.</th>
+                    <th scope="col" style="min-width: 120px;">Forma Pago</th>
+                    <th scope="col" style="min-width: 120px;">Monto Recojo (S/.)</th>
+                    <th scope="col" style="min-width: 220px;">Tiempo de Llegada (min.)</th>
+                    <th scope="col" style="min-width: 220px;">Tiempo de Espera (min.)</th>
+                    <th scope="col" style="min-width: 120px;">Estado</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let dato of listaAtenciones; let i = index">
-                    <th scope="row">{{i+1}}</th>
+                    <!-- <th scope="row">{{i+1}}</th>
                     <td>{{dato['timestamp'].seconds*1000 | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                     <td>{{dato['numeroReferencia']}}</td>
                     <td>{{dato['direccionRecojo']}}</td>
                     <td>{{dato['motorizado']}}</td>
                     <td>{{dato['tiempoEspera']}}</td>
                     <td>{{dato['distancia'] | number}} <label *ngIf="dato['distancia']">Km</label></td>
-                    <td>{{dato['estado']}}</td>
+                    <td>{{dato['estado']}}</td> -->
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{dato['fechaRegistro']}} {{dato['horaRegistro']}}</td>
+                    <td>{{dato['numeroReferencia']}}</td>
+                    <td>{{dato['nombreCompania']}}</td>
+                    <td>
+                        <p>{{dato['direccion']}}</p>
+                        <div class="input-group input-group-sm mb-3" *ngIf="dato.habilitadorAgencia">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Agencia</span>
+                            </div>
+                            <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm" readonly value="{{dato['agencia']}}">
+                            <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm" readonly value="{{dato['agenciadireccion']}}">
+                        </div>
+                    </td>
+                    <td>{{dato['motorizado']}}</td>
+                    <td>{{dato['placa']}}</td>
+                    <td>{{dato['observacion']}}</td>
+                    <td>{{dato['Observacion']}}</td>
+                    <td>{{dato['formaPago']}}</td>
+                    <td>{{dato['montoRecibido']}}</td>
+                    <td>{{dato['tiempoLlegada'] | number}}</td>
+                    <td [ngClass]="{'blanco': dato['tiempoEspera'] == '', 'verde': dato['tiempoEspera'] <= 10 && dato['tiempoEspera'] >= 0, 'amarillo': dato['tiempoEspera'] <= 15 && dato['tiempoEspera'] > 10, 'rojo': dato['tiempoEspera'] > 15}">{{dato['tiempoEspera'] | number}}</td>
+                    <td [ngClass]="{'blanco': dato['estado'] == '', 'verde':dato['estado'] == 'Finalizado','amarillo': dato['estado'] == 'Llegada al Destino'}">{{dato['estado']}} <br> {{dato['dtFinRecorrido']}}</td>
                 </tr>
             </tbody>
         </table>

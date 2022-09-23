@@ -16,6 +16,7 @@ export class AtencionesMotorizadosComponent implements OnInit {
 
   public usuarios = [];
   public rangoAtenciones: any = [];
+  public listadoAtencionesGeneral: any = [];
   public listaAtenciones = [];
   public listaFechas = [];
   mydate: string;
@@ -70,15 +71,30 @@ export class AtencionesMotorizadosComponent implements OnInit {
         valor["tiempoEspera"] = parseInt(valor["tiempoEspera"])
 
       })
-
-
       
 
       this.listaAtenciones = atencionesFinalizadas
 
       this.listaFechas = Array.from(new Set(atencionesFinalizadas.map(item => item["fechaRegistro"])));
 
-      console.log(atencionesFinalizadas);
+      this.listaFechas.forEach(valor => {
+
+        const dataFiltrada = this.listaAtenciones.filter(val => {
+          return val.fechaRegistro == valor
+        })
+
+        this.listadoAtencionesGeneral[valor] = dataFiltrada
+
+
+      })
+
+      console.log(this.listaAtenciones);
+      console.log(this.listaFechas);
+
+      console.log(this.listadoAtencionesGeneral);
+      
+      
+      
             
     })
     

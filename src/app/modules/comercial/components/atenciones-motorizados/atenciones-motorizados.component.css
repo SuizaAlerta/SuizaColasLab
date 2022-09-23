@@ -1,30 +1,3 @@
-/* .tableFixHead {
-    overflow: auto;
-    height: 85vh;
-}
-
-.tableFixHead thead th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th,
-td {
-    padding: 7px 12px;
-    font-size: small;
-}
-
-th {
-    background: #eee;
-}
- */
-
 .blanco {
     background-color: white;
 }
@@ -39,10 +12,6 @@ th {
 
 .rojo {
     background-color: #EC7063;
-}
-
-.naranja {
-    background-color: #EC9669;
 }
 
 ::-webkit-scrollbar {

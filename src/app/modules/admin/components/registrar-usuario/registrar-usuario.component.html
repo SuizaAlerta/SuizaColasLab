@@ -54,7 +54,7 @@
                     <th scope="row">{{i+1}}</th>
                     <td>{{data.dni}}</td>
                     <td>{{data['contraseña']}}</td>
-                    <td>{{data.nombre}}</td>
+                    <td>{{data.nombre | uppercase}}</td>
                     <td>{{data.placa}}</td>
                     <td style="text-align: center;"><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="Editar(data)"><i class="fa fa-pencil-square-o"></i></button></td>
                     <td style="text-align: center;"><button class="btn btn-danger" (click)="Eliminar(data)"><i class="fa fa-trash"></i></button></td>

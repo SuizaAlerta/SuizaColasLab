@@ -74,14 +74,11 @@ export class HubResolverService {
         case 'operaciones': {
           return 'operaciones';
         }
-        case 'gerencia': {
-          return 'gerencia';
+        case 'comercial': {
+          return 'comercial';
         }
         case 'pilotos': {
           return 'pilotos';
-        }
-        case 'ventas': {
-          return 'ventas';
         }
         case 'consultaATC': {
           return 'atc';

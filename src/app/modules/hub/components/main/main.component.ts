@@ -18,19 +18,19 @@ export class MainComponent implements OnInit {
   // generador para las opciones del menú
   cards: any[] = [
     {
-      icon: "fa-bar-chart",
-      title: "Paneles",
+      icon: "fa-motorcycle",
+      title: "Operaciones",
       text: "  ",
-      roles: ["paneles"],
-      route: "paneles",
+      roles: ["operaciones"],
+      route: "operaciones",
       show: false
     },
     {
-      icon: "fa-comments",
-      title: "Chatbot SAE",
+      icon: "fa-line-chart",
+      title: "Comercial",
       text: "  ",
-      roles: ["chatbot"],
-      route: "chatbot",
+      roles: ["comercial"],
+      route: "comercial",
       show: false
     },
   ]
@@ -45,10 +45,6 @@ export class MainComponent implements OnInit {
       this.roles = data.user.roles;
       console.log(this.user)
     }, err => { console.log("Error hub:", err) });
-
-    // this.authService.user$.subscribe(user => {
-    //   console.log("obs:", user);
-    // })
 
     this.checkRoles()
   }

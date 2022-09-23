@@ -1,53 +1,59 @@
-<!-- <div style="margin: 10px;">
-    <div class="mb-2 row">
-        <label for="staticEmail" class="col-sm-2.5 col-form-label"> SELECCIONAR TIPO DE UNIDAD: </label>
-        <div class="col-sm-4">
-            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="selectedOptions" (change)="onChange($event)">
-                <option>TODOS</option>
-                <option>UME</option>
-                <option>CONSULTAS Y APOYO</option>
-              </select>
+<div style="position: relative; width: 100%;">
+
+    <div class="card" style="margin-bottom: 10px;">
+        <div class="card-body">
+            <form [formGroup]="formularioInicial" (ngSubmit)="cargarFormulario(formularioInicial.value)">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Ingresar Fecha:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" formControlName="fecha">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" formControlName="motorizado">
+                            <option *ngFor="let user of usuarios">{{user.nombre}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-info"><i class="fa fa-search"> Buscar</i></button>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
-    <hr>
-</div> -->
-
-<div style="position: relative; width: 100%;">
-    <!-- <div style="position: absolute; left: 10px; top: 25px; z-index: 1; float: right ; width: 100%;">
-        <table class="table" style="width: 15%; margin: auto; float: right; margin-right: 20px;">
-            <thead class="thead-dark">
-                <tr style="text-align: center;">
-                    <th scope="col">Unidad</th>
-                    <th scope="col">Atención</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="background-color: white; text-align: center;">
-                    <th scope="row"><img style="width: 50%;" src="../assets/icon/espera.png"></th>
-                    <td>En Espera</td>
-                </tr>
-                <tr style="background-color: white; text-align: center;">
-                    <th scope="row"><img style="width: 50%;" src="../assets/icon/curso.png"></th>
-                    <td>En Curso</td>
-                </tr>
-                <tr style="background-color: white; text-align: center;">
-                    <th scope="row"><img style="width: 50%;" src="../assets/icon/linea2.png"></th>
-                    <td>Consorcio</td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div> -->
-
 
     <div style="width: 100%; height: auto;">
-        <agm-map [latitude]='latitud' [longitude]='longitud' [zoom]="zoom" style="display: block; height: 95vh;">
-            <agm-marker *ngFor="let marker of mapaGPS" [latitude]="marker.lat" [longitude]="marker.lon" [animation]="'NONE'" [iconUrl]="marker.icon" [title]="marker.unidad">
-                <!-- <agm-info-window [isOpen]="true" [dis ableAutoPan]="true">
-                    <span style="font-weight: bold;">{{ marker.nombrePiloto }}</span>
-                </agm-info-window> -->
+        <agm-map [latitude]='latitud' [longitude]='longitud' [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true">
+            <agm-marker *ngFor="let coordinate of latitudlongitud; let i=index" [latitude]="coordinate['latitudLlegada']" [longitude]="coordinate['longitudLlegada']" [agmFitBounds]="true">
+                <agm-info-window [isOpen]="true" [disableAutoPan]="true" style="padding: 0px;">
+                    <form>
+                        <div class="row">
+                            <div class="col" style="text-align: center;">
+                                <label style="font-size: 8pt; width: 200px; margin: 0px; font-weight: bold;">{{coordinate['numeroReferencia']}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="text-align: center;">
+                                <label style="font-size: 8pt; width: 200px; margin: 0px;">{{coordinate['dtRegistroLlegada']}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="text-align: center; width: 200px;">
+                                <label style="font-size: 8pt; width: 200px; margin: 0px;">{{coordinate['nombreCompania']}}</label>
+                            </div>
+                        </div>
+                    </form>
+
+                </agm-info-window>
             </agm-marker>
+            <agm-polyline [visible]="true" [strokeWeight]="3" [strokeColor]="'#F00'">
+                <agm-polyline-point *ngFor="let coordinate of latitudlongitud; let i=index" [latitude]="coordinate['latitudLlegada']" [longitude]="coordinate['longitudLlegada']">
+
+                </agm-polyline-point>
+            </agm-polyline>
         </agm-map>
+
     </div>
 </div>

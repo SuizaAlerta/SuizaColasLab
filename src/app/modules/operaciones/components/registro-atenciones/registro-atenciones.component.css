@@ -1,0 +1,40 @@
+.tableFixHead {
+    overflow: auto;
+    height: 85vh;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+/* Just common table stuff. Really. */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 7px 12px;
+    font-size: small;
+}
+
+th {
+    background: #eee;
+}
+
+.verde {
+    background-color: #58D68D;
+}
+
+.amarillo {
+    background-color: #F7DC6F;
+}
+
+.rojo {
+    background-color: #EC7063;
+}
