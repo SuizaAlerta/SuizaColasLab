@@ -1,0 +1,54 @@
+<div>
+    <form [formGroup]="formularioInicial" (ngSubmit)="cargarAtenciones(formularioInicial.value)">
+        <div class="form-row" style="text-align: center;">
+            <div class="col-sm-8">
+                <h3>Registro de Atenciones</h3>
+            </div>
+
+            <div class="col-sm-1.5 form-group mb-3">
+                <input type="date" class="form-control" formControlName="DESDE">
+            </div>
+            <div class="col-sm-1.5 form-group mb-3">
+                <input type="date" class="form-control" formControlName="HASTA">
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-primary" style="width: 100px;"><i class="fa fa-search"></i> Buscar</button>
+            </div>
+
+        </div>
+    </form>
+    <hr>
+    <div>
+
+        <div class="row" style="margin-left: 20px; margin-right: 20px;">
+            <div class="col" style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px; text-align: center;">
+                <h2 style="font-size: 25pt;">{{cantidadAtenciones}}</h2>
+                <label>CANTIDAD DE ATENCIONES</label>
+            </div>
+            <div class="col" style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px; text-align: center;">
+                <h2>{{cantidadFinalizados}}</h2>
+                <label>ATENCIONES FINALIZADAS</label>
+            </div>
+            <div class="col" style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px; text-align: center;">
+                <h2>{{cantidadPendientes}}</h2>
+                <label>ACTIVO / EN CURSO / EN CAMINO </label>
+            </div>
+            <div class="col" style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px; text-align: center;">
+                <h2>{{cantidadAnulados}}</h2>
+                <label>ATENCIONES ANULADAS </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="col">
+                <div id="figura1">
+                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels" [plotOptions]="chartOptions.plotOptions" [yaxis]="chartOptions.yaxis" [legend]="chartOptions.legend" [fill]="chartOptions.fill" [stroke]="chartOptions.stroke"
+                        [tooltip]="chartOptions.tooltip" [xaxis]="chartOptions.xaxis"></apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

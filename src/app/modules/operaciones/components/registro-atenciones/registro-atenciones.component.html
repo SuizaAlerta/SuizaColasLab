@@ -20,6 +20,19 @@
                             <input type="date" formControlName="HASTA" id="staticEmail">
                         </div>
 
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <select class="form-control form-control-sm" formControlName="ESTADO" id="exampleFormControlSelect1">
+                                  <option>Todos</option>
+                                  <option>Finalizado</option>
+                                  <option>Llegada al Destino</option>
+                                  <option>En Curso</option>
+                                  <option>Activo</option>
+                                  <option>Anulado</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-sm-1" style="text-align: end;">
                             <button class="btn btn-primary btn-sm" style="margin-right: 10px; font-size: 12x">Buscar</button>
                         </div>
@@ -64,15 +77,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let dato of listaAtenciones; let i = index">
-                    <!-- <th scope="row">{{i+1}}</th>
-                    <td>{{dato['timestamp'].seconds*1000 | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                    <td>{{dato['numeroReferencia']}}</td>
-                    <td>{{dato['direccionRecojo']}}</td>
-                    <td>{{dato['motorizado']}}</td>
-                    <td>{{dato['tiempoEspera']}}</td>
-                    <td>{{dato['distancia'] | number}} <label *ngIf="dato['distancia']">Km</label></td>
-                    <td>{{dato['estado']}}</td> -->
+                <tr *ngFor="let dato of listaAtenciones; let i = index" [ngClass]="{'naranja': dato['estado'] == 'Anulado'}">
                     <th scope="row">{{i+1}}</th>
                     <td>{{dato['fechaRegistro']}} {{dato['horaRegistro']}}</td>
                     <td>{{dato['numeroReferencia']}}</td>

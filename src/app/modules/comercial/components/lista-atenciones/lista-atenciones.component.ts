@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './lista-atenciones.component.html',
   styleUrls: ['./lista-atenciones.component.css']
 })
+
 export class ListaAtencionesComponent implements OnInit {
 
   displayedColumns = ['fechaRegistro', 'numeroReferencia', 'nombreCompania', 'direccionRecojo', 'motorizado', 'placa', 'observacion', 'Observacion', 'formaPago', 'montoRecibido', 'tiempoLlegada', 'tiempoEspera', 'estado'];
@@ -24,6 +25,9 @@ export class ListaAtencionesComponent implements OnInit {
   tiempoEspera: any;
   mydate: string;
   formularioInicial: FormGroup;
+  formularioBuscarCodigoReferencia: FormGroup;
+
+  public serviciosBusqueda = [];
   
   constructor(private firestore: AngularFirestore, private _builder: FormBuilder,) {
 
@@ -34,6 +38,10 @@ export class ListaAtencionesComponent implements OnInit {
       DESDE: [this.mydate, Validators.required],
       HASTA: [this.mydate, Validators.required]
     });
+
+    this.formularioBuscarCodigoReferencia = this._builder.group({
+      numeroReferencia: ['', Validators.required]
+    })
 
   }
 
@@ -66,11 +74,14 @@ export class ListaAtencionesComponent implements OnInit {
 
     this.firestore.collection('AtencionesCurso', ref => ref.where('timestamp','>',start).where('timestamp','<',end)).valueChanges().subscribe(val => {
 
-      var atencionesFinalizadas = val.filter(data => {
+      /* var atencionesFinalizadas = val.filter(data => {
         return data['estado'] == "Finalizado"
-      })
+      }) */
+
+      var atencionesFinalizadas = val;
 
       atencionesFinalizadas.forEach(dato => {
+        
         if(dato['timestampFinRecorrido'] != "") {
           this.tiempoLlegada = (new Date(new Date(dato['timestampRegistroLlegada'].seconds*1000)).getTime() - new Date(new Date(dato['timestampInicioRecorrido'].seconds*1000)).getTime()) / (1000*60);
           this.tiempoEspera = (new Date(new Date(dato['timestampFinRecorrido'].seconds*1000)).getTime() - new Date(new Date(dato['timestampRegistroLlegada'].seconds*1000)).getTime()) / (1000*60);
@@ -78,23 +89,36 @@ export class ListaAtencionesComponent implements OnInit {
           dato['tiempoEspera'] = parseInt(this.tiempoEspera);
         } 
 
-        if(dato['latlongInicioRecorrido'] != undefined) {
+        /* if(dato['latlongInicioRecorrido'] != undefined) {
           dato['distancia'] = this.distancia(dato['latlongInicioRecorrido'].split(',')[0],dato['latlongInicioRecorrido'].split(',')[1],dato['latlongFinRecorrido'].split(',')[0],dato['latlongFinRecorrido'].split(',')[1])
-        }
+        } */
 
       })
       
       this.listaAtenciones = atencionesFinalizadas;   
-
       this.dataSource = new MatTableDataSource(this.listaAtenciones);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      
-      
+       
+    })    
+  }
+
+  buscarCodigoReferencia(values) {
+    this.firestore.collection('AtencionesCurso', ref => ref.where('numeroReferencia','==', values['numeroReferencia'].toUpperCase())).valueChanges().subscribe(val => {
+      this.serviciosBusqueda = val; 
+      this.serviciosBusqueda.forEach(val => {
+        this.tiempoLlegada = (new Date(new Date(val['timestampRegistroLlegada'].seconds*1000)).getTime() - new Date(new Date(val['timestampInicioRecorrido'].seconds*1000)).getTime()) / (1000*60);
+        this.tiempoEspera = (new Date(new Date(val['timestampFinRecorrido'].seconds*1000)).getTime() - new Date(new Date(val['timestampRegistroLlegada'].seconds*1000)).getTime()) / (1000*60);
+        val['tiempoLlegada'] = parseInt(this.tiempoLlegada)
+        val['tiempoEspera'] = parseInt(this.tiempoEspera)
+      })
+      this.serviciosBusqueda.sort((a,b) => (a['timestampFinRecorrido'] < b['timestampFinRecorrido'] ? 1 : -1))
+      /* const ordenamiento = val.sort((a,b) => (a['timestamp'] < b['timestamp'] ? -1 : 1))
+      this.servicios = ordenamiento;
+      this.servicios.sort((a,b) => a['motorizado'] < b['motorizado'] ? -1:0) */
     })
     
   }
-
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace

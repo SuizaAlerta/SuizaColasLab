@@ -10,12 +10,20 @@ import { AsignarAtencionComponent } from './components/asignar-atencion/asignar-
 import { RegistroAtencionesComponent } from './components/registro-atenciones/registro-atenciones.component';
 import { SeguimientoComponent } from '../admin/components/seguimiento/seguimiento.component';
 import { AtencionesMotorizadosComponent } from './components/atenciones-motorizados/atenciones-motorizados.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     children: [
+      {
+        path: '',
+        component: DashboardComponent,
+        resolve: {
+          user: ResolverService
+        }
+      },
       {
         path: 'registrar-usuario',
         component: RegistrarUsuarioComponent,

@@ -27,7 +27,8 @@ export class RegistroAtencionesComponent implements OnInit {
 
     this.formularioInicial = this._builder.group({
       DESDE: [this.mydate, Validators.required],
-      HASTA: [this.mydate, Validators.required]
+      HASTA: [this.mydate, Validators.required],
+      ESTADO: ["Todos", Validators.required]
     });
 
   }
@@ -62,9 +63,19 @@ export class RegistroAtencionesComponent implements OnInit {
 
     this.firestore.collection('AtencionesCurso', ref => ref.where('timestamp','>',start).where('timestamp','<',end)).valueChanges().subscribe(val => {
 
-      var atencionesFinalizadas = val.filter(data => {
+      /* var atencionesFinalizadas = val.filter(data => {
         return data['estado'] == "Finalizado"
-      })
+      }) */
+
+      if(values['ESTADO'] == 'Todos') {
+        var atencionesFinalizadas = val;
+      } else {
+        var atencionesFinalizadas = val.filter(data => {
+          return data['estado'] == values['ESTADO']
+        })
+      }
+
+      
 
       atencionesFinalizadas.forEach(dato => {
         if(dato['timestampFinRecorrido'] != "") {
@@ -74,11 +85,13 @@ export class RegistroAtencionesComponent implements OnInit {
           dato['tiempoEspera'] = parseInt(this.tiempoEspera);
         } 
 
-        if(dato['latlongInicioRecorrido'] != undefined) {
+        /* if(dato['latlongInicioRecorrido'] != undefined) {
           dato['distancia'] = this.distancia(dato['latlongInicioRecorrido'].split(',')[0],dato['latlongInicioRecorrido'].split(',')[1],dato['latlongFinRecorrido'].split(',')[0],dato['latlongFinRecorrido'].split(',')[1])
-        }
+        } */
 
       })
+
+      atencionesFinalizadas.sort((a,b) => a['motorizado'] < b['motorizado'] ? -1:0)
       
       this.listaAtenciones = atencionesFinalizadas;   
       

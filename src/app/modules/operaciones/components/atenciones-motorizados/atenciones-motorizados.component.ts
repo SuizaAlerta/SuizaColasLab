@@ -67,7 +67,6 @@ export class AtencionesMotorizadosComponent implements OnInit {
       atencionesFinalizadas.forEach( valor => {
 
         valor["tiempoEspera"] = (new Date(new Date(valor['timestampFinRecorrido'].seconds*1000)).getTime() - new Date(new Date(valor['timestampRegistroLlegada'].seconds*1000)).getTime()) / (1000*60);
-
         valor["tiempoEspera"] = parseInt(valor["tiempoEspera"])
 
       })

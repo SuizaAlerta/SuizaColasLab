@@ -14,13 +14,14 @@ import { AsignarAtencionComponent } from './components/asignar-atencion/asignar-
 import { RegistroAtencionesComponent } from './components/registro-atenciones/registro-atenciones.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { AtencionesMotorizadosComponent } from './components/atenciones-motorizados/atenciones-motorizados.component';
-import {ConnectionServiceModule} from 'ng-connection-service';
 import {NgxPrintModule} from 'ngx-print';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -28,7 +29,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [MainComponent, SidebarComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, AsignarAtencionComponent, RegistroAtencionesComponent, CrearUsuarioComponent, AtencionesMotorizadosComponent],
+  declarations: [MainComponent, SidebarComponent, ReportePilotoComponent, ReporteCargaExitosaComponent, AsignarAtencionComponent, RegistroAtencionesComponent, CrearUsuarioComponent, AtencionesMotorizadosComponent, DashboardComponent],
   imports: [
     CommonModule,
     OperacionesRoutingModule,
@@ -39,7 +40,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
-    HttpClientModule
+    HttpClientModule,
+    NgApexchartsModule
   ],
   providers: [
     {

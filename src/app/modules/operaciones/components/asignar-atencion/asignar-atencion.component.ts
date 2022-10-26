@@ -19,6 +19,7 @@ import { HttpClient } from '@angular/common/http';
 export class AsignarAtencionComponent implements OnInit {
 
   formularioInicial: FormGroup;
+  formularioEditar: FormGroup;
   formularioBuscarCodigoReferencia: FormGroup;
   public listaCompleta: any = [];
   public usuarios = [];
@@ -36,7 +37,10 @@ export class AsignarAtencionComponent implements OnInit {
   btnEnviarVisible = true;
   btnUpdateVisible = false;
 
-
+  cantidadAtenciones: number = 0;
+  cantidadFinalizados: number = 0;
+  cantidadPendientes: number = 0;
+  cantidadAnulados: number = 0;
 
   arrayModelo = {'AGENCIA':"", 'DIRECCIONES':[]}
 
@@ -73,6 +77,38 @@ export class AsignarAtencionComponent implements OnInit {
       usuarioCreacion: ['']
     });
 
+    this.formularioEditar = this._builder.group({
+      numeroReferencia: ['', Validators.required],
+      motorizado: ['', Validators.required],
+      estadoChecboxAgencia: [''],
+      direccion: [''],
+      direccionRecojo: ['', Validators.required],
+      distrito: [''],
+      distritoRecojo: [''],
+      departamento: [''],
+      provincia: [''],
+      razonSocial: [''],
+      ruc: [''],
+      tarifa: [''],
+      telefono: [''],
+      fechaInscripcion: [''],
+      formaPago: [''],
+      nombreCompania: [''],
+      nomprom: [''],
+      nummprom: [''],
+      c_celcia: [''],
+      c_emacia: [''],
+      c_nomcont1: [''],
+      placa: ['', Validators.required],
+      latitud: [''],
+      longitud: [''],
+      agencia: [''],
+      agenciadireccion: [''],
+      observacion: [''],
+      usuarioCreacion: ['']
+    });
+
+
     this.formularioBuscarCodigoReferencia = this._builder.group({
       numeroReferencia: ['', Validators.required]
     })
@@ -103,7 +139,6 @@ export class AsignarAtencionComponent implements OnInit {
       this.servicios.sort((a,b) => a['motorizado'] < b['motorizado'] ? -1:0)
     })
     
-
     this._route.data.subscribe((data: {user: User}) => {
       const user = data.user['nombre']
       this.usuarioCreacion = data.user['nombre'];
@@ -119,8 +154,23 @@ export class AsignarAtencionComponent implements OnInit {
     setInterval(() => {
 
       const tiempoActual = new Date();
+      this.cantidadAtenciones = 0;
+      this.cantidadFinalizados = 0;
+      this.cantidadPendientes = 0;
+      this.cantidadAnulados = 0; 
+
+      this.cantidadAtenciones = this.servicios.length
 
       this.servicios.forEach( val => {
+
+      if(val['estado'] == 'Finalizado') {
+        this.cantidadFinalizados = this.cantidadFinalizados + 1;
+      } else if(val['estado'] == 'Activo' || val['estado'] == 'En Curso' || val['estado'] == 'Llegada al Destino') {
+        this.cantidadPendientes = this.cantidadPendientes + 1;
+      } else if(val['estado'] == 'Anulado') {
+        this.cantidadAnulados = this.cantidadAnulados + 1;
+      }
+      
 
         if(val['timestampRegistroLlegada'] != "" && val['timestampFinRecorrido'] != "") {
 
@@ -236,8 +286,13 @@ export class AsignarAtencionComponent implements OnInit {
 
   }
 
+  cargarFormularioEditar(values) {
+    console.log(values);
+    
+  }
+
   buscarCodigoReferencia(values) {
-    this.firestore.collection('AtencionesCurso', ref => ref.where('numeroReferencia','==',values['numeroReferencia'])).valueChanges().subscribe(val => {
+    this.firestore.collection('AtencionesCurso', ref => ref.where('numeroReferencia','==',values['numeroReferencia'].toUpperCase())).valueChanges().subscribe(val => {
       this.serviciosBusqueda = val; 
       this.serviciosBusqueda.forEach(val => {
         this.tiempoLlegada = (new Date(new Date(val['timestampRegistroLlegada'].seconds*1000)).getTime() - new Date(new Date(val['timestampInicioRecorrido'].seconds*1000)).getTime()) / (1000*60);
@@ -319,6 +374,14 @@ export class AsignarAtencionComponent implements OnInit {
       this.btnEnviarVisible = false;
       this.btnUpdateVisible = true;
     }) */
+
+    this.firestore.collection("AtencionesCurso").doc(value).valueChanges().subscribe(val => {
+      console.log(val);
+      
+      this.formularioEditar.patchValue(val)
+    })
+
+    
     console.log("Se debe de Editar");
     
   }
