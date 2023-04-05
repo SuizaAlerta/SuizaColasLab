@@ -1,0 +1,27 @@
+.container {
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+}
+
+div.a {
+    text-align: center;
+    height: 65vh;
+}
+
+div.b {
+    text-align: center;
+    height: 35vh;
+}
+
+td {
+    text-align: center;
+    font-size: 30pt;
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+}
+
+tr {
+    height: 15vh;
+}

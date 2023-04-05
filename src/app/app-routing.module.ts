@@ -7,7 +7,7 @@ import { RoleGuard } from './core/guards/role.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/sistemas-colas',
     pathMatch: 'full'
   },
   {
@@ -25,16 +25,10 @@ const routes: Routes = [
     data: { expectedRoles: ['admin']}
   },
   {
-    path: 'operaciones',
-    loadChildren: () => import('./modules/operaciones/operaciones.module').then(m => m.OperacionesModule),
-    canLoad: [RoleGuard],
-    data: { expectedRoles: ['operaciones']}
-  },
-  {
-    path: 'comercial',
-    loadChildren: () => import('./modules/comercial/comercial.module').then(m => m.ComercialModule),
-    canLoad: [RoleGuard],
-    data: { expectedRoles: ['comercial']}
+    path: 'sistemas-colas',
+    loadChildren: () => import('./modules/pantallaticket/pantallaticket.module').then(m => m.PantallaticketModule),
+    /* canLoad: [RoleGuard],
+    data: { expectedRoles: ['admin']} */
   },
   {
     path: '**',

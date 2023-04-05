@@ -1,0 +1,60 @@
+.tipoCita {
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    margin: 10px;
+}
+
+.contenedorOpciones {
+    text-align: center;
+}
+
+.tipoServicio {
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    margin: 30px 50px 30px 50px;
+    text-align: center;
+    font-size: 25pt;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.btn-teclado {
+    width: 180px;
+    font-size: 40pt;
+    font-weight: 500;
+    border-width: 1px;
+    border-color: black;
+    margin: 2px;
+    height: 120px;
+}
+
+.btn-teclado-m {
+    width: 180px;
+    font-size: 25pt;
+    font-weight: 500;
+    border-width: 1px;
+    border-color: black;
+    margin: 2px;
+    height: 245px;
+}
+
+.btn-documento {
+    font-size: 25pt;
+    width: 120px;
+    margin: 15px;
+    border-color: black;
+}
+
+.estilo-btn-press {
+    color: white;
+    font-weight: 600;
+    background-color: red;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

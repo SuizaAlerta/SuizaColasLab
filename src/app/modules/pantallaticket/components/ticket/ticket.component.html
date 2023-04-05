@@ -1,0 +1,105 @@
+<div style="zoom: 80%;">
+    <div class="row" style="height: 15vh; width: 100%;">
+        <div class="col-sm-3" style="text-align: center;">
+            <img src="../../../../../assets/img/LogoSuizaLab.png" style="width: 150px;">
+        </div>
+        <div class="col-sm-9" style="line-height: 15vh; height: 15vh; text-align: end; font-size: 20pt; font-weight: bold; color: red;">
+            <label>BIENVENIDO</label>
+        </div>
+    </div>
+    <hr>
+    <div *ngIf="habilitadorTipoServicios">
+        <div class="row" style="width: 100%;">
+            <button class="btn btn-primary col tipoServicio" style="text-align: center;" (click)="seleccionarTipoServicio('PREFERENCIAL')">
+                PREFERENCIAL
+            </button>
+
+            <button class="btn btn-primary col tipoServicio" style="text-align: center;" (click)="seleccionarTipoServicio('LAB / IMA')">
+                LAB / IMA
+            </button>
+        </div>
+
+        <div class="row" style="width: 100%;">
+            <button class="btn btn-primary col tipoServicio" style="text-align: center;" (click)="seleccionarTipoServicio('OCUPACIONAL')">
+                OCUPACIONAL
+            </button>
+
+            <button class="btn btn-primary col tipoServicio" style="text-align: center;" (click)="seleccionarTipoServicio('PREVENTIVO')">
+                PREVENTIVO
+            </button>
+        </div>
+        <div class="row" style="width: 100%;">
+            <button class="btn btn-primary col tipoServicio" style="text-align: center;" (click)="seleccionarTipoServicio('SEGUROS DE VIDA')">
+                SEGUROS DE VIDA
+            </button>
+
+            <button class="btn btn-primary col tipoServicio" style="text-align: center;" (click)="seleccionarTipoServicio('ENTREGA DE RESULTADOS')">
+                ENTREGA DE RESULTADOS
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="!habilitadorTipoServicios">
+
+        <form [formGroup]="formularioInicial" (ngSubmit)="cargar(formularioInicial.value)">
+
+            <div style="width: max-content ;margin-left: auto; margin-right: auto;">
+                <div>
+                    <a class="btn btn-documento" [ngClass]="{'estilo-btn-press': tipoDocumento === 'DNI'}" (click)="selectDocumento('DNI')">DNI</a>
+                    <a class="btn btn-documento" [ngClass]="{'estilo-btn-press': tipoDocumento === 'CE'}" (click)="selectDocumento('CE')">C.E.</a>
+                </div>
+            </div>
+
+            <div style="width: max-content ;margin-left: auto; margin-right: auto;">
+                <div>
+                    <label style="font-size: 30pt;">Ingrese su documento de identidad</label>
+                </div>
+            </div>
+
+            <div style="width: max-content ;margin-left: auto; margin-right: auto;">
+                <div>
+                    <input type="number" id="txtNumeroDocumentoId" style="width: 350px; height: 80px; font-size: 35pt; text-align: center;" formControlName="NRODOCUMENTO" class="form-control">
+                </div>
+            </div>
+
+            <div style="width: max-content ;margin-left: auto; margin-right: auto; margin-top: 30px;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('1')">1</a></td>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('2')">2</a></td>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('3')">3</a></td>
+                            <td rowspan="2">
+                                <button type="button" class="btn col btn-light btn-teclado-m" style="vertical-align: middle;" (click)="backpress()"><img src="../../../../../assets/icon/delete.png" style="width: 60px;"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('4')">4</a></td>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('5')">5</a></td>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('6')">6</a></td>
+                        </tr>
+                        <tr>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('7')">7</a></td>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('8')">8</a></td>
+                            <td><a class="btn col btn-light btn-teclado" (click)="tecladoNumero('9')">9</a></td>
+                            <td rowspan="2"><button class="btn col btn-primary btn-teclado-m" style="vertical-align: middle;">Enter</button></td>
+                        </tr>
+                        <tr>
+                            <td><button type="button" class="btn col btn-danger btn-teclado" style="font-size: 25pt;" (click)="cancelar()">Cancelar</button></td>
+                            <td><button type="button" class="btn col btn-light btn-teclado" (click)="tecladoNumero('0')">0</button></td>
+                            <td><button type="button" class="btn col btn-light btn-teclado" disabled></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <hr>
+
+
+
+</div>
